@@ -30,7 +30,7 @@ const LinkBlock = styled(Link)`
 
 type FooterProps = {};
 
-const Footer: React.FC<FooterProps> = ({}) => {
+const Footer: React.FC<FooterProps> = () => {
   return (
     <FooterBlock>
       <li>
