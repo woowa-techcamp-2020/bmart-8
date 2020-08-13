@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from 'react';
 import styled, { css } from 'styled-components';
 
-const Cart = styled.div`
+const CartBlock = styled.div`
   .button {
     height: 50px;
     width: 50px;
@@ -18,7 +18,7 @@ const Count = styled.div`
   border: solid 1px black;
 `;
 
-function ShoppingCart() {
+const ShoppingCart = () => {
   const [number, setNumber] = useState(0);
   const onIncrease = () => {
     setNumber((prevNumber) => prevNumber + 1);
@@ -28,14 +28,17 @@ function ShoppingCart() {
     if (number == 0) return;
     setNumber((prevNumber) => prevNumber - 1);
   };
-
   return (
-    <Cart>
-      <div className="button" onClick={onDecrease}>-</div>
+    <CartBlock>
+      <div className="button" onClick={onDecrease}>
+        -
+      </div>
       <Count>{number}</Count>
-      <div className="button" onClick={onIncrease}>+</div>
-    </Cart>
+      <div className="button" onClick={onIncrease}>
+        +
+      </div>
+    </CartBlock>
   );
-}
+};
 
 export default ShoppingCart;
