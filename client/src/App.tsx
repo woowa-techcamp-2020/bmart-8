@@ -1,24 +1,14 @@
 import React from 'react';
 import './App.css';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import CartPage from './pages/CartPage';
 import MainPage from './pages/MainPage';
 import UserProfilePage from './pages/UserProfilePage';
+import Footer from './components/footer';
 
 function App() {
   return (
     <div className="App">
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/cart">Cart</Link>
-        </li>
-        <li>
-          <Link to="/profile">Profile</Link>
-        </li>
-      </ul>
       <Switch>
         <Route path="/cart">
           <CartPage />
@@ -30,6 +20,7 @@ function App() {
           <MainPage />
         </Route>
       </Switch>
+      <Footer />
     </div>
   );
 }
