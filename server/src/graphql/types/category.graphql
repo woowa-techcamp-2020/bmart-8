@@ -1,0 +1,48 @@
+type Query {
+  firstCategories: [Category_First]
+  firstCategory(id: ID!): Category_First
+  secondCategories: [Category_Second]
+  secondCategory(id: ID!): Category_Second
+  thirdCategories: [Category_Third]
+  thirdCategory(id: ID!): Category_Third
+  categories: [Category]
+}
+
+type Mutation {
+  CreateFirstCategory(name: String!): Category_First
+  CreateSecondCategory(name: String!, parent_id: Int): Category_Second
+  CreateThirdCategory(name: String!, parent_id: Int): Category_Third
+  UpdateFirstCategory(name: String!, id: Int!): Category_First
+  UpdateSecondCategory(name: String!, id: Int!): Category_Second
+  UpdateThirdCategory(name: String!, id: Int!): Category_Third
+  DeleteFirstCategory(id: Int!): Boolean
+  DeleteSecondCategory(id: Int!): Boolean
+  DeleteThirdCategory(id: Int!): Boolean
+}
+
+type Category_First {
+  id: ID!
+  name: String
+  children: [Category_Second]
+}
+
+type Category_Second {
+  id: ID!
+  name: String
+  parent_id: Int
+  parent: Category_First
+  children: [Category_Third]
+}
+
+type Category_Third {
+  id: ID!
+  name: String
+  parent_id: Int
+  parent: Category_Second
+}
+
+type Category {
+  firstCategory: Category_First
+  secondCategory: Category_Second
+  thirdCategory: Category_Third
+}
