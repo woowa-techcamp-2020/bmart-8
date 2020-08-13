@@ -16,5 +16,4 @@ jobs:
           command: export BRANCH="dev"; bmart/scripts/server_build.sh
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          passphrase: ${{ secrets.PASSPHRASE }}
           privateKey: ${{ secrets.PRIVATE_KEY}}
