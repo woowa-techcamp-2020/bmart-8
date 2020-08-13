@@ -1,0 +1,29 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Category_First {
+  id       Int               @default(autoincrement()) @id
+  name     String
+  children Category_Second[]
+}
+
+model Category_Second {
+  id        Int              @default(autoincrement()) @id
+  name      String
+  parent_id Int
+  parent    Category_First   @relation(fields: [parent_id], references: [id])
+  children  Category_Third[]
+}
+
+model Category_Third {
+  id        Int             @default(autoincrement()) @id
+  name      String
+  parent_id Int
+  parent    Category_Second @relation(fields: [parent_id], references: [id])
+}
