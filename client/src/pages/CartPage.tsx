@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PriceLabel from '../components/price-label';
 
 const CartPageBlock = styled.div``;
 
 const CartPage: React.FC = () => {
+  const [dc, setDc] = useState(0);
+  const [price, setPrice] = useState(0);
   return (
     <CartPageBlock>
       CartPage
-      <PriceLabel discountPercentage={0} price={10000} />
-      <PriceLabel discountPercentage={20} price={100000} />
-      <PriceLabel discountPercentage={41} price={150000} />
-      <PriceLabel discountPercentage={80} price={125123213} />
+      <input
+        type="number"
+        placeholder="할인율"
+        onChange={(e) => setDc(parseInt(e.target.value))}
+      />
+      <input
+        type="number"
+        placeholder="가격"
+        onChange={(e) => setPrice(parseInt(e.target.value))}
+      />
+      <PriceLabel discountPercentage={dc} price={price} />
     </CartPageBlock>
   );
 };
