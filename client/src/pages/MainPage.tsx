@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import Logo from '../components/Logo';
+import Header from '../components/Header';
 const MainPageBlock = styled.div``;
 
 const MainPage: React.FC = () => {
   return (
     <MainPageBlock>
-      <Logo></Logo>
+      <Header></Header>
     </MainPageBlock>
   );
 };

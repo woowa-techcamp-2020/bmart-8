@@ -3,8 +3,6 @@ import styled, { css } from 'styled-components';
 import LogoIcon from '../static/icon/icon-logo.png';
 
 const LogoBlock = styled.div`
-  position: fixed;
-  width: 100vw;
   margin: 0 auto;
   img {
     height: 40px;

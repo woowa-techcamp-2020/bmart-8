@@ -8,6 +8,7 @@ import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 const FooterBlock = styled.ol`
+  background-color: white;
   position: fixed;
   bottom: -6px;
   right: 7px;
