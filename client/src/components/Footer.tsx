@@ -1,0 +1,67 @@
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import SearchIcon from '@material-ui/icons/Search';
+import MenuIcon from '@material-ui/icons/Menu';
+import HomeIcon from '@material-ui/icons/Home';
+import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+
+const FooterBlock = styled.ol`
+  background-color: white;
+  position: fixed;
+  bottom: -6px;
+  right: 7px;
+  width: 100%;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+`;
+
+const LinkBlock = styled(Link)`
+  text-decoration: none;
+  color: black;
+  &:focus,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
+`;
+
+type FooterProps = {};
+
+const Footer: React.FC<FooterProps> = () => {
+  return (
+    <FooterBlock>
+      <li>
+        <MenuIcon />
+        <div>메뉴</div>
+      </li>
+      <li>
+        <SearchIcon />
+        <div>검색</div>
+      </li>
+      <li>
+        <LinkBlock to="/">
+          <HomeIcon></HomeIcon>
+          <div>홈</div>
+        </LinkBlock>
+      </li>
+      <li>
+        <LinkBlock to="/profile">
+          <PersonOutlineIcon></PersonOutlineIcon>
+          <div>프로필</div>
+        </LinkBlock>
+      </li>
+      <li>
+        <LinkBlock to="/cart">
+          <AddShoppingCartIcon></AddShoppingCartIcon>
+          <div>장바구니</div>
+        </LinkBlock>
+      </li>
+    </FooterBlock>
+  );
+};
+
+export default Footer;

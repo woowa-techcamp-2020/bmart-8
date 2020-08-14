@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  webserver:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    volumes:
+      - './client/build:/etc/nginx/http'
+    ports:
+      - '80:80'
+  appserver:
+    build:
+      context: ./server
+    ports:
+      - '3306:3306'
+    container_name: appserver
