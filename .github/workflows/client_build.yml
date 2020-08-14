@@ -11,17 +11,17 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x] 
+        node-version: [12.x]
     steps:
-      - name: Checkout source code.   # 레포지토리 체크아웃
+      - name: Checkout source code. # 레포지토리 체크아웃
         uses: actions/checkout@master
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-          registry-url: "https://npm.pkg.github.com"
- 
-      - name: Build    # 의존 파일 설치
+          registry-url: 'https://npm.pkg.github.com'
+
+      - name: Build # 의존 파일 설치
         run: |
           cd client
           yarn
@@ -32,9 +32,9 @@ jobs:
       - name: ssh deploy
         uses: easingthemes/ssh-deploy@v2.1.4
         env:
-          ARGS: "-rltgoDzvO"
-          SOURCE: "client/build/"
+          ARGS: '-rltgoDzvO'
+          SOURCE: 'client/build/'
           REMOTE_HOST: ${{ secrets.HOST }}
           REMOTE_USER: ${{ secrets.USERNAME }}
-          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }} 
-          TARGET: "./bmart/client/build/"
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          TARGET: './bmart/client/build/'

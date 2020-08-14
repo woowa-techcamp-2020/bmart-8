@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node-dev ./src/index.ts",
-    "start:ts-node": "ts-node ./src/index.ts"
+    "start": "nodemon -e ts,graphql -x ts-node src/server.ts",
+    "start:ts-node": "ts-node ./src/server.ts"
   },
   "repository": {
     "type": "git",
@@ -19,20 +19,21 @@
   },
   "homepage": "https://github.com/woowa-techcamp-2020/bmart-8#readme",
   "dependencies": {
+    "@prisma/cli": "2.4.1",
+    "@prisma/client": "2.4.1",
     "@types/cookie-parser": "^1.4.2",
-    "@types/express": "^4.17.7",
     "@types/lodash": "^4.14.159",
     "@types/morgan": "^1.9.1",
     "@types/node": "^14.0.27",
-    "apollo-server-express": "^2.16.1",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
+    "graphql-tools": "^6.0.18",
+    "graphql-yoga": "^1.18.3",
     "lodash": "^4.17.19",
     "morgan": "^1.10.0",
+    "nodemon": "^2.0.4",
+    "ts-node": "^8.10.2",
     "typescript": "^3.9.7"
   },
-  "devDependencies": {
-    "ts-node-dev": "^1.0.0-pre.56"
-  }
+  "devDependencies": {}
 }
