@@ -1,0 +1,22 @@
+import React, { useState } from 'react';
+import styled, { css } from 'styled-components';
+import Logo from './Logo';
+import Search from './Search';
+
+const HeaderBlock = styled.div`
+  background-color: white;
+  position: fixed;
+  z-index: 1;
+  width: 100vw;
+`;
+
+const Header = () => {
+  return (
+    <HeaderBlock>
+      <Logo></Logo>
+      <Search></Search>
+    </HeaderBlock>
+  );
+};
+
+export default Header;
