@@ -11,15 +11,14 @@ model banner {
   id         Int      @default(autoincrement()) @id
   created_at DateTime @default(now())
   type       Int
-  content    String
+  content    String?
   img_url    String
-  route_url  String
 }
 
 model cart {
   id         Int      @default(autoincrement()) @id
   created_at DateTime @default(now())
-  count      Int
+  count      Int      @default(1)
   user       user     @relation(fields: [user_id], references: [id])
   user_id    Int
   product    product  @relation(fields: [product_id], references: [id])
@@ -28,13 +27,13 @@ model cart {
 
 model category_first {
   id       Int               @default(autoincrement()) @id
-  name     String
+  name     String            @unique
   children category_second[]
 }
 
 model category_second {
   id        Int              @default(autoincrement()) @id
-  name      String
+  name      String           @unique
   parent    category_first   @relation(fields: [parent_id], references: [id])
   parent_id Int
   children  category_third[]
@@ -42,7 +41,7 @@ model category_second {
 
 model category_third {
   id        Int             @default(autoincrement()) @id
-  name      String
+  name      String          @unique
   parent    category_second @relation(fields: [parent_id], references: [id])
   parent_id Int
   product   product[]
@@ -51,7 +50,7 @@ model category_third {
 model order {
   id            Int             @default(autoincrement()) @id
   created_at    DateTime        @default(now())
-  status        Int
+  status        Int             @default(0)
   address       String
   zipcode       String
   name          String
@@ -73,9 +72,9 @@ model order_product {
 model product {
   id            Int             @default(autoincrement()) @id
   created_at    DateTime        @default(now())
-  deleted_at    DateTime
+  deleted_at    DateTime?
   name          String
-  content       String
+  content       String?
   price         Int             @default(0)
   sales         Int             @default(0)
   discount      Int             @default(0)
@@ -114,13 +113,13 @@ model user_profile {
   id             Int      @default(autoincrement()) @id
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt
-  name           String
-  zipcode        String
-  address        String
-  address_detail String
-  sex            Int
-  age            Int
-  phone_number   String
+  name           String?
+  zipcode        String?
+  address        String?
+  address_detail String?
+  sex            Int?
+  age            Int?
+  phone_number   String?
   user           user     @relation(fields: [user_id], references: [id])
   user_id        Int
 }
