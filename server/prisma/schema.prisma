@@ -32,7 +32,7 @@ model category_third {
 model product {
   id          Int            @default(autoincrement()) @id
   created_at  DateTime       @default(now())
-  deleted_at  DateTime
+  deleted_at  DateTime       @default(now()) @updatedAt
   name        String
   content     String
   price       Int            @default(0)
@@ -41,4 +41,17 @@ model product {
   stock       Int            @default(0)
   category_id Int
   category    category_third @relation(fields: [category_id], references: [id])
+}
+
+model user {
+  id         Int       @default(autoincrement()) @id
+  created_at DateTime  @default(now())
+  nickname   String
+  provider   String
+  role       user_role @default(customer)
+}
+
+enum user_role {
+  admin
+  customer
 }
