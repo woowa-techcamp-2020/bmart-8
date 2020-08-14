@@ -6,7 +6,10 @@ if [ -z $BRANCH ]; then
 fi
 
 git checkout "$BRANCH"
-$? && git fetch
+if [ $? != 0 ]; then
+    exit;
+fi
+git fetch
 
 cd client
 git diff --name-only "origin/$BRANCH" "$BRANCH" | grep "^client/package"
