@@ -1,7 +1,5 @@
 import path from 'path';
-import { loadFilesSync } from 'graphql-tools';
-import { mergeTypeDefs } from 'graphql-tools';
-import { mergeResolvers } from 'graphql-tools';
+import { loadFilesSync, mergeTypeDefs, mergeResolvers } from 'graphql-tools';
 
 const typesArray = loadFilesSync(path.join(__dirname, './types'), {
   extensions: ['graphql'],
