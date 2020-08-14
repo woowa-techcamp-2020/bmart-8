@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
+import React from 'react';
+import styled from 'styled-components';
 import LogoIcon from '../static/icon/icon-logo.png';
 
 const LogoBlock = styled.div`
@@ -12,7 +12,7 @@ const LogoBlock = styled.div`
 const Logo = () => {
   return (
     <LogoBlock>
-      <img src={LogoIcon} />
+      <img src={LogoIcon} alt="Logo" />
     </LogoBlock>
   );
 };

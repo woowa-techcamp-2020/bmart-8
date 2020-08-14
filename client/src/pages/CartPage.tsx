@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import PriceLabel from '../components/price-label';
+import PriceLabel from '../components/PriceLabel';
 
 const CartPageBlock = styled.div``;
 

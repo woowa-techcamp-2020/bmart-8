@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
+import React from 'react';
+import styled from 'styled-components';
 import SearchIcon from '../static/icon/icon-search.png';
 
 const SearchBlock = styled.div`
@@ -22,7 +22,7 @@ const SearchBlock = styled.div`
     input {
       left: 1.8em;
       position: absolute;
-    border: none;
+      border: none;
       width: 90%;
       height: 90%;
       background-color: #eff1f3;
@@ -38,7 +38,7 @@ const Search = () => {
   return (
     <SearchBlock>
       <div className="search-field">
-        <img src={SearchIcon} />
+        <img src={SearchIcon} alt="Search" />
         <input type="text" name="name" placeholder="B마트에서 검색하세요!" />
       </div>
     </SearchBlock>

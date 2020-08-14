@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import CartPage from './pages/CartPage';
 import MainPage from './pages/MainPage';
 import UserProfilePage from './pages/UserProfilePage';
-import Footer from './components/footer';
+import Footer from './components/Footer';
 
 function App() {
   return (
