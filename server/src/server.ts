@@ -5,7 +5,7 @@ import logger from 'morgan';
 import '../env';
 const prisma = new PrismaClient();
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 const server = new GraphQLServer({
   typeDefs,
@@ -13,6 +13,6 @@ const server = new GraphQLServer({
 });
 server.express.use(logger('dev'));
 
-server.start({ port: PORT }, () =>
+server.start({ port: PORT, endpoint: '/graphql', playground: '/graphql' }, () =>
   console.log(`Server is running on http://localhost:${PORT}`)
 );
