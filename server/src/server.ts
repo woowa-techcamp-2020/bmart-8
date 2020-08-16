@@ -5,7 +5,7 @@ import logger from 'morgan';
 import '../env';
 const prisma = new PrismaClient();
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 const server = new GraphQLServer({
   typeDefs,
