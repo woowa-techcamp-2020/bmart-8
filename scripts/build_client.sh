@@ -19,4 +19,10 @@ if [ $? != 0 ]; then
 fi;
 echo "Start to build"
 yarn build
-$? && git merge "origin/$BRANCH"
+
+if [ $? != 0 ]; then
+    echo "Complete to build"
+    git merge "origin/$BRANCH"
+else
+    echo "Fail to build"
+fi;
