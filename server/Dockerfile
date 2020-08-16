@@ -6,6 +6,4 @@ COPY package*.json ./
 RUN yarn
 COPY . .
 
-RUN npx prisma migrate save -n `date +%s` --experimental && npx prisma migrate up --experimental && npx prisma generate
-
 CMD ["yarn", "start:ts-node"]
