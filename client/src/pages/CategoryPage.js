@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import palette from '../lib/styles/palette';
 
 import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
@@ -19,7 +20,15 @@ const GetFirstCategory = gql`
   }
 `;
 
-const CategoryPageBlock = styled.div``;
+const CategoryPageBlock = styled.div`
+  text-align: left;
+  background-color: ${palette.gray300};
+  .Category {
+    border-bottom: 0.1rem solid ${palette.gray400};
+    background-color: ${palette.white};
+    margin-top: 0.1rem;
+  }
+`;
 function CategoryPage() {
   return (
     <CategoryPageBlock>
@@ -38,10 +47,10 @@ function CategoryPage() {
               );
             }
             categoryList.push(
-              <>
+              <div className="Category">
                 <CategoryTitle title={firstCategory.name}></CategoryTitle>
                 {childList}
-              </>
+              </div>
             );
           });
           return categoryList;

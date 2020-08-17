@@ -5,7 +5,9 @@ const palette = {
   white: '#ffffff',
   blue: '#0366d6',
   danger: '#cc0000',
-  baemint: '#10b3ad',
+  baemint300: '#10b3ad',
+  baemint200: '#87d9d6',
+  baemint100: 'rgba(135,217,214,0.5)',
   gray100: '#fafbfc',
   gray200: '#eff1f3',
   gray300: '#e1e4e8',
@@ -14,6 +16,5 @@ const palette = {
   gray700: '#6a737d',
   gray900: '#24292e',
 };
-
 
 export default palette;

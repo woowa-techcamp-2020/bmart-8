@@ -11,11 +11,11 @@ const CategoryContentBlock = styled.div`
     display: flex;
     flex-wrap: wrap;
     text-align: left;
-    cursor: pointer;
   }
 
-  .second {
+  .active {
     font-weight: bold;
+    background-color: ${palette.gray100};
   }
 
   .third {
@@ -24,7 +24,16 @@ const CategoryContentBlock = styled.div`
 
   .second > div,
   .third > div {
+    box-sizing: border-box;
     width: 50%;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .second > div {
+    border-top: solid 0.01rem ${palette.gray200};
+    border-right: solid 0.01rem ${palette.gray200};
   }
 `;
 
@@ -60,17 +69,21 @@ function CategoryContent(props) {
         <div
           onClick={() => {
             toggleThirdCategory(0);
-          }}>
+          }}
+          className={!selected && showThird ? 'active' : ''}>
           {props.data[0].name}
         </div>
         {props.data[1] ? (
           <div
             onClick={() => {
               toggleThirdCategory(1);
-            }}>
+            }}
+            className={selected && showThird ? 'active' : ''}>
             {props.data[1].name}
           </div>
-        ) : null}
+        ) : (
+          <div />
+        )}
       </div>
       {showThird === true ? (
         <div className="third">
