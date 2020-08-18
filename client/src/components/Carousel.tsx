@@ -61,7 +61,7 @@ const Selector: React.FC<{
         .fill(0)
         .map((_, idx) => {
           return (
-            <button key={idx} onClick={() => onChange(idx)}>
+            <button key={idx} onClick={() => onChange(idx + 1)}>
               idx
             </button>
           );
@@ -73,7 +73,7 @@ const Selector: React.FC<{
 const Carousel: React.FC<CarouselProps> = ({ images }) => {
   // to get width of the container
   const containerRef = useRef(null);
-  const [curBanner, setCurBanner] = useState(0);
+  const [curBanner, setCurBanner] = useState(1);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
 
   // 마우스로 화면을 눌렀을 때의 X좌표
@@ -88,6 +88,10 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
   };
 
   useEffect(() => {
+    if (curBanner === 0) setTimeout(() => setCurBanner(images.length), 1000);
+    else if (curBanner === images.length + 1) {
+      setTimeout(() => setCurBanner(1), 1000);
+    }
     setBanner(curBanner);
 
     if (timeoutId !== null) {
@@ -95,10 +99,7 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
       setTimeoutId(null);
     }
 
-    const newTimeoutId = setTimeout(
-      () => setCurBanner(curBanner < images.length - 1 ? curBanner + 1 : 0),
-      3000
-    );
+    const newTimeoutId = setTimeout(() => setCurBanner(curBanner + 1), 3000);
     setTimeoutId(newTimeoutId);
     // eslint-disable-next-line
   }, [curBanner]);
@@ -121,6 +122,8 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
     setStartX(null);
   };
 
+  const lastBanner = images[images.length - 1];
+
   return (
     <CarouselBlock isDragging={startX !== null}>
       <div
@@ -129,6 +132,11 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
         onPointerDown={dragStartHandler}
         onPointerMove={dragMoveHandler}
         onPointerUp={dragEndHandler}>
+        <div>
+          <Link to={lastBanner.routeUrl}>
+            <img src={lastBanner.imageUrl} alt={lastBanner.altString}></img>
+          </Link>
+        </div>
         {images.map(({ imageUrl, altString, routeUrl }, idx) => {
           return (
             <div key={idx}>
@@ -138,6 +146,11 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
             </div>
           );
         })}
+        <div>
+          <Link to={images[0].routeUrl}>
+            <img src={images[0].imageUrl} alt={images[0].altString}></img>
+          </Link>
+        </div>
       </div>
       <Selector length={images.length} onChange={(idx) => setCurBanner(idx)} />
     </CarouselBlock>
