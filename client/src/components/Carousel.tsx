@@ -5,17 +5,13 @@ import { Link } from 'react-router-dom';
 const CarouselBlock = styled.div`
   width: 70%;
   height: 300px;
+  overflow: hidden;
 
   .wrapper {
     display: flex;
-    overflow-x: auto;
-    overflow-y: hidden;
-
-    width: 100%;
     height: 100%;
+    transition: transform 400ms ease-in-out;
 
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
     & * {
       box-sizing: border-box;
     }
@@ -47,18 +43,27 @@ type CarouselProps = {
   }[];
 };
 
+const SelectorBlock = styled.div`
+  position: relative;
+  margin-top: -30px;
+`;
+
 const Selector: React.FC<{
   length: number;
   onChange: (idx: number) => void;
 }> = ({ length, onChange }) => {
   return (
-    <div>
+    <SelectorBlock>
       {Array(length)
         .fill(0)
         .map((_, idx) => {
-          return <button onClick={() => onChange(idx)}>idx</button>;
+          return (
+            <button key={idx} onClick={() => onChange(idx)}>
+              idx
+            </button>
+          );
         })}
-    </div>
+    </SelectorBlock>
   );
 };
 
@@ -69,7 +74,9 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
   useEffect(() => {
     const container = containerRef.current as any;
-    container.scroll(curBanner * container.offsetWidth, 0);
+    container.style.transform = `translateX(${
+      -curBanner * container.offsetWidth
+    }px)`;
 
     if (timeoutId !== null) {
       clearTimeout(timeoutId);
@@ -81,6 +88,7 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
       3000
     );
     setTimeoutId(newTimeoutId);
+    // eslint-disable-next-line
   }, [curBanner]);
 
   return (
