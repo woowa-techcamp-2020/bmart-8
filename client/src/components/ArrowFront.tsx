@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 
 const ArrowFrontBlock = styled.div`
+  position: relative;
   background-color: white;
   color: gray;
+  top:-0.2rem;
 `;
 
 type ArrowFrontProps = {};
