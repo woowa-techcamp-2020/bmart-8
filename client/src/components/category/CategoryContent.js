@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
-import palette from '../lib/styles/palette';
+import palette from '../../lib/styles/palette';
 
 const CategoryContentBlock = styled.div`
   .second,
