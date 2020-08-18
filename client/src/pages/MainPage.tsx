@@ -8,11 +8,33 @@ const MainPageBlock = styled.div`
   align-items: center;
 `;
 
+const dummyCarousel = [
+  {
+    imageUrl: 'https://dummyimage.com/600x400/b5b5b5/00ffff',
+    altString: 'caro1',
+    routeUrl: '/',
+  },
+  {
+    imageUrl: 'https://dummyimage.com/600x400/b5b5b5/00ffff&text=1',
+    altString: 'caro2',
+    routeUrl: '/',
+  },
+  {
+    imageUrl: 'https://dummyimage.com/600x400/b5b5b5/00ffff&text=2',
+    altString: 'caro2',
+    routeUrl: '/2',
+  },
+  {
+    imageUrl: 'https://dummyimage.com/600x400/b5b5b5/00ffff&text=3',
+    altString: 'caro3',
+    routeUrl: '/3',
+  },
+];
 const MainPage: React.FC = () => {
   return (
     <MainPageBlock>
       <Header></Header>
-      <Carousel></Carousel>
+      <Carousel images={dummyCarousel}></Carousel>
     </MainPageBlock>
   );
 };
