@@ -3,15 +3,25 @@ import styled from 'styled-components';
 
 const ProductContentBlock = styled.div`
   margin-top: 0.5rem;
-  margin-left: 1rem;
-  border: 1px solid black;
   width: 6rem;
   text-align: left;
   flex-shrink: 0;
+  font-size: 0.8rem;
+  .Price {
+    font-weight: bold;
+    &:after {
+      content:'원'
+    }
+  }
 `;
 
-function ProductContent() {
-  return <ProductContentBlock>컨텐츠입니다</ProductContentBlock>;
+function ProductContent({ title, price }) {
+  return (
+    <ProductContentBlock>
+      <div className="Title">{title}</div>
+      <div className="Price">{price.toLocaleString()}</div>
+    </ProductContentBlock>
+  );
 }
 
 export default ProductContent;
