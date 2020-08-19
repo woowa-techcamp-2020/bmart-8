@@ -1,19 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 import WishButton from '../WishButton';
-import imgA from '../../static/icon/icon-backery.png';
 
 const ProductPhotoBlock = styled.div`
-  margin-left: 1rem;
-  border: 1px solid black;
-  width: 6rem;
-  height: 6rem;
-  flex-shrink: 0;
+  border-radius: 0.2rem;
+  width:100%;
+  height:6rem;
   position: relative;
+  box-sizing: border-box;
 
   .Thumbnail {
     width: 100%;
     height: 100%;
+  }
+
+  &.active {
+    border: 2px solid red;
   }
 
   .WishButton {
@@ -23,12 +25,18 @@ const ProductPhotoBlock = styled.div`
   }
 `;
 
-function ProductPhoto() {
+function ProductPhoto({ wishbutton, onClick, index, url, select = -1 }) {
   return (
-    <ProductPhotoBlock>
-      <img className="Thumbnail" src={imgA}></img>
+    <ProductPhotoBlock className={select == index ? ' active' : ''}>
+      <img
+        className={'Thumbnail'}
+        src={url}
+        onClick={() => {
+          if (!onClick) return;
+          onClick(index);
+        }}></img>
       <div className="WishButton">
-        <WishButton filled={false}></WishButton>
+        {wishbutton ? <WishButton filled={false}></WishButton> : null}
       </div>
     </ProductPhotoBlock>
   );
