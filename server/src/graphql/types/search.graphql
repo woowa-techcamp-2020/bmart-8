@@ -1,0 +1,8 @@
+type SearchHistory {
+  date: DateTime
+  query: String
+}
+
+type Query {
+  searchHistory: [SearchHistory]
+}
