@@ -5,7 +5,6 @@ import Search from './Search';
 
 const HeaderBlock = styled.div`
   background-color: white;
-  position: fixed;
   z-index: 1;
   width: 100vw;
 `;
