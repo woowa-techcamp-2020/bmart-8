@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import addPointerEventHandlers from '../utils';
 
 const PullToRefreshBlock = styled.div`
-  background: yellow;
   width: 100%;
+  border-top: 2px solid gray;
+  border-bottom: 2px solid gray;
 `;
 
 type PullToRefreshProps = {
