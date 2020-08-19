@@ -28,7 +28,7 @@ jobs:
           yarn build
           mv build ../build
           cd ..
-          tar -cvzf build.tgz appspec.yml build
+          tar -cvzf build.tgz appspec.yml build scripts
         env:
           CI: false
 
