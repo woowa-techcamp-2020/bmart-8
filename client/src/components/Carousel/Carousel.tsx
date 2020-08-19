@@ -55,14 +55,14 @@ type CarouselProps = {
 
 const Carousel: React.FC<CarouselProps> = ({ images, transitionTime }) => {
   // to get width of the container
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const cssTransitionTime = Math.min(transitionTime / 3, 400);
 
   const [curBannerIdx, setCurBannerIdx] = useState(1);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
 
   // 마우스로 화면을 눌렀을 때의 X좌표
-  const [startX, setStartX] = useState<number | null>(null);
+  const [startX, setStartX] = useState<number | null>(1);
 
   // offsetIdx번째 아이템에서 dx만큼 더 translate
   // Carousel을 이동시킬때 사용
@@ -113,8 +113,15 @@ const Carousel: React.FC<CarouselProps> = ({ images, transitionTime }) => {
 
   useEffect(() => {
     moveBanner(curBannerIdx);
+    (window as any).requestIdleCallback(() => {
+      setStartX(null);
+    });
     // eslint-disable-next-line
   }, []);
+  useEffect(() => {
+    addEventListener();
+    return removeEventListenr;
+  });
 
   const dragStartHandler = (evt: any) => {
     setStartX(evt.clientX);
@@ -134,18 +141,25 @@ const Carousel: React.FC<CarouselProps> = ({ images, transitionTime }) => {
     setStartX(null);
   };
 
+  const addEventListener = () => {
+    containerRef.current!.addEventListener('pointerdown', dragStartHandler);
+    containerRef.current!.addEventListener('pointermove', dragMoveHandler);
+    containerRef.current!.addEventListener('pointerup', dragEndHandler);
+  };
+
+  const removeEventListenr = () => {
+    containerRef.current!.removeEventListener('pointerdown', dragStartHandler);
+    containerRef.current!.removeEventListener('pointermove', dragMoveHandler);
+    containerRef.current!.removeEventListener('pointerup', dragEndHandler);
+  };
+
   const lastBanner = images[images.length - 1];
 
   return (
     <CarouselBlock
       isDragging={startX !== null}
       transitionTime={cssTransitionTime}>
-      <div
-        className="wrapper"
-        ref={containerRef}
-        onPointerDown={dragStartHandler}
-        onPointerMove={dragMoveHandler}
-        onPointerUp={dragEndHandler}>
+      <div className="wrapper" ref={containerRef}>
         <div>
           <Link to={lastBanner.routeUrl}>
             <img src={lastBanner.imageUrl} alt={lastBanner.altString}></img>
