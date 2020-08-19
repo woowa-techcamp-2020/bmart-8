@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Header from '../components/Header';
 import Carousel from '../components/Carousel';
+import MainPageCategories from '../components/MainPageCategories';
+import DeliveryAvailabilityIndicator from '../components/DeliveryAvailabilityIndicator';
 const MainPageBlock = styled.div`
   display: flex;
   flex-direction: column;
@@ -35,6 +37,8 @@ const MainPage: React.FC = () => {
     <MainPageBlock>
       <Header></Header>
       <Carousel images={dummyCarousel} transitionTime={1500}></Carousel>
+      <DeliveryAvailabilityIndicator />
+      <MainPageCategories></MainPageCategories>
     </MainPageBlock>
   );
 };
