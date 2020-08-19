@@ -91,7 +91,7 @@ const Selector: React.FC<{
             <button key={idx} onClick={() => onChange(idx + 1)}>
               <div
                 className={`selector${
-                  activeIdx == idx ? ' active' : ''
+                  activeIdx === idx ? ' active' : ''
                 }`}></div>
             </button>
           );
@@ -109,20 +109,36 @@ const Carousel: React.FC<CarouselProps> = ({ images, transitionTime }) => {
   // 마우스로 화면을 눌렀을 때의 X좌표
   const [startX, setStartX] = useState<any>(null);
 
-  const setBanner = (idx: number, offset: number = 0) => {
+  // offsetIdx번째 아이템에서 dx만큼 더 translate
+  // Carousel을 이동시킬때 사용
+  const translateBanner = (offsetIdx: number, dx: number = 0) => {
     const container = containerRef.current as any;
     container.style.transform = `translateX(${-(
-      curBanner * container.offsetWidth +
-      offset
+      offsetIdx * container.offsetWidth +
+      dx
     )}px)`;
   };
 
   useEffect(() => {
-    if (curBanner === 0) setTimeout(() => setCurBanner(images.length), 1000);
-    else if (curBanner === images.length + 1) {
-      setTimeout(() => setCurBanner(1), 1000);
+    if (curBanner === 0) {
+      setTimeout(() => {
+        setStartX(1);
+        setCurBanner(images.length);
+        setTimeout(() => {
+          setStartX(null);
+        }, 0);
+        //TODO: remove magic number
+      }, 400);
+    } else if (curBanner === images.length + 1) {
+      setTimeout(() => {
+        setStartX(1);
+        setCurBanner(1);
+        setTimeout(() => {
+          setStartX(null);
+        }, 0);
+      }, 400);
     }
-    setBanner(curBanner);
+    translateBanner(curBanner);
 
     if (timeoutId !== null) {
       clearTimeout(timeoutId);
@@ -138,19 +154,14 @@ const Carousel: React.FC<CarouselProps> = ({ images, transitionTime }) => {
   }, [curBanner]);
 
   const dragStartHandler = (evt: any) => {
-    evt.preventDefault();
-    evt.stopPropagation();
     setStartX(evt.clientX);
     clearTimeout(timeoutId!);
     setTimeoutId(null);
   };
   const dragMoveHandler = (evt: any) => {
-    evt.preventDefault();
-    evt.stopPropagation();
-    if (startX) setBanner(curBanner, startX - evt.clientX);
+    if (startX) translateBanner(curBanner, startX - evt.clientX);
   };
   const dragEndHandler = (evt: any) => {
-    evt.stopPropagation();
     setCurBanner(curBanner + (evt.clientX - startX > 0 ? -1 : 1));
     setStartX(null);
   };
@@ -188,7 +199,7 @@ const Carousel: React.FC<CarouselProps> = ({ images, transitionTime }) => {
       <Selector
         length={images.length}
         onChange={(idx) => setCurBanner(idx)}
-        activeIdx={curBanner - 1}
+        activeIdx={(curBanner - 1 + images.length) % images.length}
       />
     </CarouselBlock>
   );
