@@ -5,8 +5,12 @@ import palette from '../lib/styles/palette';
 import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
 
-import CategoryContent from '../components/CategoryContent';
-import CategoryTitle from '../components/CategoryTitle';
+import GoBmart from '../components/category/GoBmart';
+import CategoryContent from '../components/category/CategoryContent';
+import CategoryTitle from '../components/category/CategoryTitle';
+import Dibs from '../components/category/Dibs';
+import ArrowBack from '../components/ArrowBack';
+import OrderList from '../components/category/OrderList';
 
 const GetFirstCategory = gql`
   query {
@@ -23,15 +27,47 @@ const GetFirstCategory = gql`
 const CategoryPageBlock = styled.div`
   text-align: left;
   background-color: ${palette.gray300};
+
+  .back {
+    padding-top: 1rem;
+    padding-left: 1rem;
+    background-color: white;
+  }
+
   .Category {
     border-bottom: 0.1rem solid ${palette.gray400};
     background-color: ${palette.white};
     margin-top: 0.1rem;
   }
+
+  .other {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+  }
 `;
 function CategoryPage() {
+  let selectedClose;
+  function closeContent() {
+    if (!selectedClose) return;
+    selectedClose();
+  }
+  function setCloseCallback(cb) {
+    selectedClose = cb;
+  }
+
   return (
     <CategoryPageBlock>
+      <div className="back">
+        <ArrowBack></ArrowBack>
+      </div>
+      <GoBmart></GoBmart>
+      <div className="other">
+        <OrderList></OrderList>
+        <Dibs></Dibs>
+      </div>
       <Query query={GetFirstCategory}>
         {({ data, loading, error }) => {
           if (loading) return '';
@@ -43,9 +79,13 @@ function CategoryPage() {
               const left = firstCategory.children[i];
               const right = firstCategory.children[i + 1];
               childList.push(
-                <CategoryContent data={[left, right]}></CategoryContent>
+                <CategoryContent
+                  setCloseCallback={setCloseCallback}
+                  closeContent={closeContent}
+                  data={[left, right]}></CategoryContent>
               );
             }
+
             categoryList.push(
               <div className="Category">
                 <CategoryTitle title={firstCategory.name}></CategoryTitle>

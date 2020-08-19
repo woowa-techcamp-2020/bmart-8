@@ -9,7 +9,7 @@ const palette = {
   baemint200: '#87d9d6',
   baemint100: 'rgba(135,217,214,0.5)',
   gray100: '#fafbfc',
-  gray200: '#eff1f3',
+  gray200: '#f4f4f4',
   gray300: '#e1e4e8',
   gray400: 'rgba(209, 213, 218, 0.5)',
   gray500: '#586069',

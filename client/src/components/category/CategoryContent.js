@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
-import palette from '../lib/styles/palette';
+import palette from '../../lib/styles/palette';
 
 const CategoryContentBlock = styled.div`
   .second,
@@ -15,11 +15,11 @@ const CategoryContentBlock = styled.div`
 
   .active {
     font-weight: bold;
-    background-color: ${palette.gray100};
+    background-color: ${palette.gray200};
   }
 
   .third {
-    background-color: ${palette.gray100};
+    background-color: ${palette.gray200};
   }
 
   .second > div,
@@ -41,10 +41,16 @@ function CategoryContent(props) {
   const [selected, setSelected] = useState(false);
   const [showThird, setShowThird] = useState(false);
 
+ 
+
   function toggleThirdCategory(index) {
+    props.closeContent();
     if (showThird && selected === index) {
       setShowThird(false);
     } else {
+      props.setCloseCallback(() => {
+        setShowThird(false);
+      });
       setShowThird(true);
     }
     setSelected(index);
