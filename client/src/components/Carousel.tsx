@@ -49,12 +49,33 @@ type CarouselProps = {
 const SelectorBlock = styled.div`
   position: relative;
   margin-top: -30px;
+  button {
+    margin: 0.3rem;
+    padding: 0;
+    border: none;
+    background: none;
+
+    .selector {
+      background: #d3d3d3;
+      width: 0.8rem;
+      height: 0.8rem;
+      border-radius: 50%;
+
+      &.active {
+        background: white;
+      }
+    }
+    .selector::before {
+      content: '';
+    }
+  }
 `;
 
 const Selector: React.FC<{
   length: number;
   onChange: (idx: number) => void;
-}> = ({ length, onChange }) => {
+  activeIdx: number;
+}> = ({ length, onChange, activeIdx }) => {
   return (
     <SelectorBlock>
       {Array(length)
@@ -62,7 +83,10 @@ const Selector: React.FC<{
         .map((_, idx) => {
           return (
             <button key={idx} onClick={() => onChange(idx + 1)}>
-              idx
+              <div
+                className={`selector${
+                  activeIdx == idx ? ' active' : ''
+                }`}></div>
             </button>
           );
         })}
@@ -152,7 +176,11 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
           </Link>
         </div>
       </div>
-      <Selector length={images.length} onChange={(idx) => setCurBanner(idx)} />
+      <Selector
+        length={images.length}
+        onChange={(idx) => setCurBanner(idx)}
+        activeIdx={curBanner - 1}
+      />
     </CarouselBlock>
   );
 };
