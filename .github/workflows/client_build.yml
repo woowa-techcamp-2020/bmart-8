@@ -26,8 +26,9 @@ jobs:
           cd client
           yarn
           yarn build
-          cd build
-          tar -cvzf build.tgz *
+          mv build ../build
+          cd ..
+          tar -cvzf build.tgz appspec.yml build
         env:
           CI: false
 
@@ -37,9 +38,8 @@ jobs:
           AWS_SECRET_ACCESS_KEY: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
         run: |
           aws s3 cp \
-            --recursive \
             --region ap-northeast-2 \
-            client/build/build.tgz s3://bmart-8/client_build/build.tgz
+            build.tgz s3://bmart-8/client_build/build.tgz
 
       - name: ssh deploy
         uses: easingthemes/ssh-deploy@v2.1.4
