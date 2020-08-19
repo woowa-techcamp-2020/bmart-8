@@ -34,7 +34,7 @@ const MainPage: React.FC = () => {
   return (
     <MainPageBlock>
       <Header></Header>
-      <Carousel images={dummyCarousel}></Carousel>
+      <Carousel images={dummyCarousel} transitionTime={1500}></Carousel>
     </MainPageBlock>
   );
 };

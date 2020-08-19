@@ -2,7 +2,10 @@ import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const CarouselBlock = styled.div<{ isDragging: boolean }>`
+const CarouselBlock = styled.div<{
+  isDragging: boolean;
+  transitionTime: number;
+}>`
   width: 70%;
   height: 300px;
   overflow: hidden;
@@ -11,8 +14,10 @@ const CarouselBlock = styled.div<{ isDragging: boolean }>`
     display: flex;
     height: 100%;
     touch-action: none;
-    ${({ isDragging }) => {
-      return !isDragging ? 'transition: transform 400ms ease-in-out;' : '';
+    ${({ isDragging, transitionTime }) => {
+      return !isDragging
+        ? `transition: transform ${transitionTime}ms ease-in-out;`
+        : '';
     }}
 
     & * {
@@ -44,6 +49,7 @@ type CarouselProps = {
     altString: string;
     routeUrl: string;
   }[];
+  transitionTime: number;
 };
 
 const SelectorBlock = styled.div`
@@ -94,7 +100,7 @@ const Selector: React.FC<{
   );
 };
 
-const Carousel: React.FC<CarouselProps> = ({ images }) => {
+const Carousel: React.FC<CarouselProps> = ({ images, transitionTime }) => {
   // to get width of the container
   const containerRef = useRef(null);
   const [curBanner, setCurBanner] = useState(1);
@@ -123,7 +129,10 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
       setTimeoutId(null);
     }
 
-    const newTimeoutId = setTimeout(() => setCurBanner(curBanner + 1), 3000);
+    const newTimeoutId = setTimeout(
+      () => setCurBanner(curBanner + 1),
+      transitionTime
+    );
     setTimeoutId(newTimeoutId);
     // eslint-disable-next-line
   }, [curBanner]);
@@ -149,7 +158,7 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
   const lastBanner = images[images.length - 1];
 
   return (
-    <CarouselBlock isDragging={startX !== null}>
+    <CarouselBlock isDragging={startX !== null} transitionTime={400}>
       <div
         className="wrapper"
         ref={containerRef}
