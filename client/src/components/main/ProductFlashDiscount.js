@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import ProductPhoto from './ProductPhoto';
-import ProductPhotoDiscount from './ProductPhotoDiscount';
+import ProductDiscount from './ProductDiscount';
+import ProductContent from './ProductContent';
 
 const ProductFlashDiscountBlock = styled.div`
   .ProductTitle {
@@ -32,27 +33,39 @@ const ProductFlashDiscountBlock = styled.div`
     }
   }
 
-  .ProductPhotoDiscount {
+  .ProductDiscount {
     padding: 0 0.4rem;
     margin-top: 0.2em;
     margin-left: 0.5rem;
     margin-right: 0.6rem;
+  }
+
+  .ProductContent {
+    font-size: 1rem;
   }
 `;
 
 function ProductFlashDiscount() {
   let data = [
     {
+      title: '음식명',
+      price: 123123,
       url:
         'https://dimg.donga.com/a/500/0/90/5/ugc/CDB/29STREET/Article/5e/b2/04/e8/5eb204e81752d2738236.jpg',
     },
     {
+      title: '음식명',
+      price: 123123,
       url: 'https://i.imgur.com/FODPMXD.jpg',
     },
     {
+      title: '음식명',
+      price: 123123,
       url: 'https://i.imgur.com/zU9sTZJ.jpg',
     },
     {
+      title: '음식명',
+      price: 123123,
       url:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQOEptWBRiRPfneQe3e2vnf6VPbYnqoHUu4nA&usqp=CAU',
     },
@@ -81,8 +94,13 @@ function ProductFlashDiscount() {
           );
         })}
       </div>
-      <div className="ProductPhotoDiscount">
-        <ProductPhotoDiscount url={data[select].url}></ProductPhotoDiscount>
+      <div className="ProductDiscount">
+        <ProductDiscount url={data[select].url}></ProductDiscount>
+        <div className="ProductContent">
+          <ProductContent
+            title={data[select].title}
+            price={data[select].price}></ProductContent>
+        </div>
       </div>
     </ProductFlashDiscountBlock>
   );

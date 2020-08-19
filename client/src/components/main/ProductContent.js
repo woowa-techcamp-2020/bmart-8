@@ -6,7 +6,7 @@ const ProductContentBlock = styled.div`
   width: 6rem;
   text-align: left;
   flex-shrink: 0;
-  font-size: 0.8rem;
+  
   .Price {
     font-weight: bold;
     &:after {

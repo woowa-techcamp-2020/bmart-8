@@ -6,15 +6,19 @@ import ProductContent from './ProductContent';
 const ProductInfoBlock = styled.div`
   flex-shrink: 0;
   margin: 0 0.1rem;
-  width:29%;
-
+  width: 29%;
+  .ProductContent {
+    font-size: 0.8rem;
+  }
 `;
 
 function ProductInfo({ title, price, url }) {
   return (
     <ProductInfoBlock>
       <ProductPhoto url={url} wishbutton={true}></ProductPhoto>
-      <ProductContent title={title} price={price}></ProductContent>
+      <div className="ProductContent">
+        <ProductContent title={title} price={price}></ProductContent>
+      </div>
     </ProductInfoBlock>
   );
 }
