@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useQuery } from 'react-apollo';
+import { useQuery, useLazyQuery } from 'react-apollo';
 import { gql } from 'apollo-boost';
 import { formatDistanceToNow } from 'date-fns';
 import { ko } from 'date-fns/locale';
+import useDebounce from '../hooks/useDebounce';
 
 const SearchHistoryItem: React.FC<{
   onDelete: () => void;
@@ -23,7 +24,7 @@ const SearchPageBlock = styled.div``;
 
 const SearchPage: React.FC = () => {
   const [query, setQuery] = useState('');
-  const { data, loading, error } = useQuery(gql`
+  const { data: searchHistoryData } = useQuery(gql`
     query getSearchHistory {
       searchHistory {
         id
@@ -33,12 +34,34 @@ const SearchPage: React.FC = () => {
     }
   `);
 
+  const [instantSearch, { data: instantSearchData }] = useLazyQuery(gql`
+    query instantSearch($q: String) {
+      instantSearch(query: $q)
+    }
+  `);
+
+  // 분당 150타라고 가정. interval = 60*1000/150
+  const instantSearchDebounce = useDebounce(
+    (q: string) => instantSearch({ variables: { q } }),
+    400
+  );
+
   return (
     <SearchPageBlock>
-      <input value={query} onChange={(e) => setQuery(e.target.value)} />
-      {loading || error
-        ? null
-        : data.searchHistory.map(({ id, date, query }: any) => {
+      <input
+        value={query}
+        onChange={(e) => {
+          setQuery(e.target.value);
+          instantSearchDebounce(e.target.value);
+        }}
+      />
+      {instantSearchData
+        ? instantSearchData.instantSearch.map((name: string) => {
+            return <div key={name}>{name}</div>;
+          })
+        : null}
+      {searchHistoryData
+        ? searchHistoryData.searchHistory.map(({ id, date, query }: any) => {
             return (
               <SearchHistoryItem
                 key={id}
@@ -47,7 +70,8 @@ const SearchPage: React.FC = () => {
                 query={query}
               />
             );
-          })}
+          })
+        : null}
     </SearchPageBlock>
   );
 };
