@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import Header from '../components/Header';
+import Product from '../components/main/Product';
 import Carousel from '../components/Carousel';
 import MainPageCategories from '../components/MainPageCategories';
 import DeliveryAvailabilityIndicator from '../components/DeliveryAvailabilityIndicator';
 import PullToRefresh from '../components/PullToRefresh';
+
 const MainPageBlock = styled.div`
   display: flex;
   flex-direction: column;
@@ -46,6 +48,7 @@ const MainPage: React.FC = () => {
       <Carousel images={dummyCarousel} transitionTime={1500}></Carousel>
       <DeliveryAvailabilityIndicator />
       <MainPageCategories></MainPageCategories>
+      <Product></Product>
     </MainPageBlock>
   );
 };

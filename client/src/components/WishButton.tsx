@@ -1,13 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const Button = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  right: 0.3em;
-  bottom: 0.3em;
   width: 1.4em;
   height: 1.4em;
   border-radius: 0.7em;
@@ -26,8 +23,13 @@ const Button = styled.div`
 `;
 
 const WishButton = ({ filled }: { filled: Boolean }) => {
+  const [heart, setHeart] = useState(filled);
   return (
-    <Button className={filled ? 'filled' : ''} onClick={() => {}}></Button>
+    <Button
+      className={heart ? 'filled' : ''}
+      onClick={() => {
+        setHeart(!heart);
+      }}></Button>
   );
 };
 
