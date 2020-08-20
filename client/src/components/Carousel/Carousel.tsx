@@ -65,7 +65,8 @@ const Carousel: React.FC<CarouselProps> = ({ images, transitionTime }) => {
   // 마우스로 화면을 눌렀을 때의 X좌표
   // Remove transition animation if not null.
   // Therefore also be used to disable animation in edge cases.
-  const [startX, setStartX] = useState<number | null>(1);
+  // 음수 startX는 edge case에서 순간이동하는 것을 의미합니다.
+  const [startX, setStartX] = useState<number | null>(-1);
 
   // offsetIdx번째 아이템에서 dx만큼 더 translate
   // Carousel을 이동시킬때 사용
@@ -94,7 +95,7 @@ const Carousel: React.FC<CarouselProps> = ({ images, transitionTime }) => {
     if (checkEdgeCase(idx)) {
       setTimeout(() => {
         // To remove transition animation
-        setStartX(1);
+        setStartX(-1);
         // 0 if idx === images.length; 1 if idx === images.length+1
         const nextIdx = idx === 0 ? images.length : 1;
         moveBanner(nextIdx, true);
@@ -131,14 +132,17 @@ const Carousel: React.FC<CarouselProps> = ({ images, transitionTime }) => {
   });
 
   const dragStartHandler = (evt: any) => {
+    evt.preventDefault();
     setStartX(evt.clientX);
     clearTimeout(timeoutId!);
     setTimeoutId(null);
   };
   const dragMoveHandler = (evt: any) => {
-    if (startX) translateBanner(curBannerIdx, startX - evt.clientX);
+    if (startX === null || startX < 0) return;
+    translateBanner(curBannerIdx, startX - evt.clientX);
   };
   const dragEndHandler = (evt: any) => {
+    if (startX === null || startX < 0) return;
     const diff = evt.clientX - startX!;
     const containerWidth = (containerRef.current as any).getBoundingClientRect()
       .width;
@@ -150,14 +154,14 @@ const Carousel: React.FC<CarouselProps> = ({ images, transitionTime }) => {
 
   const addEventListener = () => {
     containerRef.current!.addEventListener('pointerdown', dragStartHandler);
-    containerRef.current!.addEventListener('pointermove', dragMoveHandler);
-    containerRef.current!.addEventListener('pointerup', dragEndHandler);
+    document.addEventListener('pointermove', dragMoveHandler);
+    document.addEventListener('pointerup', dragEndHandler);
   };
 
   const removeEventListenr = () => {
     containerRef.current!.removeEventListener('pointerdown', dragStartHandler);
-    containerRef.current!.removeEventListener('pointermove', dragMoveHandler);
-    containerRef.current!.removeEventListener('pointerup', dragEndHandler);
+    document.removeEventListener('pointermove', dragMoveHandler);
+    document.removeEventListener('pointerup', dragEndHandler);
   };
 
   const lastBanner = images[images.length - 1];
