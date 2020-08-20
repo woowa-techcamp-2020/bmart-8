@@ -9,7 +9,8 @@ import Bag from '../common/Bag';
 
 const ProductFlashDiscountBlock = styled.div`
   .ProductTitle {
-    padding: 1rem;
+    padding-left: 1rem;
+    padding-bottom: 1rem;
     background-color: white;
     text-align: left;
     font-weight: bold;

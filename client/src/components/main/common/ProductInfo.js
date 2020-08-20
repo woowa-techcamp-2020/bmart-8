@@ -6,6 +6,7 @@ import ProductContent from './ProductContent';
 const ProductInfoBlock = styled.div`
   flex-shrink: 0;
   margin: 0 0.1rem;
+  padding-bottom: 1rem;
   width: 29%;
   .ProductContent {
     font-size: 0.8rem;
@@ -17,9 +18,7 @@ function ProductInfo({ title, price, url }) {
     <ProductInfoBlock>
       <ProductPhoto url={url} wishbutton={true}></ProductPhoto>
       <div className="ProductContent">
-        <ProductContent
-          title={title}
-          price={price}></ProductContent>
+        <ProductContent title={title} price={price}></ProductContent>
       </div>
     </ProductInfoBlock>
   );
