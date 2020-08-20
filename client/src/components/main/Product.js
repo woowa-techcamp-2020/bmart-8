@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import ProductReadyFor from './readyFor/ProductReadyFor';
 import ProductFlashDiscount from './discount/ProductFlashDiscount';
 import ProductWhatEat from './whatEat/ProductWhatEat';
+import ProductNew from './new/ProductNew';
+
 const ProductBlock = styled.div``;
 
 function Product() {
@@ -11,6 +13,7 @@ function Product() {
       <ProductReadyFor></ProductReadyFor>
       <ProductFlashDiscount></ProductFlashDiscount>
       <ProductWhatEat></ProductWhatEat>
+      <ProductNew></ProductNew>
     </ProductBlock>
   );
 }
