@@ -15,8 +15,13 @@ const server = new GraphQLServer({
   resolvers,
   context: ({ request }) => {
     const token = request.headers.authorization?.split(' ')[1] || '';
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!);
-    return { prisma, user: decoded, token };
+    if (!token) return { prisma };
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET!);
+      return { prisma, user: decoded, token };
+    } catch (e) {
+      return { prisma };
+    }
   },
 });
 server.express.use(logger('dev'));
