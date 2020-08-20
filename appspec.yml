@@ -1,0 +1,13 @@
+version: 0.0
+os: linux
+files:
+  - source: /build/
+    destination: /home/ubuntu/bmart/client/build/
+permission:
+  - object: /
+    pattern: '**'
+    owner: ubuntu
+    group: ubuntu
+hooks:
+  BeforeInstall:
+    - location: scripts/before_client_deploy.sh
