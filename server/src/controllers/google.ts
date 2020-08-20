@@ -1,5 +1,4 @@
 import { authenticate } from 'passport';
-import '../../env';
 
 export const googleLogin = authenticate('google', {
   scope: ['profile', 'email'],

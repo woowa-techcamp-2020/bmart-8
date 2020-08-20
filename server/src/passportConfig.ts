@@ -1,10 +1,10 @@
 import passport from 'passport';
-import google from 'passport-google-oauth20';
+import passportGoogle from 'passport-google-oauth20';
+import jwt from 'jsonwebtoken';
 import { PrismaClient } from '@prisma/client';
-import '../env';
 
 const prisma = new PrismaClient();
-const GoogleStrategy = google.Strategy;
+const GoogleStrategy = passportGoogle.Strategy;
 
 passport.serializeUser((user, done) => {
   done(null, user);
@@ -18,27 +18,33 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      callbackURL: `http://localhost:4000/api/google/callback`,
+      callbackURL: process.env.GOOGLE_CALLBACK_URL,
     },
-    async function (
+    async (
       accessToken,
       refreshToken,
       { provider, _json: profile },
       callback
-    ) {
+    ) => {
       try {
+        //로그인 종류 추가되면 분리할거임
         const user = await prisma.user.upsert({
           where: { email_provider: { email: profile.email, provider } },
           select: { id: true, email: true, provider: true, role: true },
           update: {},
           create: { provider, email: profile.email },
         });
-        await prisma.user_profile.upsert({
+        const userProfile = await prisma.user_profile.upsert({
           where: { user_id: user.id },
           update: {},
           create: { name: profile.name, user: { connect: { id: user.id } } },
         });
-        return callback('', user);
+        const token = jwt.sign(
+          { id: user.id, role: user.role },
+          process.env.JWT_SECRET!
+        );
+        user['user_profile'] = userProfile;
+        return callback('', user, { token });
       } catch (error) {
         return callback(error);
       }
