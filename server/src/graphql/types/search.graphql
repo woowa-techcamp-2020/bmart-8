@@ -1,4 +1,5 @@
 type SearchHistory {
+  id: Int!
   date: DateTime
   query: String
 }
