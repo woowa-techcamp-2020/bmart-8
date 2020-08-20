@@ -40,6 +40,7 @@ const MainPage: React.FC = () => {
   return (
     <MainPageBlock>
       <Header></Header>
+      <div style={{ height: '5rem' }} />
       <PullToRefresh
         onRefresh={() => {
           console.log('refresh');
