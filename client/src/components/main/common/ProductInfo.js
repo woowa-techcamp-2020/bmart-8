@@ -17,7 +17,9 @@ function ProductInfo({ title, price, url }) {
     <ProductInfoBlock>
       <ProductPhoto url={url} wishbutton={true}></ProductPhoto>
       <div className="ProductContent">
-        <ProductContent title={title} price={price}></ProductContent>
+        <ProductContent
+          title={title}
+          price={price}></ProductContent>
       </div>
     </ProductInfoBlock>
   );

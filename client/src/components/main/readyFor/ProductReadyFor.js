@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import ProductTitle from '../common/ProductTitle';
 import ProductInfo from '../common/ProductInfo';
 
 const ProductReadyForBlock = styled.div`
@@ -56,7 +55,6 @@ function ProductReadyFor() {
     <ProductReadyForBlock>
       <div className="ProductTitle">
         ㅇㅇㅇ님을 위해 준비한 상품
-        <ProductTitle></ProductTitle>
       </div>
       <div className="ProductInfo">
         {data.map((_data, idx) => {
