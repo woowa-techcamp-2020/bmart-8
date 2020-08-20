@@ -1,19 +1,30 @@
+import '../env';
 import { GraphQLServer } from 'graphql-yoga';
 import { typeDefs, resolvers } from './graphql';
-import { authenticateJWT } from './passport';
+import { initialize, session } from 'passport';
+import { PrismaClient } from '@prisma/client';
+import jwt from 'jsonwebtoken';
+import router from './routes';
 import logger from 'morgan';
-import '../env';
+import './passportConfig';
 
+const prisma = new PrismaClient();
 const PORT = process.env.PORT || 3000;
 const server = new GraphQLServer({
   typeDefs,
   resolvers,
   context: ({ request }) => {
-    return { user: request.user };
+    const token = request.headers.authorization?.split(' ')[1] || '';
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!);
+    return { prisma, user: decoded, token };
   },
 });
 server.express.use(logger('dev'));
-server.express.use(authenticateJWT);
+server.express.use(initialize());
+server.express.use(session());
+
+server.express.use('/api', router);
+
 server.start({ port: PORT, endpoint: '/graphql', playground: '/graphql' }, () =>
   console.log(`Server is running on http://localhost:${PORT}`)
 );

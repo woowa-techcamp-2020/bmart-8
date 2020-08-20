@@ -7,6 +7,7 @@ services:
       dockerfile: ./docker/nginx/Dockerfile
     volumes:
       - './client/build:/etc/nginx/http'
+      - './log/nginx:/var/log/nginx'
     ports:
       - '80:80'
   appserver:

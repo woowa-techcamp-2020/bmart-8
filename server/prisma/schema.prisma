@@ -97,17 +97,18 @@ model search_log {
 }
 
 model user {
-  id           Int            @default(autoincrement()) @id
-  created_at   DateTime       @default(now())
-  nickname     String
+  id           Int           @default(autoincrement()) @id
+  created_at   DateTime      @default(now())
+  email        String
   provider     String
-  role         user_role      @default(customer)
+  role         user_role     @default(customer)
   wish_list    wish_list[]
   cart         cart[]
   order        order[]
   view_log     view_log[]
   search_log   search_log[]
-  user_profile user_profile[]
+  user_profile user_profile?
+  @@unique([email, provider])
 }
 
 model user_profile {
@@ -122,7 +123,7 @@ model user_profile {
   age            Int?
   phone_number   String?
   user           user     @relation(fields: [user_id], references: [id])
-  user_id        Int
+  user_id        Int      @unique
 }
 
 model view_log {

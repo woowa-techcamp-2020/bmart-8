@@ -1,3 +1,7 @@
 import { config } from 'dotenv';
 import { resolve } from 'path';
-config({ path: resolve(__dirname, '.env') });
+if (process.env.NODE_ENV === 'production') {
+  config({ path: resolve(__dirname, '.prod.env') });
+} else {
+  config({ path: resolve(__dirname, '.dev.env') });
+}
