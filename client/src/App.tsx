@@ -40,9 +40,9 @@ function App() {
               <UserProfilePage />
             </Route>
             <Route path="/search/:query" component={SearchResultPage} />
-          <Route path="/search">
-            <SearchPage />
-          </Route>
+            <Route path="/search">
+              <SearchPage />
+            </Route>
             <Route path="/">
               <MainPage />
             </Route>
