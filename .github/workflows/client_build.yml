@@ -39,7 +39,7 @@ jobs:
         run: |
           aws s3 cp \
             --region ap-northeast-2 \
-            build.tgz s3://bmart-8/client_build/build.tgz
+            build.tgz s3://bmart-8/client_build/build-`git rev-parse --short HEAD`.tgz
 
       - name: Deploy
         env:
@@ -51,7 +51,7 @@ jobs:
             --application-name bmart-8 \
             --deployment-config-name CodeDeployDefault.OneAtATime \
             --deployment-group-name bmart-8-client-codedeploy-group \
-            --s3-location bucket=bmart-8,key=client_build/build.tgz,bundleType=tgz
+            --s3-location bucket=bmart-8,key=client_build/build-`git rev-parse --short HEAD`.tgz,bundleType=tgz
       # - name: ssh deploy
       #   uses: easingthemes/ssh-deploy@v2.1.4
       #   env:
