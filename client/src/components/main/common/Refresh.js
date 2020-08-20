@@ -5,6 +5,8 @@ import ReplayIcon from '@material-ui/icons/Replay';
 
 const RefreshBlock = styled.div`
   font-size: 0.8rem;
+  background-color: white;
+  margin-bottom: 0.3rem;
 
   .ReplayIcon {
     width: 0.8rem;

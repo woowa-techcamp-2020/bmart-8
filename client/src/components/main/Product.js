@@ -6,8 +6,11 @@ import ProductWhatEat from './whatEat/ProductWhatEat';
 import ProductNew from './new/ProductNew';
 import ProductSellGood from './sellGood/ProductSellGood';
 import ProductEssential from './nowEssential/ProductEssential';
+import palette from '../../lib/styles/palette';
 
-const ProductBlock = styled.div``;
+const ProductBlock = styled.div`
+  background-color: ${palette.gray200};
+`;
 
 function Product() {
   return (

@@ -11,11 +11,18 @@ const ProductEssentialBlock = styled.div`
     font-weight: bold;
   }
   .ProductInfo {
+    background-color: white;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     height: auto;
     width: auto;
+    margin-bottom: 0.1rem;
+  }
+  .Refresh {
+    background-color: white;
+    margin-bottom: 0.3rem;
+    padding-bottom: 0.2rem;
   }
 `;
 

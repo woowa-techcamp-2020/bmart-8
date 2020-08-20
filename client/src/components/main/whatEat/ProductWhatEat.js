@@ -11,11 +11,13 @@ const ProductWhatEatBlock = styled.div`
     font-weight: bold;
   }
   .ProductInfo {
+    background-color: white;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     height: auto;
     width: auto;
+    margin-bottom: 0.1rem;
   }
 `;
 
@@ -70,7 +72,9 @@ function ProductWhatEat() {
           );
         })}
       </div>
-      <Refresh title={'지금 뭐 먹지? '}></Refresh>
+      <div className="Refresh">
+        <Refresh className="Refresh" title={'지금 뭐 먹지? '}></Refresh>
+      </div>
     </ProductWhatEatBlock>
   );
 }

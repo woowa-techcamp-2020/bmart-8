@@ -10,8 +10,10 @@ const ProductReadyForBlock = styled.div`
     font-weight: bold;
   }
   .ProductInfo {
+    margin-bottom: 0.3rem;
     display: flex;
     flex-wrap: nowrap;
+    background-color: white;
     width: 100%;
     overflow-x: auto;
     ::-webkit-scrollbar {
@@ -53,9 +55,7 @@ function ProductReadyFor() {
   ];
   return (
     <ProductReadyForBlock>
-      <div className="ProductTitle">
-        ㅇㅇㅇ님을 위해 준비한 상품
-      </div>
+      <div className="ProductTitle">ㅇㅇㅇ님을 위해 준비한 상품</div>
       <div className="ProductInfo">
         {data.map((_data, idx) => {
           return (

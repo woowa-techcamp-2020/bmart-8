@@ -9,6 +9,7 @@ import Bag from '../common/Bag';
 
 const ProductFlashDiscountBlock = styled.div`
   .ProductTitle {
+    background-color: white;
     padding-left: 1rem;
     padding-bottom: 1rem;
     background-color: white;
@@ -21,6 +22,7 @@ const ProductFlashDiscountBlock = styled.div`
   }
 
   .ProductPhoto {
+    background-color: white;
     padding: 0 0.4rem;
     display: flex;
     flex-wrap: nowrap;
@@ -38,13 +40,18 @@ const ProductFlashDiscountBlock = styled.div`
   }
 
   .ProductDiscount {
+    background-color: white;
     padding: 0 0.4rem;
-    margin-top: 0.2em;
-    margin-left: 0.5rem;
-    margin-right: 0.6rem;
+    padding-top: 0.2em;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
   }
 
   .ProductContent {
+    background-color: white;
+    margin-bottom: 0.3rem;
+    padding-bottom: 0.2rem;
+
     font-size: 1rem;
   }
 
