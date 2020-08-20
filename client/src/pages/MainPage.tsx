@@ -12,7 +12,6 @@ const MainPageBlock = styled.div`
   flex-direction: column;
   align-items: center;
   touch-action: none;
-  height: 100vh;
 `;
 
 const dummyCarousel = [

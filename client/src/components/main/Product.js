@@ -21,6 +21,7 @@ function Product() {
       <ProductNew></ProductNew>
       <ProductSellGood></ProductSellGood>
       <ProductEssential></ProductEssential>
+      <div style={{ height: '47px' }}></div>
     </ProductBlock>
   );
 }
