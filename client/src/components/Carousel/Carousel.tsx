@@ -72,6 +72,7 @@ const Carousel: React.FC<CarouselProps> = ({ images, transitionTime }) => {
   // Carousel을 이동시킬때 사용
   const translateBanner = (offsetIdx: number, dx: number = 0) => {
     const container = containerRef.current as any;
+    if (!container) return;
     container.style.transform = `translateX(${-(
       offsetIdx * container.offsetWidth +
       dx

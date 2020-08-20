@@ -6,6 +6,7 @@ import Carousel from '../components/Carousel';
 import MainPageCategories from '../components/MainPageCategories';
 import DeliveryAvailabilityIndicator from '../components/DeliveryAvailabilityIndicator';
 import PullToRefresh from '../components/PullToRefresh';
+import { Helmet } from 'react-helmet';
 
 const MainPageBlock = styled.div`
   display: flex;
@@ -39,6 +40,9 @@ const dummyCarousel = [
 const MainPage: React.FC = () => {
   return (
     <MainPageBlock>
+      <Helmet>
+        <title>B 마트</title>
+      </Helmet>
       <Header></Header>
       <div style={{ height: '5rem' }} />
       <PullToRefresh

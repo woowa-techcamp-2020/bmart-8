@@ -11,6 +11,7 @@ import CategoryTitle from '../components/category/CategoryTitle';
 import Dibs from '../components/category/Dibs';
 import ArrowBack from '../components/ArrowBack';
 import OrderList from '../components/category/OrderList';
+import { Helmet } from 'react-helmet';
 
 const GetFirstCategory = gql`
   query {
@@ -60,6 +61,9 @@ function CategoryPage() {
 
   return (
     <CategoryPageBlock>
+      <Helmet>
+        <title>카테고리 - B 마트</title>
+      </Helmet>
       <div className="back">
         <ArrowBack></ArrowBack>
       </div>

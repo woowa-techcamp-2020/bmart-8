@@ -44,8 +44,10 @@ const Footer: React.FC<FooterProps> = () => {
           <div>메뉴</div>
         </li>
         <li>
-          <SearchIcon />
-          <div>검색</div>
+          <LinkBlock to="/search">
+            <SearchIcon />
+            <div>검색</div>
+          </LinkBlock>
         </li>
         <li>
           <LinkBlock to="/">
