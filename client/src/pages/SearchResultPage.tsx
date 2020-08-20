@@ -3,8 +3,9 @@ import styled from 'styled-components';
 
 const SearchResultPageBlock = styled.div``;
 
-const SearchResultPage: React.FC = () => {
-  return <SearchResultPageBlock>SearchResultPage</SearchResultPageBlock>;
+const SearchResultPage: React.FC<any> = ({ match }: any) => {
+  const q = match.params.query || '';
+  return <SearchResultPageBlock>{q}</SearchResultPageBlock>;
 };
 
 export default SearchResultPage;

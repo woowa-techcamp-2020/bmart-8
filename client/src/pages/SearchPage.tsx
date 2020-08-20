@@ -5,7 +5,7 @@ import { gql } from 'apollo-boost';
 import { formatDistanceToNow } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import useDebounce from '../hooks/useDebounce';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 const SearchHistoryItem: React.FC<{
   onDelete: () => void;
@@ -14,7 +14,9 @@ const SearchHistoryItem: React.FC<{
 }> = ({ onDelete, date, query }) => {
   return (
     <div>
-      <div>{query}</div>
+      <div>
+        <Link to={'/search/' + query}>{query}</Link>
+      </div>
       <div>{formatDistanceToNow(date, { locale: ko })} 전</div>
       <button onClick={onDelete}>X</button>
     </div>
@@ -62,7 +64,11 @@ const SearchPage: React.FC = () => {
       </div>
       {instantSearchData
         ? instantSearchData.instantSearch.map((name: string) => {
-            return <div key={name}>{name}</div>;
+            return (
+              <div key={name}>
+                <Link to={'/search/' + name}>{name}</Link>
+              </div>
+            );
           })
         : null}
       {searchHistoryData
