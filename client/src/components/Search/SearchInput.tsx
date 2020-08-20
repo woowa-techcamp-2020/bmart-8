@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom';
 import { useLazyQuery } from 'react-apollo';
 import useDebounce from '../../hooks/useDebounce';
 import { gql } from 'apollo-boost';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import SearchIcon from '@material-ui/icons/Search';
 
 type SearchInputProps = {
   onSearch: (contents: string[]) => void;
@@ -46,7 +48,9 @@ const SearchInput: React.FC<SearchInputProps> = ({ onSearch }) => {
   if (instantSearchData) onSearch(instantSearchData.instantSearch);
   return (
     <SearchInputBlock>
-      <button onClick={() => history.goBack()}>go back</button>
+      <button onClick={() => history.goBack()}>
+        <ArrowBackIcon />
+      </button>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -60,7 +64,9 @@ const SearchInput: React.FC<SearchInputProps> = ({ onSearch }) => {
           }}
           placeholder="검색어를 입력하세요..."
         />
-        <button type="submit">search</button>
+        <button type="submit">
+          <SearchIcon />
+        </button>
       </form>
     </SearchInputBlock>
   );

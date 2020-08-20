@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { formatDistanceToNow } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { Link } from 'react-router-dom';
+import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
 
 const SearchHistoryItemBlock = styled.li`
   display: grid;
@@ -23,6 +24,7 @@ const SearchHistoryItemBlock = styled.li`
     background: none;
     border: none;
     font-size: 1rem;
+    cursor: pointer;
   }
 `;
 const SearchHistoryItem: React.FC<{
@@ -39,7 +41,7 @@ const SearchHistoryItem: React.FC<{
         {formatDistanceToNow(date, { locale: ko })} 전
       </div>
       <button className="delete-button" onClick={onDelete}>
-        X
+        <DeleteForeverOutlinedIcon />
       </button>
     </SearchHistoryItemBlock>
   );
