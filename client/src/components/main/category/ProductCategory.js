@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ProductInfo from '../common/ProductInfo';
+import More from '../common/More';
 
 const ProductCategoryBlock = styled.div`
   .ProductTitle {
@@ -86,6 +87,7 @@ function ProductCategory() {
   return (
     <ProductCategoryBlock>
       <div className="ProductTitle">정육·수산·계란</div>
+      <More></More>
       <div className="ProductInfo">
         {data.map((_data, idx) => {
           return (
