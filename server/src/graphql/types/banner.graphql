@@ -1,0 +1,9 @@
+type Banner {
+  type: String
+  altString: String
+  imgUrl: String
+  routeUrl: String
+}
+type Query {
+  mainBanners(type: String): [Banner]
+}
