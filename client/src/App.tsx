@@ -30,7 +30,7 @@ function App() {
       <AppBlock>
         <div className="App">
           <Switch>
-            <Route path="/CategoryPage">
+            <Route path="/categories">
               <CategoryPage />
             </Route>
             <Route path="/cart">
