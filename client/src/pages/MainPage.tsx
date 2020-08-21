@@ -6,6 +6,7 @@ import Carousel from '../components/Carousel';
 import MainPageCategories from '../components/MainPageCategories';
 import DeliveryAvailabilityIndicator from '../components/DeliveryAvailabilityIndicator';
 import PullToRefresh from '../components/PullToRefresh';
+import Category from '../components/main/Category';
 import { Helmet } from 'react-helmet';
 
 const MainPageBlock = styled.div`
@@ -53,6 +54,7 @@ const MainPage: React.FC = () => {
       <DeliveryAvailabilityIndicator />
       <MainPageCategories></MainPageCategories>
       <Product></Product>
+      <Category></Category>
     </MainPageBlock>
   );
 };
