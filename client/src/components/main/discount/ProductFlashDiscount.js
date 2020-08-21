@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/palette';
 
+import More from '../common/More';
 import ProductPhoto from '../common/ProductPhoto';
 import ProductDiscount from './ProductDiscount';
 import ProductContent from '../common/ProductContent';
@@ -100,6 +101,7 @@ function ProductFlashDiscount() {
       <div className="ProductTitle">
         지금 사면 <span>⚡️ 번쩍할인</span>
       </div>
+      <More></More>
       <div className="ProductPhoto">
         {data.map((_data, idx) => {
           return (

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ProductInfo from '../common/ProductInfo';
+import More from '../common/More';
 
 const ProductSellGoodBlock = styled.div`
   .ProductTitle {
@@ -56,6 +57,8 @@ function ProductSellGood() {
   return (
     <ProductSellGoodBlock>
       <div className="ProductTitle">요즘 잘팔려요</div>
+      <More></More>
+
       <div className="ProductInfo">
         {data.map((_data, idx) => {
           return (

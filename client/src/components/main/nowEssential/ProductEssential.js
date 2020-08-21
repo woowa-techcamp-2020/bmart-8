@@ -23,7 +23,6 @@ const ProductEssentialBlock = styled.div`
     & > div{
       width:32%;
     }
-
   }
   .Refresh {
     background-color: white;
