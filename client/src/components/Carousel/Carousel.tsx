@@ -7,8 +7,7 @@ const CarouselBlock = styled.div<{
   isDragging: boolean;
   transitionTime: number;
 }>`
-  width: 70%;
-  height: 300px;
+  width: 100%;
   overflow: hidden;
 
   .wrapper {
@@ -46,7 +45,7 @@ const CarouselBlock = styled.div<{
 
 type CarouselProps = {
   images: {
-    imageUrl: string;
+    imgUrl: string;
     altString: string;
     routeUrl: string;
   }[];
@@ -174,21 +173,21 @@ const Carousel: React.FC<CarouselProps> = ({ images, transitionTime }) => {
       <div className="wrapper" ref={containerRef}>
         <div>
           <Link to={lastBanner.routeUrl}>
-            <img src={lastBanner.imageUrl} alt={lastBanner.altString}></img>
+            <img src={lastBanner.imgUrl} alt={lastBanner.altString}></img>
           </Link>
         </div>
-        {images.map(({ imageUrl, altString, routeUrl }, idx) => {
+        {images.map(({ imgUrl, altString, routeUrl }, idx) => {
           return (
             <div key={idx}>
               <Link to={routeUrl}>
-                <img src={imageUrl} alt={altString}></img>
+                <img src={imgUrl} alt={altString}></img>
               </Link>
             </div>
           );
         })}
         <div>
           <Link to={images[0].routeUrl}>
-            <img src={images[0].imageUrl} alt={images[0].altString}></img>
+            <img src={images[0].imgUrl} alt={images[0].altString}></img>
           </Link>
         </div>
       </div>

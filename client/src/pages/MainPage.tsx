@@ -7,6 +7,7 @@ import MainPageCategories from '../components/MainPageCategories';
 import DeliveryAvailabilityIndicator from '../components/DeliveryAvailabilityIndicator';
 import PullToRefresh from '../components/PullToRefresh';
 import { Helmet } from 'react-helmet';
+import useMainBanners from '../hooks/useMainBanners';
 
 const MainPageBlock = styled.div`
   display: flex;
@@ -15,29 +16,8 @@ const MainPageBlock = styled.div`
   touch-action: none;
 `;
 
-const dummyCarousel = [
-  {
-    imageUrl: 'https://dummyimage.com/600x400/b5b5b5/00ffff',
-    altString: 'caro1',
-    routeUrl: '/',
-  },
-  {
-    imageUrl: 'https://dummyimage.com/600x400/b5b5b5/00ffff&text=1',
-    altString: 'caro2',
-    routeUrl: '/',
-  },
-  {
-    imageUrl: 'https://dummyimage.com/600x400/b5b5b5/00ffff&text=2',
-    altString: 'caro2',
-    routeUrl: '/2',
-  },
-  {
-    imageUrl: 'https://dummyimage.com/600x400/b5b5b5/00ffff&text=3',
-    altString: 'caro3',
-    routeUrl: '/3',
-  },
-];
 const MainPage: React.FC = () => {
+  const mainBanner = useMainBanners();
   return (
     <MainPageBlock>
       <Helmet>
@@ -49,7 +29,9 @@ const MainPage: React.FC = () => {
         onRefresh={() => {
           console.log('refresh');
         }}></PullToRefresh>
-      <Carousel images={dummyCarousel} transitionTime={1500}></Carousel>
+      {mainBanner.length > 0 ? (
+        <Carousel images={mainBanner} transitionTime={1500}></Carousel>
+      ) : null}
       <DeliveryAvailabilityIndicator />
       <MainPageCategories></MainPageCategories>
       <Product></Product>

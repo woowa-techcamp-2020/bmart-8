@@ -10,9 +10,10 @@ generator client {
 model banner {
   id         Int      @default(autoincrement()) @id
   created_at DateTime @default(now())
-  type       Int
+  type       String
   content    String?
   img_url    String
+  href       String
 }
 
 model cart {

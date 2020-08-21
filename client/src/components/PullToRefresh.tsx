@@ -2,7 +2,28 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import addPointerEventHandlers from '../utils';
 
-const dummyMenu = ['밥', '돈까스', '카레', '초밥', '피자', '감자탕'];
+const dummyMenu = [
+  '밥',
+  '돈까스',
+  '카레',
+  '초밥',
+  '피자',
+  '감자탕',
+  '다카야키',
+  '바비큐',
+  '보리차',
+  '홍차',
+  '우롱차',
+  '녹차',
+  '우유차',
+  '미수',
+  '곰국',
+  '라면',
+  '생강즙',
+  '막대사탕',
+  '꼬부랑국수',
+  '꿔바로우',
+];
 function getRandomMenu(menu: string[]) {
   return menu[~~(Math.random() * menu.length)];
 }
@@ -19,8 +40,14 @@ function getRandomMenus(
 
 const PullToRefreshBlock = styled.div`
   width: 100%;
-  border-top: 2px solid gray;
-  border-bottom: 2px solid gray;
+  border-bottom: 1px solid gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background: #77d6d3;
+  font-size: 1.5rem;
+  font-family: 'Gugi', cursive;
 `;
 
 type PullToRefreshProps = {
@@ -29,6 +56,8 @@ type PullToRefreshProps = {
 
 const PullToRefresh: React.FC<PullToRefreshProps> = ({ onRefresh }: any) => {
   const maxSize = 100;
+  // margin px이상 땡겼을 때부터 땡겨요 시작
+  const margin = 20;
   const [size, setSize] = useState(0);
   const [startY, setStartY] = useState<number | null>(null);
   const [visible, setVisible] = useState(false);
@@ -36,25 +65,27 @@ const PullToRefresh: React.FC<PullToRefreshProps> = ({ onRefresh }: any) => {
   useEffect(() => {
     if (window.scrollY !== 0) return;
     const startHandler = (e: PointerEvent) => {
-      setVisible(true);
       setStartY(e.clientY);
     };
 
     const moveHandler = (e: PointerEvent) => {
       if (startY !== null) {
-        const diffY = e.clientY - startY;
-        if (diffY > 0) setSize(Math.min(diffY, maxSize));
+        const diffY = e.clientY - startY - margin;
+        if (diffY > 0) {
+          setSize(Math.min(diffY, maxSize));
+          setVisible(true);
+        }
       }
     };
 
     const endHandler = (e: PointerEvent) => {
       if (size === maxSize) {
-        getRandomMenus(dummyMenu, 5, 300, setMenu);
+        getRandomMenus(dummyMenu, 7, 200, setMenu);
         setTimeout(() => {
           setVisible(false);
           setSize(0);
           setMenu('');
-        }, 3500);
+        }, 3000);
         onRefresh();
       } else {
         setVisible(false);

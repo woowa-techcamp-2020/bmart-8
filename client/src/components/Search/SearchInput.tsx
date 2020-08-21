@@ -57,6 +57,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ onSearch }) => {
           history.push(`/search/${query}`);
         }}>
         <input
+          autoFocus={true}
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);

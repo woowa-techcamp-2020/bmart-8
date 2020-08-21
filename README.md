@@ -2,6 +2,12 @@
 
 노기진, 김한, 김현영 - 모바일 B마트 만들기
 
+# 사용한 것들
+
+## 폰트
+
+- [Gugi by TAE System & Typefaces Co.](https://fonts.google.com/specimen/Gugi?subset=korean&sidebar.open=true&selection.family=Gugi)
+
 # Install
 
 ## Client

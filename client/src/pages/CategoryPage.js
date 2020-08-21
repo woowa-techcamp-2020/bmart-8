@@ -12,6 +12,7 @@ import Dibs from '../components/category/Dibs';
 import ArrowBack from '../components/ArrowBack';
 import OrderList from '../components/category/OrderList';
 import { Helmet } from 'react-helmet';
+import { useHistory } from 'react-router-dom';
 
 const GetFirstCategory = gql`
   query {
@@ -27,12 +28,13 @@ const GetFirstCategory = gql`
 
 const CategoryPageBlock = styled.div`
   text-align: left;
-  background-color: ${palette.gray300};
+  /* background-color: ${palette.gray300}; */
 
   .back {
     padding-top: 1rem;
     padding-left: 1rem;
     background-color: white;
+    border: none;
   }
 
   .Category {
@@ -51,6 +53,7 @@ const CategoryPageBlock = styled.div`
 `;
 function CategoryPage() {
   let selectedClose;
+  const history = useHistory();
   function closeContent() {
     if (!selectedClose) return;
     selectedClose();
@@ -64,9 +67,9 @@ function CategoryPage() {
       <Helmet>
         <title>카테고리 - B 마트</title>
       </Helmet>
-      <div className="back">
-        <ArrowBack></ArrowBack>
-      </div>
+      <button className="back" onClick={() => history.goBack()}>
+        <ArrowBack />
+      </button>
       <GoBmart></GoBmart>
       <div className="other">
         <OrderList></OrderList>
