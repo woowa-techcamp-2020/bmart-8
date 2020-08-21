@@ -2,12 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import Logo from './Logo';
 import Search from './Search';
+import palette from '../lib/styles/palette';
 
 const HeaderBlock = styled.div`
-  background-color: white;
   position: fixed;
-  z-index: 1;
+  background-color: white;
+  z-index: 99;
   width: 100vw;
+  height: 5rem;
+  border-bottom: 1px solid ${palette.gray300};
 `;
 
 const Header = () => {

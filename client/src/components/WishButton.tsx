@@ -1,19 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const Button = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  right: 0.3em;
-  bottom: 0.3em;
   width: 1.4em;
   height: 1.4em;
   border-radius: 0.7em;
   font-weight: 600;
   color: white;
   background-color: rgba(0, 0, 0, 0.3);
+
+  @keyframes twinkle {
+    50% {
+      font-size: 1.2rem;
+    }
+    100% {
+      font-size: 1rem;
+    }
+  }
   &::after {
     content: '♡';
   }
@@ -21,13 +27,20 @@ const Button = styled.div`
     color: red;
     &::after {
       content: '♥︎';
+      animation-duration:0.3s;
+      animation-name: twinkle;
     }
   }
 `;
 
 const WishButton = ({ filled }: { filled: Boolean }) => {
+  const [heart, setHeart] = useState(filled);
   return (
-    <Button className={filled ? 'filled' : ''} onClick={() => {}}></Button>
+    <Button
+      className={heart ? 'filled' : ''}
+      onClick={() => {
+        setHeart(!heart);
+      }}></Button>
   );
 };
 

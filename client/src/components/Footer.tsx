@@ -7,15 +7,19 @@ import HomeIcon from '@material-ui/icons/Home';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
-const FooterBlock = styled.ol`
-  background-color: white;
+const FooterBlock = styled.div`
   position: fixed;
-  bottom: -6px;
-  right: 7px;
+  bottom: 0px;
   width: 100%;
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  background-color: white;
+
+  ol {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
 `;
 
 const LinkBlock = styled(Link)`
@@ -34,32 +38,38 @@ type FooterProps = {};
 const Footer: React.FC<FooterProps> = () => {
   return (
     <FooterBlock>
-      <li>
-        <MenuIcon />
-        <div>메뉴</div>
-      </li>
-      <li>
-        <SearchIcon />
-        <div>검색</div>
-      </li>
-      <li>
-        <LinkBlock to="/">
-          <HomeIcon></HomeIcon>
-          <div>홈</div>
-        </LinkBlock>
-      </li>
-      <li>
-        <LinkBlock to="/profile">
-          <PersonOutlineIcon></PersonOutlineIcon>
-          <div>프로필</div>
-        </LinkBlock>
-      </li>
-      <li>
-        <LinkBlock to="/cart">
-          <AddShoppingCartIcon></AddShoppingCartIcon>
-          <div>장바구니</div>
-        </LinkBlock>
-      </li>
+      <ol>
+        <li>
+          <LinkBlock to="/categories">
+            <MenuIcon />
+            <div>메뉴</div>
+          </LinkBlock>
+        </li>
+        <li>
+          <LinkBlock to="/search">
+            <SearchIcon />
+            <div>검색</div>
+          </LinkBlock>
+        </li>
+        <li>
+          <LinkBlock to="/">
+            <HomeIcon></HomeIcon>
+            <div>홈</div>
+          </LinkBlock>
+        </li>
+        <li>
+          <LinkBlock to="/profile">
+            <PersonOutlineIcon></PersonOutlineIcon>
+            <div>프로필</div>
+          </LinkBlock>
+        </li>
+        <li>
+          <LinkBlock to="/cart">
+            <AddShoppingCartIcon></AddShoppingCartIcon>
+            <div>장바구니</div>
+          </LinkBlock>
+        </li>
+      </ol>
     </FooterBlock>
   );
 };

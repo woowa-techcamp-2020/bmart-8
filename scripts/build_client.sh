@@ -1,17 +1,28 @@
 #! /bin/bash
-echo $BRANCH
 if [ -z $BRANCH ]; then
-    echo "Branch name is empty: specify to BRANCH"
-    exit;
+    echo "Branch name is empty. Proceed with current branch."
+else
+    git checkout "$BRANCH"
+    if [ $? != 0 ]; then
+        echo "Branch $BRANCH is not exists."
+        exit;
+    fi
 fi
 
-git checkout "$BRANCH"
-$? && git fetch
+git fetch
 
 cd client
 git diff --name-only "origin/$BRANCH" "$BRANCH" | grep "^client/package"
 if [ $? != 0 ]; then
+    echo "Install packages"
     yarn
 fi;
+echo "Start to build"
 yarn build
-$? && git merge "origin/$BRANCH"
+
+if [ $? != 0 ]; then
+    echo "Complete to build"
+    git merge "origin/$BRANCH"
+else
+    echo "Fail to build"
+fi;

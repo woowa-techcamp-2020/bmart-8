@@ -7,23 +7,145 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Category_First {
+model banner {
+  id         Int      @default(autoincrement()) @id
+  created_at DateTime @default(now())
+  type       String
+  content    String?
+  img_url    String
+  href       String
+}
+
+model cart {
+  id         Int      @default(autoincrement()) @id
+  created_at DateTime @default(now())
+  count      Int      @default(1)
+  user       user     @relation(fields: [user_id], references: [id])
+  user_id    Int
+  product    product  @relation(fields: [product_id], references: [id])
+  product_id Int
+}
+
+model category_first {
   id       Int               @default(autoincrement()) @id
-  name     String
-  children Category_Second[]
+  name     String            @unique
+  children category_second[]
 }
 
-model Category_Second {
+model category_second {
   id        Int              @default(autoincrement()) @id
-  name      String
+  name      String           @unique
+  parent    category_first   @relation(fields: [parent_id], references: [id])
   parent_id Int
-  parent    Category_First   @relation(fields: [parent_id], references: [id])
-  children  Category_Third[]
+  children  category_third[]
 }
 
-model Category_Third {
+model category_third {
   id        Int             @default(autoincrement()) @id
-  name      String
+  name      String          @unique
+  parent    category_second @relation(fields: [parent_id], references: [id])
   parent_id Int
-  parent    Category_Second @relation(fields: [parent_id], references: [id])
+  product   product[]
+}
+
+model order {
+  id            Int             @default(autoincrement()) @id
+  created_at    DateTime        @default(now())
+  status        Int             @default(0)
+  address       String
+  zipcode       String
+  name          String
+  phone_number  String
+  user          user            @relation(fields: [user_id], references: [id])
+  user_id       Int
+  order_product order_product[]
+}
+
+model order_product {
+  id         Int     @default(autoincrement()) @id
+  count      Int
+  order      order   @relation(fields: [order_id], references: [id])
+  order_id   Int
+  product    product @relation(fields: [product_id], references: [id])
+  product_id Int
+}
+
+model product {
+  id            Int             @default(autoincrement()) @id
+  created_at    DateTime        @default(now())
+  deleted_at    DateTime?
+  name          String
+  content       String?
+  img_url       String?
+  price         Int             @default(0)
+  sales         Int             @default(0)
+  discount      Int             @default(0)
+  stock         Int             @default(0)
+  category      category_third  @relation(fields: [category_id], references: [id])
+  category_id   Int
+  wish_list     wish_list[]
+  cart          cart[]
+  order_product order_product[]
+  view_log      view_log[]
+}
+
+model search_log {
+  id         Int      @default(autoincrement()) @id
+  created_at DateTime @default(now())
+  keyword    String
+  user       user     @relation(fields: [user_id], references: [id])
+  user_id    Int
+}
+
+model user {
+  id           Int           @default(autoincrement()) @id
+  created_at   DateTime      @default(now())
+  email        String
+  provider     String
+  role         user_role     @default(customer)
+  wish_list    wish_list[]
+  cart         cart[]
+  order        order[]
+  view_log     view_log[]
+  search_log   search_log[]
+  user_profile user_profile?
+  @@unique([email, provider])
+}
+
+model user_profile {
+  id             Int      @default(autoincrement()) @id
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+  name           String?
+  zipcode        String?
+  address        String?
+  address_detail String?
+  sex            Int?
+  age            Int?
+  phone_number   String?
+  user           user     @relation(fields: [user_id], references: [id])
+  user_id        Int      @unique
+}
+
+model view_log {
+  id         Int      @default(autoincrement()) @id
+  created_at DateTime @default(now())
+  user       user     @relation(fields: [user_id], references: [id])
+  user_id    Int
+  product    product  @relation(fields: [product_id], references: [id])
+  product_id Int
+}
+
+model wish_list {
+  id         Int      @default(autoincrement()) @id
+  created_at DateTime @default(now())
+  product    product  @relation(fields: [product_id], references: [id])
+  product_id Int
+  user       user     @relation(fields: [user_id], references: [id])
+  user_id    Int
+}
+
+enum user_role {
+  admin
+  customer
 }
