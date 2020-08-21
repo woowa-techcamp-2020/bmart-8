@@ -11,6 +11,15 @@ const Button = styled.div`
   font-weight: 600;
   color: white;
   background-color: rgba(0, 0, 0, 0.3);
+
+  @keyframes twinkle {
+    50% {
+      font-size: 1.2rem;
+    }
+    100% {
+      font-size: 1rem;
+    }
+  }
   &::after {
     content: '♡';
   }
@@ -18,6 +27,8 @@ const Button = styled.div`
     color: red;
     &::after {
       content: '♥︎';
+      animation-duration:0.3s;
+      animation-name: twinkle;
     }
   }
 `;

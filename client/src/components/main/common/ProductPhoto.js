@@ -5,11 +5,12 @@ import WishButton from '../../WishButton';
 const ProductPhotoBlock = styled.div`
   border-radius: 0.2rem;
   width: 100%;
-  height: 6rem;
+  height: 7rem;
   position: relative;
   box-sizing: border-box;
 
   .Thumbnail {
+    border-radius: 0.2rem;
     width: 100%;
     height: 100%;
   }

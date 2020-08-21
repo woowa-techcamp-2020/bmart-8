@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const ProductContentBlock = styled.div`
   margin-top: 0.5rem;
-  width: 6rem;
   text-align: left;
   flex-shrink: 0;
   

@@ -13,7 +13,6 @@ const MainPageBlock = styled.div`
   flex-direction: column;
   align-items: center;
   touch-action: none;
-  height: 100vh;
 `;
 
 const dummyCarousel = [
@@ -45,6 +44,7 @@ const MainPage: React.FC = () => {
         <title>B 마트</title>
       </Helmet>
       <Header></Header>
+      <div style={{ height: '5rem' }} />
       <PullToRefresh
         onRefresh={() => {
           console.log('refresh');

@@ -14,10 +14,16 @@ const ProductEssentialBlock = styled.div`
     background-color: white;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    justify-content: space-between;
     height: auto;
     width: auto;
     margin-bottom: 0.1rem;
+    & > div{
+      width:32%;
+    }
+
   }
   .Refresh {
     background-color: white;

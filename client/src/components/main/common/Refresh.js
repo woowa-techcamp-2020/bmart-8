@@ -9,6 +9,8 @@ const RefreshBlock = styled.div`
   margin-bottom: 0.3rem;
 
   .ReplayIcon {
+    position: relative;
+    top: 0.4rem;
     width: 0.8rem;
     color: ${palette.baemint300};
   }

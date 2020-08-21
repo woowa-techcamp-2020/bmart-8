@@ -7,7 +7,7 @@ const ProductInfoBlock = styled.div`
   flex-shrink: 0;
   margin: 0 0.1rem;
   padding-bottom: 1rem;
-  width: 29%;
+  width: 30%;
   .ProductContent {
     font-size: 0.8rem;
   }
