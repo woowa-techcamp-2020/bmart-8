@@ -9,7 +9,7 @@ type Banner = {
 };
 
 export default function useMainBanners(): Banner[] {
-  const { data, error, loading } = useQuery(gql`
+  const { data } = useQuery(gql`
     query getMainBanners {
       mainBanners {
         altString
