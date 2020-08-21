@@ -2,7 +2,28 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import addPointerEventHandlers from '../utils';
 
-const dummyMenu = ['밥', '돈까스', '카레', '초밥', '피자', '감자탕'];
+const dummyMenu = [
+  '밥',
+  '돈까스',
+  '카레',
+  '초밥',
+  '피자',
+  '감자탕',
+  '다카야키',
+  '바비큐',
+  '보리차',
+  '홍차',
+  '우롱차',
+  '녹차',
+  '우유차',
+  '미수',
+  '곰국',
+  '라면',
+  '생강즙',
+  '막대사탕',
+  '꼬부랑국수',
+  '꿔바로우',
+];
 function getRandomMenu(menu: string[]) {
   return menu[~~(Math.random() * menu.length)];
 }
@@ -59,12 +80,12 @@ const PullToRefresh: React.FC<PullToRefreshProps> = ({ onRefresh }: any) => {
 
     const endHandler = (e: PointerEvent) => {
       if (size === maxSize) {
-        getRandomMenus(dummyMenu, 5, 300, setMenu);
+        getRandomMenus(dummyMenu, 7, 200, setMenu);
         setTimeout(() => {
           setVisible(false);
           setSize(0);
           setMenu('');
-        }, 3500);
+        }, 3000);
         onRefresh();
       } else {
         setVisible(false);
