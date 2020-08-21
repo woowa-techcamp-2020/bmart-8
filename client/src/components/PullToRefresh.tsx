@@ -29,6 +29,8 @@ type PullToRefreshProps = {
 
 const PullToRefresh: React.FC<PullToRefreshProps> = ({ onRefresh }: any) => {
   const maxSize = 100;
+  // margin px이상 땡겼을 때부터 땡겨요 시작
+  const margin = 20;
   const [size, setSize] = useState(0);
   const [startY, setStartY] = useState<number | null>(null);
   const [visible, setVisible] = useState(false);
@@ -36,14 +38,16 @@ const PullToRefresh: React.FC<PullToRefreshProps> = ({ onRefresh }: any) => {
   useEffect(() => {
     if (window.scrollY !== 0) return;
     const startHandler = (e: PointerEvent) => {
-      setVisible(true);
       setStartY(e.clientY);
     };
 
     const moveHandler = (e: PointerEvent) => {
       if (startY !== null) {
-        const diffY = e.clientY - startY;
-        if (diffY > 0) setSize(Math.min(diffY, maxSize));
+        const diffY = e.clientY - startY - margin;
+        if (diffY > 0) {
+          setSize(Math.min(diffY, maxSize));
+          setVisible(true);
+        }
       }
     };
 
