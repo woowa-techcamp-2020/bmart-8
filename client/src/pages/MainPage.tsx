@@ -9,18 +9,23 @@ import PullToRefresh from '../components/PullToRefresh';
 import Category from '../components/main/Category';
 import { Helmet } from 'react-helmet';
 import useMainBanners from '../hooks/useMainBanners';
+import useIsScrollTop from '../hooks/useIsScrollTop';
 
-const MainPageBlock = styled.div`
+const MainPageBlock = styled.div<{ isScrollTop: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  touch-action: none;
+  ${({ isScrollTop }) => {
+    return isScrollTop ? 'touch-action: pan-down;' : 'touch-action: pan-y;';
+  }}
 `;
 
 const MainPage: React.FC = () => {
   const mainBanner = useMainBanners();
+  const isScrollTop = useIsScrollTop();
+
   return (
-    <MainPageBlock>
+    <MainPageBlock isScrollTop={isScrollTop}>
       <Helmet>
         <title>B 마트</title>
       </Helmet>
