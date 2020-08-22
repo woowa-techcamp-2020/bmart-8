@@ -13,7 +13,7 @@ const CarouselBlock = styled.div<{
   .wrapper {
     display: flex;
     height: 100%;
-    touch-action: none;
+    touch-action: pan-y;
     ${({ isDragging, transitionTime }) => {
       return !isDragging
         ? `transition: transform ${transitionTime}ms ease-in-out;`
