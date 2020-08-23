@@ -64,13 +64,13 @@ const ProductFlashDiscountBlock = styled.div`
     bottom: 1.5rem;
     left: 10rem;
     color: ${palette.baemint200};
-    z-index: 1;
   }
 `;
 
+const random = getRandomInt(0, 7000);
+
 function ProductFlashDiscount() {
   const [select, setSelect] = useState(0);
-  const random = getRandomInt(0, 7000);
 
   const GetFlashProductQuery = gql`
     query {

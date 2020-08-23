@@ -9,9 +9,12 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 const FooterBlock = styled.div`
   position: fixed;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   bottom: 0px;
   width: 100%;
   background-color: white;
+  z-index: 999;
 
   ol {
     padding: 0;
