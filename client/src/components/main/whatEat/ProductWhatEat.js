@@ -4,6 +4,7 @@ import ProductInfo from '../common/ProductInfo';
 import Refresh from '../common/Refresh';
 import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
+import getRandomInt from '../../../utils/random';
 
 const ProductWhatEatBlock = styled.div`
   .ProductTitle {
@@ -45,7 +46,8 @@ function ProductWhatEat() {
         <Query query={GetWhatEatProduct}>
           {({ data, loading, error }) => {
             if (loading || error) return '';
-            const products = data.products.slice(2000, 2009);
+            const random = getRandomInt(450, 500);
+            const products = data.products.slice(random, random + 9);
             return products.map((product, idx) => {
               return (
                 <ProductInfo

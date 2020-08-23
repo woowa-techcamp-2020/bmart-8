@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import palette from '../../../lib/styles/palette';
 import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
+import getRandomInt from '../../../utils/random';
 
 import More from '../common/More';
 import ProductPhoto from '../common/ProductPhoto';
@@ -87,7 +88,8 @@ function ProductFlashDiscount() {
       <Query query={GetFlashProductQuery}>
         {({ data, loading, error }) => {
           if (loading || error) return '';
-          const products = data.products.slice(1000, 1004);
+          const random = getRandomInt(0, data.products.length);
+          const products = data.products.slice(random, random + 4);
           return (
             <>
               <div className="ProductTitle">

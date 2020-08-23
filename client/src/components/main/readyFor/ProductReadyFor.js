@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ProductInfo from '../common/ProductInfo';
 import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
+import getRandomInt from '../../../utils/random';
 
 const ProductReadyForBlock = styled.div`
   .ProductTitle {
@@ -44,12 +45,14 @@ function ProductReadyFor() {
 
   return (
     <ProductReadyForBlock>
-      <div className="ProductTitle">ㅇㅇㅇ님을 위해 준비한 상품</div>
+      <div className="ProductTitle">기진님을 위해 준비한 상품</div>
       <div className="ProductInfo">
         <Query query={GetReadyProductQuery}>
           {({ data, loading, error }) => {
             if (loading || error) return '';
-            const products = data.products.slice(0, 8);
+            const random = getRandomInt(0, data.products.length);
+            const products = data.products.slice(random, random + 9);
+
             return products.map((product, idx) => {
               return (
                 <ProductInfo

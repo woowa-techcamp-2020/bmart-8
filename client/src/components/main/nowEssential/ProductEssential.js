@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import ProductInfo from '../common/ProductInfo';
 import Refresh from '../common/Refresh';
 
+import { gql } from 'apollo-boost';
+import { Query } from 'react-apollo';
+import getRandomInt from '../../../utils/random';
+
 const ProductEssentialBlock = styled.div`
   .ProductTitle {
     padding: 1rem;
@@ -20,8 +24,8 @@ const ProductEssentialBlock = styled.div`
     height: auto;
     width: auto;
     margin-bottom: 0.1rem;
-    & > div{
-      width:32%;
+    & > div {
+      width: 32%;
     }
   }
   .Refresh {
@@ -32,55 +36,35 @@ const ProductEssentialBlock = styled.div`
 `;
 
 function ProductEssential() {
-  let data = [
-    {
-      title: '음식명',
-      price: 123123,
-      url: 'https://i.imgur.com/FODPMXD.jpg',
-    },
-    {
-      title: '음식명',
-      price: 123123,
-      url: 'https://i.imgur.com/zU9sTZJ.jpg',
-    },
-    {
-      title: '음식명',
-      price: 123123,
-      url:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQOEptWBRiRPfneQe3e2vnf6VPbYnqoHUu4nA&usqp=CAU',
-    },
-    {
-      title: '음식명',
-      price: 123123,
-      url:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQOEptWBRiRPfneQe3e2vnf6VPbYnqoHUu4nA&usqp=CAU',
-    },
-    {
-      title: '음식명',
-      price: 123123,
-      url:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQOEptWBRiRPfneQe3e2vnf6VPbYnqoHUu4nA&usqp=CAU',
-    },
-    {
-      title: '음식명',
-      price: 123123,
-      url:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQOEptWBRiRPfneQe3e2vnf6VPbYnqoHUu4nA&usqp=CAU',
-    },
-  ];
+  const GetEssentialProduct = gql`
+    query {
+      products {
+        name
+        price
+        img_url
+      }
+    }
+  `;
   return (
     <ProductEssentialBlock>
       <div className="ProductTitle">지금 필요한 생필품!</div>
       <div className="ProductInfo">
-        {data.map((_data, idx) => {
-          return (
-            <ProductInfo
-              key={idx}
-              title={_data.title}
-              price={_data.price}
-              url={_data.url}></ProductInfo>
-          );
-        })}
+        <Query query={GetEssentialProduct}>
+          {({ data, loading, error }) => {
+            if (loading || error) return '';
+            const random = getRandomInt(6546, 6607);
+            const products = data.products.slice(random, random + 9);
+            return products.map((product, idx) => {
+              return (
+                <ProductInfo
+                  key={idx}
+                  title={product.name}
+                  price={product.price}
+                  url={product.img_url}></ProductInfo>
+              );
+            });
+          }}
+        </Query>
       </div>
       <Refresh title={'지금 필요한 생필품! '}></Refresh>
     </ProductEssentialBlock>
