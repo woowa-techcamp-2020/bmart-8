@@ -27,6 +27,11 @@ const ProductWhatEatBlock = styled.div`
       width: 32%;
     }
   }
+  .Refresh {
+    background-color: white;
+    margin-bottom: 0.3rem;
+    padding-bottom: 0.3rem;
+  }
 `;
 
 function ProductWhatEat() {

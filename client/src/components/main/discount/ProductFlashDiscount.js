@@ -14,6 +14,7 @@ import Bag from '../common/Bag';
 const ProductFlashDiscountBlock = styled.div`
   .ProductTitle {
     background-color: white;
+    padding-top: 1rem;
     padding-left: 1rem;
     padding-bottom: 1rem;
     background-color: white;

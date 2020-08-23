@@ -4,18 +4,19 @@ import palette from '../../../lib/styles/palette';
 import ArrowFront from '../../ArrowFront';
 
 const MoreBlock = styled.div`
+  position: relative;
   background-color: white;
   color: ${palette.baemint300};
   font-weight: bold;
   z-index: 1;
 
   .More {
+    display: flex;
     padding: 0;
     margin: 0;
-    position: relative;
-    left: 18rem;
-    bottom: 2.3rem;
-    display: flex;
+    position: absolute;
+    right: 1rem;
+    bottom: 0.5rem;
   }
 `;
 

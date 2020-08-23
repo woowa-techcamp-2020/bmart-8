@@ -6,6 +6,7 @@ import { Query } from 'react-apollo';
 import getRandomInt from '../../../utils/random';
 
 const ProductReadyForBlock = styled.div`
+  margin-top: 0.3rem;
   .ProductTitle {
     padding: 1rem;
     background-color: white;
