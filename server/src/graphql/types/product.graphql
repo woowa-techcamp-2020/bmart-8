@@ -1,9 +1,9 @@
 type Query {
   products(
-    category_level: Int
+    category_level: CategoryLevel
     category_id: Int
-    order_type: String
-    order: String
+    order_type: OrderType
+    order: Order
     take: Int
     cursor: Int
   ): Products
@@ -57,3 +57,21 @@ type Products {
 }
 
 scalar DateTime
+
+enum OrderType {
+  price
+  created_at
+  discount
+  sales
+}
+
+enum Order {
+  asc
+  desc
+}
+
+enum CategoryLevel {
+  first
+  second
+  third
+}

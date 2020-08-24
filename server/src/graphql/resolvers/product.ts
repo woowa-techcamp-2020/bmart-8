@@ -5,11 +5,12 @@ const MS_PER_MINUTE = 60000;
 const prisma = new PrismaClient();
 
 type Order = 'asc' | 'desc';
-
+type OrderType = 'price' | 'created_at' | 'discount' | 'sales';
+type CategoryLevel = 'first' | 'second' | 'third';
 interface ProductsArgs {
-  category_level: Number;
+  category_level: CategoryLevel;
   category_id: Number;
-  order_type: String;
+  order_type: OrderType;
   order: Order;
   cursor: Number;
   take: Number;
@@ -29,9 +30,9 @@ export default {
       }: ProductsArgs
     ) => {
       const options = {};
-      if (category_level === 2) {
+      if (category_level === 'second') {
         options['where'] = { category: { parent_id: category_id } };
-      } else if (category_level === 3) {
+      } else if (category_level === 'third') {
         options['where'] = { category_id };
       }
       if (order_type) {
