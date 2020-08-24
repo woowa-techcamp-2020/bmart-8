@@ -6,7 +6,7 @@ type CartItem = {
     content: string;
     discount: number;
     id: number;
-    img_url: number;
+    img_url: string;
     name: string;
     price: number;
   };
