@@ -35,9 +35,9 @@ const ProductEssentialBlock = styled.div`
   }
 `;
 
-function ProductEssential() {
-  const random = getRandomInt(6546, 6607);
+const random = getRandomInt(6546, 6607);
 
+function ProductEssential() {
   const GetEssentialProduct = gql`
     query {
       products(take: 9, skip: ${random}) {

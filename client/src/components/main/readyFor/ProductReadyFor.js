@@ -33,9 +33,9 @@ const ProductReadyForBlock = styled.div`
   }
 `;
 
-function ProductReadyFor() {
-  const random = getRandomInt(0, 7000);
+const random = getRandomInt(0, 7000);
 
+function ProductReadyFor() {
   const GetReadyProductQuery = gql`
     query {
       products(take:9,skip:${random}) {

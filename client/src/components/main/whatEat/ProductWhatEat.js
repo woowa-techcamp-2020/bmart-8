@@ -33,10 +33,9 @@ const ProductWhatEatBlock = styled.div`
     padding-bottom: 0.3rem;
   }
 `;
+const random = getRandomInt(450, 500);
 
 function ProductWhatEat() {
-  const random = getRandomInt(450, 500);
-
   const GetWhatEatProduct = gql`
     query {
       products(take:9, skip:${random}) {

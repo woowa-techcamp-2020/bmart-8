@@ -33,10 +33,9 @@ const ProductSellGoodBlock = styled.div`
     }
   }
 `;
+const random = getRandomInt(0, 7000);
 
 function ProductSellGood() {
-  const random = getRandomInt(0, 7000);
-
   const GetSellGoodProduct = gql`
     query{
       products(take:8, skip:${random})  {
