@@ -1,30 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import PriceLabel from '../components/PriceLabel';
 import { Helmet } from 'react-helmet';
+import { useCartState } from '../stores/cart-store';
+import CartHeader from '../components/Cart/CartHeader';
+import CartItem from '../components/Cart/CartItem';
 
 const CartPageBlock = styled.div``;
 
 const CartPage: React.FC = () => {
-  const [dc, setDc] = useState(0);
-  const [price, setPrice] = useState(0);
+  const cart = useCartState();
+
   return (
     <CartPageBlock>
       <Helmet>
         <title>장바구니 - B 마트</title>
       </Helmet>
-      CartPage
-      <input
-        type="number"
-        placeholder="할인율"
-        onChange={(e) => setDc(parseInt(e.target.value))}
-      />
-      <input
-        type="number"
-        placeholder="가격"
-        onChange={(e) => setPrice(parseInt(e.target.value))}
-      />
-      <PriceLabel discountPercentage={dc} price={price} />
+      <CartHeader />
+      {cart.map((item) => (
+        <CartItem key={item.id} {...item} />
+      ))}
     </CartPageBlock>
   );
 };
