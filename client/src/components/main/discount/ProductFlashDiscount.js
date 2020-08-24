@@ -14,6 +14,7 @@ import Bag from '../common/Bag';
 const ProductFlashDiscountBlock = styled.div`
   .ProductTitle {
     background-color: white;
+    padding-top: 1rem;
     padding-left: 1rem;
     padding-bottom: 1rem;
     background-color: white;
@@ -63,15 +64,17 @@ const ProductFlashDiscountBlock = styled.div`
     bottom: 1.5rem;
     left: 10rem;
     color: ${palette.baemint200};
-    z-index: 1;
   }
 `;
 
+const random = getRandomInt(0, 7000);
+
 function ProductFlashDiscount() {
   const [select, setSelect] = useState(0);
+
   const GetFlashProductQuery = gql`
     query {
-      products {
+      products(take: 4, skip: ${random}) {
         name
         price
         img_url
@@ -88,8 +91,6 @@ function ProductFlashDiscount() {
       <Query query={GetFlashProductQuery}>
         {({ data, loading, error }) => {
           if (loading || error) return '';
-          const random = getRandomInt(0, data.products.length);
-          const products = data.products.slice(random, random + 4);
           return (
             <>
               <div className="ProductTitle">
@@ -97,7 +98,7 @@ function ProductFlashDiscount() {
               </div>
               <More></More>
               <div className="ProductPhoto">
-                {products.map((_data, idx) => {
+                {data.products.map((_data, idx) => {
                   return (
                     <ProductPhoto
                       onClick={photoClick}
@@ -110,12 +111,12 @@ function ProductFlashDiscount() {
               </div>
               <div className="ProductDiscount">
                 <ProductDiscount
-                  url={products[select].img_url}
-                  discount={products[select].discount}></ProductDiscount>
+                  url={data.products[select].img_url}
+                  discount={data.products[select].discount}></ProductDiscount>
                 <div className="ProductContent">
                   <ProductContent
-                    title={products[select].name}
-                    price={products[select].price}></ProductContent>
+                    title={data.products[select].name}
+                    price={data.products[select].price}></ProductContent>
                   <div className="Bag">
                     <Bag></Bag>
                   </div>

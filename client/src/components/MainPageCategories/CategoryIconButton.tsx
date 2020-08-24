@@ -15,11 +15,8 @@ const CategoryIconButtonBlock = styled(Link)`
   color: black;
   text-decoration: none;
   .icon-wrapper {
-    border: 1px solid gray;
-    border-radius: 1rem;
-    width: 4rem;
-    height: 4rem;
-    padding: 0.5rem;
+    width: 4.5rem;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,7 +39,6 @@ const CategoryIconButton: React.FC<CategoryIconButtonProps> = ({
       <div className="icon-wrapper">
         <img src={imageUrl} alt={name} />
       </div>
-      <div>{name}</div>
     </CategoryIconButtonBlock>
   );
 };

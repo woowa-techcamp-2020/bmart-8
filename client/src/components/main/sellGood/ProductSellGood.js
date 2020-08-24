@@ -35,9 +35,11 @@ const ProductSellGoodBlock = styled.div`
 `;
 
 function ProductSellGood() {
+  const random = getRandomInt(0, 7000);
+
   const GetSellGoodProduct = gql`
-    query {
-      products {
+    query{
+      products(take:8, skip:${random})  {
         name
         price
         img_url
@@ -52,9 +54,7 @@ function ProductSellGood() {
         <Query query={GetSellGoodProduct}>
           {({ data, loading, error }) => {
             if (loading || error) return '';
-            const random = getRandomInt(0, data.products.length);
-            const products = data.products.slice(random, random + 8);
-            return products.map((product, idx) => {
+            return data.products.map((product, idx) => {
               return (
                 <ProductInfo
                   key={idx}

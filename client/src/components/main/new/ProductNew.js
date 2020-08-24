@@ -20,7 +20,7 @@ const ProductNewBlock = styled.div`
     display: flex;
     flex-wrap: nowrap;
     width: 100%;
-    max-width:100vw;
+    max-width: 100vw;
     overflow-x: auto;
     ::-webkit-scrollbar {
       display: none;
@@ -35,9 +35,10 @@ const ProductNewBlock = styled.div`
 `;
 
 function ProductNew() {
+  const random = getRandomInt(0, 7000);
   const GetNewProductQuery = gql`
     query {
-      products {
+      products(take: 8, skip: ${random}) {
         name
         price
         img_url
@@ -52,9 +53,7 @@ function ProductNew() {
         <Query query={GetNewProductQuery}>
           {({ data, loading, error }) => {
             if (loading || error) return '';
-            const random = getRandomInt(0, data.products.length);
-            const products = data.products.slice(random, random + 8);
-            return products.map((product, idx) => {
+            return data.products.map((product, idx) => {
               return (
                 <ProductInfo
                   key={idx}

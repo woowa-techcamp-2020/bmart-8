@@ -6,11 +6,15 @@ const prisma = new PrismaClient();
 
 export default {
   Query: {
-    products: () =>
+    products: (parent: any, args: any, context: any)  =>
       prisma.product.findMany({
+        where:{category_id:args.category_id},
         include: {
           category: { include: { parent: { include: { parent: true } } } },
         },
+        take:args.take,
+        skip:args.skip
+        
       }),
     product: (parent: any, args: any, context: any) =>
       prisma.product.findOne({

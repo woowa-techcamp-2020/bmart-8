@@ -6,6 +6,7 @@ import { Query } from 'react-apollo';
 import getRandomInt from '../../../utils/random';
 
 const ProductReadyForBlock = styled.div`
+  margin-top: 0.3rem;
   .ProductTitle {
     padding: 1rem;
     background-color: white;
@@ -33,9 +34,11 @@ const ProductReadyForBlock = styled.div`
 `;
 
 function ProductReadyFor() {
+  const random = getRandomInt(0, 7000);
+
   const GetReadyProductQuery = gql`
     query {
-      products {
+      products(take:9,skip:${random}) {
         name
         price
         img_url
@@ -50,10 +53,8 @@ function ProductReadyFor() {
         <Query query={GetReadyProductQuery}>
           {({ data, loading, error }) => {
             if (loading || error) return '';
-            const random = getRandomInt(0, data.products.length);
-            const products = data.products.slice(random, random + 9);
 
-            return products.map((product, idx) => {
+            return data.products.map((product, idx) => {
               return (
                 <ProductInfo
                   key={idx}

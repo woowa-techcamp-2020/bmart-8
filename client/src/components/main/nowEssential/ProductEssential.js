@@ -31,14 +31,16 @@ const ProductEssentialBlock = styled.div`
   .Refresh {
     background-color: white;
     margin-bottom: 0.3rem;
-    padding-bottom: 0.2rem;
+    padding-bottom: 0.3rem;
   }
 `;
 
 function ProductEssential() {
+  const random = getRandomInt(6546, 6607);
+
   const GetEssentialProduct = gql`
     query {
-      products {
+      products(take: 9, skip: ${random}) {
         name
         price
         img_url
@@ -52,9 +54,7 @@ function ProductEssential() {
         <Query query={GetEssentialProduct}>
           {({ data, loading, error }) => {
             if (loading || error) return '';
-            const random = getRandomInt(6546, 6607);
-            const products = data.products.slice(random, random + 9);
-            return products.map((product, idx) => {
+            return data.products.map((product, idx) => {
               return (
                 <ProductInfo
                   key={idx}
@@ -66,7 +66,9 @@ function ProductEssential() {
           }}
         </Query>
       </div>
-      <Refresh title={'지금 필요한 생필품! '}></Refresh>
+      <div className="Refresh">
+        <Refresh title={'지금 필요한 생필품! '}></Refresh>
+      </div>
     </ProductEssentialBlock>
   );
 }
