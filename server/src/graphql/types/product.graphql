@@ -1,5 +1,12 @@
 type Query {
-  products: [Product]
+  products(
+    category_level: Int
+    category_id: Int
+    order_type: String
+    order: String
+    take: Int
+    cursor: Int
+  ): Products
   product(id: Int): Product
 }
 
@@ -41,6 +48,12 @@ type Product {
   stock: Int
   category_id: Int
   category: Category_Third
+}
+
+type Products {
+  products: [Product]
+  size: Int!
+  next: Int!
 }
 
 scalar DateTime

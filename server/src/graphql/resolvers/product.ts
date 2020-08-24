@@ -4,15 +4,59 @@ import moment from 'moment-timezone';
 const MS_PER_MINUTE = 60000;
 const prisma = new PrismaClient();
 
+type Order = 'asc' | 'desc';
+
+interface ProductsArgs {
+  category_level: Number;
+  category_id: Number;
+  order_type: String;
+  order: Order;
+  cursor: Number;
+  take: Number;
+}
+
 export default {
   Query: {
-    products: () =>
-      prisma.product.findMany({
-        include: {
-          category: { include: { parent: { include: { parent: true } } } },
-        },
-      }),
-    product: (parent: any, args: any, context: any) =>
+    products: async (
+      parent: any,
+      {
+        category_level,
+        category_id,
+        order_type,
+        order = 'desc',
+        cursor,
+        take,
+      }: ProductsArgs
+    ) => {
+      const options = {};
+      if (category_level === 2) {
+        options['where'] = { category: { parent_id: category_id } };
+      } else if (category_level === 3) {
+        options['where'] = { category_id };
+      }
+      if (order_type) {
+        options['orderBy'] = {};
+        options['orderBy'][order_type] = order;
+      }
+      if (cursor) {
+        options['cursor'] = { id: cursor };
+        options['skip'] = 1;
+      }
+      if (take) options['take'] = take;
+      const [products, size] = await Promise.all([
+        prisma.product.findMany({
+          include: {
+            category: { include: { parent: { include: { parent: true } } } },
+          },
+          ...options,
+        }),
+        prisma.product.count(),
+      ]);
+      const next =
+        products.length === take ? products[products.length - 1].id : -1;
+      return { products, size, next };
+    },
+    product: (parent: any, args: any) =>
       prisma.product.findOne({
         where: { id: args.id },
         include: {
