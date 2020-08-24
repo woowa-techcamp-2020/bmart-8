@@ -1,5 +1,19 @@
 import React, { useReducer, useContext } from 'react';
 
+type CartItem = {
+  id: number;
+  product: {
+    content: string;
+    discount: number;
+    id: number;
+    img_url: number;
+    name: string;
+    price: number;
+  };
+  createdAt: Date;
+  count: number;
+};
+
 const initState: any[] = [];
 
 const reducer = (state: any, action: any) => {
@@ -25,7 +39,7 @@ export const CartProvider: React.FC = ({ children }) => {
   );
 };
 
-export function useCartState() {
+export function useCartState(): CartItem[] {
   return useContext(StoreContext);
 }
 
