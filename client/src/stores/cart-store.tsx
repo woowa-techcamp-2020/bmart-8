@@ -1,13 +1,11 @@
 import React, { useReducer, useContext } from 'react';
 
-const initState = {
-  a: 1,
-};
+const initState: any[] = [];
 
 const reducer = (state: any, action: any) => {
   switch (action.type) {
-    case 'INC':
-      return { ...state, a: state.a + 1 };
+    case 'INIT':
+      return action.payload;
     default:
       return state;
   }
@@ -27,7 +25,7 @@ export const CartProvider: React.FC = ({ children }) => {
   );
 };
 
-export function useCart() {
+export function useCartState() {
   return useContext(StoreContext);
 }
 
