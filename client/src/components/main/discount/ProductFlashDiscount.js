@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/palette';
+import { gql } from 'apollo-boost';
+import { Query } from 'react-apollo';
+import getRandomInt from '../../../utils/random';
 
 import More from '../common/More';
 import ProductPhoto from '../common/ProductPhoto';
@@ -65,66 +68,63 @@ const ProductFlashDiscountBlock = styled.div`
 `;
 
 function ProductFlashDiscount() {
-  let data = [
-    {
-      title: '음식명',
-      price: 123123,
-      url:
-        'https://dimg.donga.com/a/500/0/90/5/ugc/CDB/29STREET/Article/5e/b2/04/e8/5eb204e81752d2738236.jpg',
-    },
-    {
-      title: '음식명',
-      price: 123123,
-      url: 'https://i.imgur.com/FODPMXD.jpg',
-    },
-    {
-      title: '음식명',
-      price: 123123,
-      url: 'https://i.imgur.com/zU9sTZJ.jpg',
-    },
-    {
-      title: '음식명',
-      price: 123123,
-      url:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQOEptWBRiRPfneQe3e2vnf6VPbYnqoHUu4nA&usqp=CAU',
-    },
-  ];
-
   const [select, setSelect] = useState(0);
-
+  const GetFlashProductQuery = gql`
+    query {
+      products {
+        name
+        price
+        img_url
+        discount
+      }
+    }
+  `;
   function photoClick(index) {
     setSelect(index);
   }
 
   return (
     <ProductFlashDiscountBlock>
-      <div className="ProductTitle">
-        지금 사면 <span>⚡️ 번쩍할인</span>
-      </div>
-      <More></More>
-      <div className="ProductPhoto">
-        {data.map((_data, idx) => {
+      <Query query={GetFlashProductQuery}>
+        {({ data, loading, error }) => {
+          if (loading || error) return '';
+          const random = getRandomInt(0, data.products.length);
+          const products = data.products.slice(random, random + 4);
           return (
-            <ProductPhoto
-              onClick={photoClick}
-              key={idx}
-              index={idx}
-              url={_data.url}
-              select={select}></ProductPhoto>
+            <>
+              <div className="ProductTitle">
+                지금 사면 <span>⚡️ 번쩍할인</span>
+              </div>
+              <More></More>
+              <div className="ProductPhoto">
+                {products.map((_data, idx) => {
+                  return (
+                    <ProductPhoto
+                      onClick={photoClick}
+                      key={idx}
+                      index={idx}
+                      url={_data.img_url}
+                      select={select}></ProductPhoto>
+                  );
+                })}
+              </div>
+              <div className="ProductDiscount">
+                <ProductDiscount
+                  url={products[select].img_url}
+                  discount={products[select].discount}></ProductDiscount>
+                <div className="ProductContent">
+                  <ProductContent
+                    title={products[select].name}
+                    price={products[select].price}></ProductContent>
+                  <div className="Bag">
+                    <Bag></Bag>
+                  </div>
+                </div>
+              </div>
+            </>
           );
-        })}
-      </div>
-      <div className="ProductDiscount">
-        <ProductDiscount url={data[select].url}></ProductDiscount>
-        <div className="ProductContent">
-          <ProductContent
-            title={data[select].title}
-            price={data[select].price}></ProductContent>
-          <div className="Bag">
-            <Bag></Bag>
-          </div>
-        </div>
-      </div>
+        }}
+      </Query>
     </ProductFlashDiscountBlock>
   );
 }

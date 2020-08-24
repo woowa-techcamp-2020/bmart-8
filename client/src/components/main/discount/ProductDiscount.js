@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import WishButton from '../../WishButton';
 
-
 const ProductDiscountBlock = styled.div`
   border-radius: 0.3rem;
 
@@ -35,20 +34,18 @@ const ProductDiscountBlock = styled.div`
     bottom: 0.7rem;
     right: 0.7rem;
   }
-
 `;
 
-function ProductDiscount({ url}) {
+function ProductDiscount({ url, discount }) {
   return (
     <ProductDiscountBlock>
       <img className={'Thumbnail'} src={url}></img>
       <div className="DiscountRage">
-        <div>21%</div> <div>할인</div>
+        <div>{discount}%</div> <div>할인</div>
       </div>
       <div className="WishButton">
         <WishButton className="WishButton" filled={false}></WishButton>
       </div>
-  
     </ProductDiscountBlock>
   );
 }

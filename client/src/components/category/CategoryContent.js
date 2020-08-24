@@ -96,8 +96,7 @@ function CategoryContent(props) {
           <Query query={getThirdQuery(selected)}>
             {({ data, loading, error }) => {
               let childList = [];
-              if (loading) return '';
-              if (error) return '';
+              if (loading || error) return '';
               data.secondCategory.children.forEach((data) => {
                 childList.push(<div>{data.name}</div>);
               });
