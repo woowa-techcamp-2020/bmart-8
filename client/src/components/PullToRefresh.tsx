@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import addPointerEventHandlers from '../utils';
+import useScrollDiff from '../hooks/useScrollDiff';
+import addEventListenerEvent from '../utils/addEventListenerEffect';
 
 const dummyMenu = [
   '밥',
@@ -51,58 +52,42 @@ const PullToRefreshBlock = styled.div`
 `;
 
 type PullToRefreshProps = {
+  startY: number;
   onRefresh: () => void;
+  onFinish: () => void;
 };
 
-const PullToRefresh: React.FC<PullToRefreshProps> = ({ onRefresh }: any) => {
+const PullToRefresh: React.FC<PullToRefreshProps> = ({
+  startY,
+  onRefresh,
+  onFinish,
+}) => {
   const maxSize = 100;
   // margin px이상 땡겼을 때부터 땡겨요 시작
   const margin = 20;
-  const [size, setSize] = useState(0);
-  const [startY, setStartY] = useState<number | null>(null);
-  const [visible, setVisible] = useState(false);
-  const [menu, setMenu] = useState('');
+
+  // not null이면 메뉴판 돌리는 중.
+  const [menu, setMenu] = useState(null);
+  const diff = useScrollDiff(startY);
+  const size = menu ? maxSize : Math.max(0, Math.min(diff - margin, maxSize));
+
   useEffect(() => {
-    if (window.scrollY !== 0) return;
-    const startHandler = (e: PointerEvent) => {
-      setStartY(e.clientY);
-    };
-
-    const moveHandler = (e: PointerEvent) => {
-      if (startY !== null) {
-        const diffY = e.clientY - startY - margin;
-        if (diffY > 0) {
-          setSize(Math.min(diffY, maxSize));
-          setVisible(true);
-        } else {
-          setSize(0);
-          setVisible(false);
-        }
-      }
-    };
-
-    const endHandler = (e: PointerEvent) => {
+    const endHandler = () => {
+      if (menu) return;
       if (size === maxSize) {
         getRandomMenus(dummyMenu, 7, 200, setMenu);
         setTimeout(() => {
-          setVisible(false);
-          setSize(0);
-          setMenu('');
+          onFinish();
         }, 3000);
         onRefresh();
       } else {
-        setVisible(false);
-        setSize(0);
+        onFinish();
       }
-      setStartY(null);
     };
-    return addPointerEventHandlers(document, {
-      onDown: startHandler,
-      onMove: moveHandler,
-      onUp: endHandler,
-    });
-  }, [window.scrollY, startY, size]);
-  return visible ? (
+
+    return addEventListenerEvent(document, 'pointerup', endHandler);
+  }, [onFinish, onRefresh, size, menu]);
+  return size > 0 ? (
     <PullToRefreshBlock style={{ height: `${size}px` }}>
       {menu} 땡겨요
     </PullToRefreshBlock>

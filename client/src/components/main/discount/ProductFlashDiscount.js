@@ -90,11 +90,18 @@ function ProductFlashDiscount() {
     <ProductFlashDiscountBlock>
       <Query query={GetFlashProductQuery}>
         {({ data, loading, error }) => {
-          if (loading || error) return '';
+          if (loading || error) return null;
+          if (data.products.length === 0) return null;
           return (
             <>
               <div className="ProductTitle">
-                지금 사면 <span>⚡️ 번쩍할인</span>
+                지금 사면{' '}
+                <span>
+                  <span role="img" aria-label="lightning">
+                    ⚡
+                  </span>
+                  ️ 번쩍할인
+                </span>
               </div>
               <More></More>
               <div className="ProductPhoto">

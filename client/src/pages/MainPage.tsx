@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from '../components/Header';
 import Product from '../components/main/Product';
@@ -24,6 +24,21 @@ const MainPage: React.FC = () => {
   const mainBanner = useMainBanners();
   const isScrollTop = useIsScrollTop();
 
+  // 땡겨요에 사용함. 클릭했을때의 스크롤 위치
+  const [startY, setStartY] = useState(null);
+
+  useEffect(() => {
+    const handler = (e: any) => {
+      if (window.scrollY !== 0) return;
+      setStartY(e.clientY);
+    };
+
+    document.addEventListener('pointerdown', handler);
+    return () => {
+      document.removeEventListener('pointerdown', handler);
+    };
+  });
+
   return (
     <MainPageBlock isScrollTop={isScrollTop}>
       <Helmet>
@@ -31,10 +46,17 @@ const MainPage: React.FC = () => {
       </Helmet>
       <Header></Header>
       <div style={{ height: '5rem' }} />
-      <PullToRefresh
-        onRefresh={() => {
-          console.log('refresh');
-        }}></PullToRefresh>
+      {startY ? (
+        <PullToRefresh
+          startY={startY!}
+          onFinish={() => {
+            setStartY(null);
+          }}
+          onRefresh={() => {
+            console.log('refresh');
+          }}
+        />
+      ) : null}
       {mainBanner.length > 0 ? (
         <Carousel images={mainBanner} transitionTime={1500}></Carousel>
       ) : null}
