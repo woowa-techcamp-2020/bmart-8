@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import SearchIcon from '../static/icon/icon-search.png';
+import SearchIcon from '@material-ui/icons/Search';
 import { Link } from 'react-router-dom';
 
 const SearchBlock = styled(Link)`
@@ -16,11 +16,11 @@ const SearchBlock = styled(Link)`
     display: block;
     text-decoration: none;
 
-    img {
-      top: 0.3em;
+    .SearchIcon {
       left: 0.3em;
       position: absolute;
       width: 1em;
+      color: black;
     }
 
     div {
@@ -40,7 +40,7 @@ const SearchBlock = styled(Link)`
 const Search = () => {
   return (
     <SearchBlock to="/search" className="search-field">
-      <img src={SearchIcon} alt="Search" />
+      <SearchIcon className="SearchIcon"></SearchIcon>
       <div>B마트에서 검색하세요!</div>
     </SearchBlock>
   );
