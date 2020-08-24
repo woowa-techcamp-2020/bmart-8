@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import ProductInfo from '../common/ProductInfo';
 import More from '../common/More';
 
+import { gql } from 'apollo-boost';
+import { Query } from 'react-apollo';
 const ProductCategoryBlock = styled.div`
   .ProductTitle {
     padding: 1rem;
@@ -27,78 +29,47 @@ const ProductCategoryBlock = styled.div`
 `;
 
 function ProductCategory() {
-  let title = [
-    '정육·수산·계란',
-    '우유·유제품',
-    '뷰티·소품',
-    '과일·샐러드',
-    '밥·도시락',
-    '과자·초콜릿·스낵',
-    '반려동물',
-    '생수·얼음·음료',
-  ];
-  let data = [
-    {
-      title: '음식명',
-      price: 123123,
-      url:
-        'https://dimg.donga.com/a/500/0/90/5/ugc/CDB/29STREET/Article/5e/b2/04/e8/5eb204e81752d2738236.jpg',
-    },
-    {
-      title: '음식명',
-      price: 123123,
-      url: 'https://i.imgur.com/FODPMXD.jpg',
-    },
-    {
-      title: '음식명',
-      price: 123123,
-      url: 'https://i.imgur.com/zU9sTZJ.jpg',
-    },
-    {
-      title: '음식명',
-      price: 123123,
-      url:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQOEptWBRiRPfneQe3e2vnf6VPbYnqoHUu4nA&usqp=CAU',
-    },
-    {
-      title: '음식명',
-      price: 123123,
-      url:
-        'https://dimg.donga.com/a/500/0/90/5/ugc/CDB/29STREET/Article/5e/b2/04/e8/5eb204e81752d2738236.jpg',
-    },
-    {
-      title: '음식명',
-      price: 123123,
-      url: 'https://i.imgur.com/FODPMXD.jpg',
-    },
-    {
-      title: '음식명',
-      price: 123123,
-      url: 'https://i.imgur.com/zU9sTZJ.jpg',
-    },
-    {
-      title: '음식명',
-      price: 123123,
-      url:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQOEptWBRiRPfneQe3e2vnf6VPbYnqoHUu4nA&usqp=CAU',
-    },
-  ];
+  const GetSecondCategory = gql`
+    query {
+      secondCategories {
+        name
+        children {
+          products {
+            name
+            id
+            img_url
+          }
+        }
+      }
+    }
+  `;
 
   return (
     <ProductCategoryBlock>
-      <div className="ProductTitle">정육·수산·계란</div>
-      <More></More>
-      <div className="ProductInfo">
-        {data.map((_data, idx) => {
-          return (
-            <ProductInfo
-              key={idx}
-              title={_data.title}
-              price={_data.price}
-              url={_data.url}></ProductInfo>
-          );
-        })}
-      </div>
+      <Query query={GetSecondCategory}>
+        {({ data, loading, error }) => {
+          if (loading || error) return '';
+          return data.secondCategories.map((secondCategory, id) => {
+            return (
+              <>
+                <div className="ProductTitle">{secondCategory.name}</div>
+                <More></More>
+                {/* <div className="ProductInfo">
+                  {secondCategory.children.products.map((_data, idx) => {
+                    return (
+                      <ProductInfo
+                        key={idx}
+                        title={_data.title}
+                        price={_data.price}
+                        url={_data.url}></ProductInfo>
+                    );
+                  })}
+                </div> */}
+              </>
+            );
+          });
+        }}
+      </Query>
     </ProductCategoryBlock>
   );
 }
