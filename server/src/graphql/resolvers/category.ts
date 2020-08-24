@@ -13,7 +13,7 @@ export default {
       }),
     secondCategories: () =>
       prisma.category_second.findMany({
-        include: { parent: true, children: true },
+        include: { parent: true, children: { include: { product: true } } },
       }),
     secondCategory: (parent: any, { id }: { id: string }) =>
       prisma.category_second.findOne({
