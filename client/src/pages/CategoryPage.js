@@ -28,7 +28,6 @@ const GetFirstCategory = gql`
 
 const CategoryPageBlock = styled.div`
   text-align: left;
-  /* background-color: ${palette.gray300}; */
 
   .back {
     padding-top: 1rem;
@@ -77,8 +76,7 @@ function CategoryPage() {
       </div>
       <Query query={GetFirstCategory}>
         {({ data, loading, error }) => {
-          if (loading) return '';
-          if (error) return '';
+          if (loading || error) return '';
           let categoryList = [];
           data.firstCategories.forEach((firstCategory) => {
             let childList = [];
