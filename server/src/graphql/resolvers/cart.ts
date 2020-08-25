@@ -63,6 +63,8 @@ export default {
       });
 
       let resultCartItem = null;
+      // 이미 담겨져 있으면: 숫자 다를때만 업데이트
+      // 장바구니에 상품이 없으면: insert row
       if (oldOrderItems.length) {
         const oldOrderItem = oldOrderItems[0];
         if (oldOrderItem.count !== count) {
