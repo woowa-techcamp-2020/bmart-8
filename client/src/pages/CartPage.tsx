@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Helmet } from 'react-helmet';
-import { useCartState, useCartDispatch } from '../stores/cart-store';
+import {
+  useCartState,
+  useCartDispatch,
+  deleteCartItems,
+} from '../stores/cart-store';
 import CartHeader from '../components/Cart/CartHeader';
 import CartItem from '../components/Cart/CartItem';
+import { useMutation } from 'react-apollo';
+import { gql } from 'apollo-boost';
 
 const CartPageBlock = styled.div``;
 
@@ -11,6 +17,16 @@ const CartPage: React.FC = () => {
   const [selected, setSelected] = useState<number[]>([]);
   const cart = useCartState();
   const dispatch = useCartDispatch();
+
+  const [removeCartItem, { data: removeCartItemData }] = useMutation(gql`
+    mutation removeCartItems($ids: [Int]!) {
+      removeCartItems(cartIds: $ids)
+    }
+  `);
+
+  useEffect(() => {
+    if (removeCartItemData) dispatch(deleteCartItems(selected));
+  }, [removeCartItemData]);
 
   return (
     <CartPageBlock>
@@ -23,9 +39,8 @@ const CartPage: React.FC = () => {
           else setSelected([]);
         }}
         onDelete={() => {
-          dispatch({
-            type: 'DELETE_MANY',
-            payload: {
+          removeCartItem({
+            variables: {
               ids: selected,
             },
           });

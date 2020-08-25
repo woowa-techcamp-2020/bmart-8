@@ -99,6 +99,7 @@ export default {
       { cartIds }: any,
       { prisma, user }: PrismaContext
     ): Promise<number> => {
+      console.log(cartIds);
       if (!user) throw new AuthenticationError('Login first.');
       const result = await prisma.cart.deleteMany({
         where: {
