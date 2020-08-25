@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Helmet } from 'react-helmet';
 import {
@@ -18,14 +18,7 @@ const CartPage: React.FC = () => {
   const cart = useCartState();
   const dispatch = useCartDispatch();
 
-  const [removeCartItem, { data: removeCartItemData }] = useMutation(
-    REMOVE_CART_ITEMS
-  );
-
-  //TODO: refactor: use await removeCartItem instead.
-  useEffect(() => {
-    if (removeCartItemData) dispatch(deleteCartItems(selected));
-  }, [removeCartItemData, dispatch, selected]);
+  const [removeCartItem] = useMutation(REMOVE_CART_ITEMS);
 
   return (
     <CartPageBlock>
@@ -38,6 +31,7 @@ const CartPage: React.FC = () => {
           else setSelected([]);
         }}
         onDelete={() => {
+          dispatch(deleteCartItems(selected));
           removeCartItem({
             variables: {
               ids: selected,
