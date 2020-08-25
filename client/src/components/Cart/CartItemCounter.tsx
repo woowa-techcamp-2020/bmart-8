@@ -6,7 +6,18 @@ type CartItemCounterProps = {
   count: number;
 };
 const CartItemCounterBlock = styled.div`
-  display: flex;
+  display: inline-flex;
+  border: solid 1px black;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  button {
+    border: none;
+    background: none;
+    margin: 0 0.3rem;
+  }
+  .count {
+    color: black;
+  }
 `;
 
 const CartItemCounter: React.FC<CartItemCounterProps> = ({
@@ -19,10 +30,10 @@ const CartItemCounter: React.FC<CartItemCounterProps> = ({
         onClick={() => {
           onChange(count - 1);
         }}
-        disabled={count === 0}>
+        disabled={count <= 1}>
         -
       </button>
-      <div>{count}</div>
+      <div className="count">{count}</div>
       <button onClick={() => onChange(count + 1)}>+</button>
     </CartItemCounterBlock>
   );
