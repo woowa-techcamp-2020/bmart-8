@@ -10,6 +10,7 @@ import palette from '../../lib/styles/palette';
 
 const ProductBlock = styled.div`
   background-color: ${palette.gray200};
+  width: 100%;
 `;
 
 function Product() {
