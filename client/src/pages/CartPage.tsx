@@ -9,7 +9,7 @@ import {
 import CartHeader from '../components/Cart/CartHeader';
 import CartItem from '../components/Cart/CartItem';
 import { useMutation } from 'react-apollo';
-import { gql } from 'apollo-boost';
+import { REMOVE_CART_ITEMS } from '../components/Cart/cart-query';
 
 const CartPageBlock = styled.div``;
 
@@ -18,12 +18,11 @@ const CartPage: React.FC = () => {
   const cart = useCartState();
   const dispatch = useCartDispatch();
 
-  const [removeCartItem, { data: removeCartItemData }] = useMutation(gql`
-    mutation removeCartItems($ids: [Int]!) {
-      removeCartItems(cartIds: $ids)
-    }
-  `);
+  const [removeCartItem, { data: removeCartItemData }] = useMutation(
+    REMOVE_CART_ITEMS
+  );
 
+  //TODO: refactor: use await removeCartItem instead.
   useEffect(() => {
     if (removeCartItemData) dispatch(deleteCartItems(selected));
   }, [removeCartItemData, dispatch, selected]);

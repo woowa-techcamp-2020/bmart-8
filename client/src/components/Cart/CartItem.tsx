@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import PriceLabel from '../PriceLabel';
 import CartItemCounter from './CartItemCounter';
@@ -8,29 +8,7 @@ import {
   setCartItemCount,
 } from '../../stores/cart-store';
 import { useMutation } from 'react-apollo';
-import { gql } from 'apollo-boost';
-
-const SET_CART_COUNT = gql`
-  mutation setCartCount($id: Int!, $count: Int) {
-    addToCart(productId: $id, count: $count) {
-      id
-      product {
-        id
-        name
-        img_url
-        price
-        discount
-      }
-      createdAt
-      count
-    }
-  }
-`;
-const REMOVE_CART_ITEM = gql`
-  mutation removeCartItems($id: Int!) {
-    removeCartItems(cartIds: [$id])
-  }
-`;
+import { SET_CART_COUNT, REMOVE_CART_ITEM } from './cart-query';
 
 const CartItemBlock = styled.div`
   display: grid;
