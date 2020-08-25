@@ -10,8 +10,7 @@ type Query {
 }
 
 type Mutation {
-  changeCartItemCount(cartId: Int, count: Int): Boolean
-  removeCartItem(cartId: Int): Boolean
-  addToCart(productId: Int, count: Int): CartItem
+  removeCartItem(cartId: Int!): Boolean
+  addToCart(productId: Int!, count: Int): CartItem
   order(cartIds: [Int]): Boolean
 }
