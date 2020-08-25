@@ -75,6 +75,7 @@ function ProductFlashDiscount() {
   const GetFlashProductQuery = gql`
     query {
       products(take: 4, skip: ${random}) {
+        id
         name
         price
         img_url
@@ -125,7 +126,8 @@ function ProductFlashDiscount() {
                 <div className="ProductContent">
                   <ProductContent
                     title={data.products[select].name}
-                    price={data.products[select].price}></ProductContent>
+                    price={data.products[select].price}
+                    id={data.products[select].id}></ProductContent>
                   <div className="Bag">
                     <Bag></Bag>
                   </div>

@@ -13,12 +13,17 @@ const ProductInfoBlock = styled.div`
   }
 `;
 
-function ProductInfo({ title, price, url }) {
+function ProductInfo({ title, price, url, id }) {
   return (
     <ProductInfoBlock>
       <ProductPhoto url={url} wishbutton={true}></ProductPhoto>
       <div className="ProductContent">
-        <ProductContent title={title} price={price}></ProductContent>
+        <ProductContent
+          title={title}
+          price={price}
+          onAddCart={() => {
+            console.log(id);
+          }}></ProductContent>
       </div>
     </ProductInfoBlock>
   );

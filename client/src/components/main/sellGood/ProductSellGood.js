@@ -40,6 +40,7 @@ function ProductSellGood() {
   const GetSellGoodProduct = gql`
     query{
       products(take:8, skip:${random})  {
+        id
         name
         price
         img_url
@@ -60,6 +61,7 @@ function ProductSellGood() {
               return (
                 <ProductInfo
                   key={idx}
+                  id={product.id}
                   title={product.name}
                   price={product.price}
                   url={product.img_url}></ProductInfo>
