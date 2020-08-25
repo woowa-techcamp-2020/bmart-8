@@ -17,7 +17,11 @@ type CartItem = {
 
 export default {
   Query: {
-    cart: async (): Promise<CartItem[]> => {
+    cart: async (
+      parent: any,
+      args: any,
+      { prisma }: PrismaContext
+    ): Promise<CartItem[]> => {
       const data: any = await prisma.product.findMany({
         take: 5,
       });
@@ -82,10 +86,18 @@ export default {
         count: resultCartItem.count,
       };
     },
-    removeCartItem: async (_: any, { cartId }: any): Promise<boolean> => {
+    removeCartItem: async (
+      parent: any,
+      args: any,
+      { prisma }: PrismaContext
+    ): Promise<boolean> => {
       return true;
     },
-    order: async (_: any, { cartIds }: any): Promise<boolean> => {
+    order: async (
+      parent: any,
+      args: any,
+      { prisma }: PrismaContext
+    ): Promise<boolean> => {
       return true;
     },
   },
