@@ -96,10 +96,20 @@ export default {
     },
     removeCartItems: async (
       parent: any,
-      {}: any,
-      { prisma }: PrismaContext
-    ): Promise<boolean> => {
-      return true;
+      { cartIds }: any,
+      { prisma, user }: PrismaContext
+    ): Promise<number> => {
+      if (!user) throw new AuthenticationError('Login first.');
+      const result = await prisma.cart.deleteMany({
+        where: {
+          user_id: user.id,
+          id: {
+            in: cartIds,
+          },
+        },
+      });
+
+      return result.count;
     },
     order: async (
       parent: any,
