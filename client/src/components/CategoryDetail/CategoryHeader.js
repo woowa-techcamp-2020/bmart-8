@@ -8,7 +8,7 @@ import ArrowBack from '../ArrowBack';
 import SearchIcon from '@material-ui/icons/Search';
 
 const CategoryHeaderBlock = styled.div`
-  padding-top: 0.5rem;
+  padding-top: 1rem;
   justify-content: space-between;
   display: flex;
   height: 2rem;

@@ -2,12 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 
 const FilterBlock = styled.div`
+  margin-top: 0.2rem;
+  display: flex;
   background-color: white;
-  position: relative;
-  float: right;
-  right: 1rem;
-  top: 1rem;
   padding-bottom: 0.5rem;
+  select {
+    position: relative;
+    margin-left: auto;
+    top: 0.4rem;
+    right: 0.5rem;
+  }
 `;
 
 function Filter({ onChange }) {
