@@ -40,10 +40,12 @@ const random = getRandomInt(0, 7000);
 function ProductNew() {
   const GetNewProductQuery = gql`
     query {
-      products(take: 8, skip: ${random}) {
-        name
-        price
-        img_url
+      products(take: 8, cursor: ${random}) {
+        products{
+          name
+          price
+          img_url
+        }
       }
     }
   `;
@@ -57,7 +59,7 @@ function ProductNew() {
         <Query query={GetNewProductQuery}>
           {({ data, loading, error }) => {
             if (loading || error) return '';
-            return data.products.map((product, idx) => {
+            return data.products.products.map((product, idx) => {
               return (
                 <ProductInfo
                   key={idx}
