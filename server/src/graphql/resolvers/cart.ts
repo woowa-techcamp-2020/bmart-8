@@ -1,13 +1,6 @@
 import { UserInputError, AuthenticationError } from 'apollo-server';
-import { PrismaClient, PrismaClientOptions } from '@prisma/client';
+import { PrismaContext } from '..';
 
-type PrismaContext = {
-  user?: {
-    id: number;
-    email: string;
-  };
-  prisma: PrismaClient<PrismaClientOptions, never>;
-};
 type CartItem = {
   id: number;
   product: any;

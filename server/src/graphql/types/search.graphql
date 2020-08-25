@@ -8,3 +8,8 @@ type Query {
   searchHistory: [SearchHistory]
   instantSearch(query: String): [String]
 }
+
+type Mutation {
+  addSearchHistory(query: String): SearchHistory
+  removeSearchHistory(id: Int!): Boolean
+}
