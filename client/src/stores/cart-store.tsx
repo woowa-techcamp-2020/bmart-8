@@ -58,6 +58,16 @@ export function addCartItem(cartItem: CartItem) {
   };
 }
 
+export function setCartItemCount(id: number, count: number) {
+  return {
+    type: SET_COUNT,
+    payload: {
+      id,
+      count,
+    },
+  };
+}
+
 export function deleteCartItem(id: number) {
   return {
     type: DELETE_MANY,

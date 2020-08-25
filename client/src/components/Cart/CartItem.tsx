@@ -2,7 +2,11 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import PriceLabel from '../PriceLabel';
 import CartItemCounter from './CartItemCounter';
-import { useCartDispatch, deleteCartItem } from '../../stores/cart-store';
+import {
+  useCartDispatch,
+  deleteCartItem,
+  setCartItemCount,
+} from '../../stores/cart-store';
 import { useMutation } from 'react-apollo';
 import { gql } from 'apollo-boost';
 
@@ -87,6 +91,12 @@ const CartItem: React.FC<CartItemProps> = ({
   useEffect(() => {
     if (removeCartItemData) dispatch(deleteCartItem(id));
   }, [removeCartItemData]);
+
+  useEffect(() => {
+    if (setCartCountData)
+      dispatch(setCartItemCount(id, setCartCountData.addToCart.count));
+  }, [setCartCountData]);
+
   return (
     <CartItemBlock>
       <div className="cartitem-header">
@@ -122,10 +132,9 @@ const CartItem: React.FC<CartItemProps> = ({
         <CartItemCounter
           count={count}
           onChange={(count) => {
-            dispatch({
-              type: 'SET_COUNT',
-              payload: {
-                id,
+            setCartCount({
+              variables: {
+                id: product.id,
                 count,
               },
             });
