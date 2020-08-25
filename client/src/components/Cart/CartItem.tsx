@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import PriceLabel from '../PriceLabel';
 import CartItemCounter from './CartItemCounter';
-import { useCartDispatch } from '../../stores/cart-store';
+import { useCartDispatch, deleteCartItem } from '../../stores/cart-store';
+import { useMutation } from 'react-apollo';
+import { gql } from 'apollo-boost';
 
 const CartItemBlock = styled.div`
   display: grid;
@@ -61,6 +63,30 @@ const CartItem: React.FC<CartItemProps> = ({
   selected,
 }) => {
   const dispatch = useCartDispatch();
+  const [setCartCount, { data: setCartCountData }] = useMutation(gql`
+    mutation setCartCount($id: Int!, $count: Int) {
+      addToCart(productId: $id, count: $count) {
+        id
+        product {
+          id
+          name
+          img_url
+          price
+          discount
+        }
+        createdAt
+        count
+      }
+    }
+  `);
+  const [removeCartItem, { data: removeCartItemData }] = useMutation(gql`
+    mutation removeCartItems($id: Int!) {
+      removeCartItems(cartIds: [$id])
+    }
+  `);
+  useEffect(() => {
+    if (removeCartItemData) dispatch(deleteCartItem(id));
+  }, [removeCartItemData]);
   return (
     <CartItemBlock>
       <div className="cartitem-header">
@@ -74,9 +100,8 @@ const CartItem: React.FC<CartItemProps> = ({
         <div>{product.name}</div>
         <button
           onClick={() => {
-            dispatch({
-              type: 'DELETE_ONE',
-              payload: {
+            removeCartItem({
+              variables: {
                 id,
               },
             });

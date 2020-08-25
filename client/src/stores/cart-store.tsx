@@ -58,6 +58,24 @@ export function addCartItem(cartItem: CartItem) {
   };
 }
 
+export function deleteCartItem(id: number) {
+  return {
+    type: DELETE_MANY,
+    payload: {
+      ids: [id],
+    },
+  };
+}
+
+export function deleteCartItems(ids: number[]) {
+  return {
+    type: DELETE_MANY,
+    payload: {
+      ids,
+    },
+  };
+}
+
 const initState: CartItem[] = [];
 
 const reducer = (state: CartItem[], action: CartStoreAction) => {
