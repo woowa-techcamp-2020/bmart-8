@@ -15,14 +15,25 @@ const CategoryHeaderBlock = styled.div`
   background-color: white;
 `;
 
-function CategoryHeader({ id }) {
-  const GetReadyProductQuery = gql`
-  query{
-  thirdCategory(id:${id}){
-    name
+function CategoryHeader({ type,id }) {
+  let GetReadyProductQuery=''
+  if(type=='second'){
+    GetReadyProductQuery = gql`
+      query{
+        secondCategory(id:${id}){
+          name
+        }
+      }`;
   }
-}
-`;
+  else if(type=='third'){
+    GetReadyProductQuery = gql`
+      query{
+        thirdCategory(id:${id}){
+          name
+        }
+      }`;
+  }
+
   return (
     <CategoryHeaderBlock>
       <div className="ArrowBack">
@@ -31,7 +42,11 @@ function CategoryHeader({ id }) {
       <Query query={GetReadyProductQuery}>
         {({ data, loading, error }) => {
           if (loading || error) return '';
-          return <div className="Title">{data.thirdCategory.name}</div>;
+          if(type=='third'){
+            return <div className="Title">{data.thirdCategory.name}</div>;
+          }else if(type=='second'){
+            return <div className="Title">{data.secondCategory.name}</div>;
+          }
         }}
       </Query>
       <Link to={'/search/'}>
