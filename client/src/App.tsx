@@ -19,6 +19,12 @@ import { useCartDispatch } from './stores/cart-store';
 const AppBlock = styled.div`
   max-width: 100%;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  .main-wrapper {
+    overflow: auto;
+    height: 90vh;
+  }
 `;
 
 function App() {
@@ -49,24 +55,26 @@ function App() {
   return (
     <AppBlock>
       <div className="App">
-        <Switch>
-          <Route path="/categories">
-            <CategoryPage />
-          </Route>
-          <Route path="/cart">
-            <CartPage />
-          </Route>
-          <Route path="/profile">
-            <UserProfilePage />
-          </Route>
-          <Route path="/search/:query" component={SearchResultPage} />
-          <Route path="/search">
-            <SearchPage />
-          </Route>
-          <Route path="/">
-            <MainPage />
-          </Route>
-        </Switch>
+        <div className="main-wrapper">
+          <Switch>
+            <Route path="/categories">
+              <CategoryPage />
+            </Route>
+            <Route path="/cart">
+              <CartPage />
+            </Route>
+            <Route path="/profile">
+              <UserProfilePage />
+            </Route>
+            <Route path="/search/:query" component={SearchResultPage} />
+            <Route path="/search">
+              <SearchPage />
+            </Route>
+            <Route path="/">
+              <MainPage />
+            </Route>
+          </Switch>
+        </div>
         <Footer />
       </div>
     </AppBlock>
