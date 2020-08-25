@@ -39,6 +39,7 @@ function ProductReadyFor() {
   const GetReadyProductQuery = gql`
     query {
       products(take:9,skip:${random}) {
+        id
         name
         price
         img_url
@@ -58,6 +59,7 @@ function ProductReadyFor() {
               return (
                 <ProductInfo
                   key={idx}
+                  id={product.id}
                   title={product.name}
                   price={product.price}
                   url={product.img_url}></ProductInfo>

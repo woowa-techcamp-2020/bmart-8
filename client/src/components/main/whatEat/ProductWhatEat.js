@@ -39,6 +39,7 @@ function ProductWhatEat() {
   const GetWhatEatProduct = gql`
     query {
       products(take:9, skip:${random}) {
+        id
         name
         price
         img_url
@@ -55,6 +56,7 @@ function ProductWhatEat() {
             return data.products.map((product, idx) => {
               return (
                 <ProductInfo
+                  id={product.id}
                   key={idx}
                   title={product.name}
                   price={product.price}

@@ -16,6 +16,8 @@ const server = new GraphQLServer({
   context: ({ request }) => {
     const token = request.headers.authorization?.split(' ')[1] || '';
     if (!token) return { prisma };
+    // TODO: REMOVE TEST CODE
+    if (token === '1234') return { prisma, user: { id: 1 } };
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET!);
       return { prisma, user: decoded, token };

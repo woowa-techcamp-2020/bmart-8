@@ -1,1 +1,1 @@
-export { default } from './addPointerEventHandlers';
+export { default } from './add-event-listener-effect';
