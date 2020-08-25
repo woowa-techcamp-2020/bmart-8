@@ -28,30 +28,44 @@ const ProductCategoryBlock = styled.div`
   }
 `;
 
-function ProductCategory() {
-  const GetSecondCategory = gql`
-    query {
-      secondCategories {
+const GET_NEW_PRODUCT = gql`
+  query {
+    products(take: 8) {
+      products {
+        id
         name
-        children {
-          products {
-            name
-            id
-            img_url
-          }
+        price
+        img_url
+        discount
+      }
+    }
+  }
+`;
+
+const GET_SECOND_CATEGORY = gql`
+  query {
+    secondCategories {
+      name
+      children {
+        products {
+          name
+          id
+          img_url
         }
       }
     }
-  `;
+  }
+`;
 
+function ProductCategory() {
   return (
     <ProductCategoryBlock>
-      <Query query={GetSecondCategory}>
+      <Query query={GET_SECOND_CATEGORY}>
         {({ data, loading, error }) => {
           if (loading || error) return '';
           return data.secondCategories.map((secondCategory, id) => {
             return (
-              <>
+              <div key={id}>
                 <div className="ProductTitle">{secondCategory.name}</div>
                 <More></More>
                 {/* <div className="ProductInfo">
@@ -65,7 +79,7 @@ function ProductCategory() {
                     );
                   })}
                 </div> */}
-              </>
+              </div>
             );
           });
         }}

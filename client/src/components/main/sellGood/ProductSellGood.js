@@ -34,19 +34,22 @@ const ProductSellGoodBlock = styled.div`
     }
   }
 `;
-const random = getRandomInt(0, 7000);
 
-function ProductSellGood() {
-  const GetSellGoodProduct = gql`
-    query{
-      products(take:8, skip:${random})  {
+const GET_SELL_GOOD_PRODUCT = gql`
+  query {
+    products(take: 8) {
+      products {
         id
         name
         price
         img_url
+        discount
       }
     }
-  `;
+  }
+`;
+
+function ProductSellGood() {
   return (
     <ProductSellGoodBlock>
       <div className="ProductTitle">요즘 잘팔려요</div>
@@ -54,10 +57,10 @@ function ProductSellGood() {
         <More></More>
       </Link>
       <div className="ProductInfo">
-        <Query query={GetSellGoodProduct}>
+        <Query query={GET_SELL_GOOD_PRODUCT}>
           {({ data, loading, error }) => {
             if (loading || error) return '';
-            return data.products.map((product, idx) => {
+            return data.products.products.map((product, idx) => {
               return (
                 <ProductInfo
                   key={idx}

@@ -69,12 +69,10 @@ const ProductFlashDiscountBlock = styled.div`
 
 const random = getRandomInt(0, 7000);
 
-function ProductFlashDiscount() {
-  const [select, setSelect] = useState(0);
-
-  const GetFlashProductQuery = gql`
-    query {
-      products(take: 4, skip: ${random}) {
+const GET_FLASH_PRODUCTS = gql`
+  query {
+    products(take: 4) {
+      products {
         id
         name
         price
@@ -82,17 +80,22 @@ function ProductFlashDiscount() {
         discount
       }
     }
-  `;
+  }
+`;
+function ProductFlashDiscount() {
+  const [select, setSelect] = useState(0);
+
   function photoClick(index) {
     setSelect(index);
   }
 
   return (
     <ProductFlashDiscountBlock>
-      <Query query={GetFlashProductQuery}>
+      <Query query={GET_FLASH_PRODUCTS}>
         {({ data, loading, error }) => {
           if (loading || error) return null;
-          if (data.products.length === 0) return null;
+          if (data.products.products.length === 0) return null;
+          const selectedProduct = data.products.products[select];
           return (
             <>
               <div className="ProductTitle">
@@ -108,7 +111,7 @@ function ProductFlashDiscount() {
                 <More></More>
               </Link>
               <div className="ProductPhoto">
-                {data.products.map((_data, idx) => {
+                {data.products.products.map((_data, idx) => {
                   return (
                     <ProductPhoto
                       onClick={photoClick}
@@ -121,13 +124,13 @@ function ProductFlashDiscount() {
               </div>
               <div className="ProductDiscount">
                 <ProductDiscount
-                  url={data.products[select].img_url}
-                  discount={data.products[select].discount}></ProductDiscount>
+                  url={selectedProduct.img_url}
+                  discount={selectedProduct.discount}></ProductDiscount>
                 <div className="ProductContent">
                   <ProductContent
-                    title={data.products[select].name}
-                    price={data.products[select].price}
-                    id={data.products[select].id}></ProductContent>
+                    title={selectedProduct.name}
+                    price={selectedProduct.price}
+                    id={selectedProduct.id}></ProductContent>
                   <div className="Bag">
                     <Bag></Bag>
                   </div>

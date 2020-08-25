@@ -35,19 +35,21 @@ const ProductNewBlock = styled.div`
   }
 `;
 
-const random = getRandomInt(0, 7000);
-
-function ProductNew() {
-  const GetNewProductQuery = gql`
-    query {
-      products(take: 8, skip: ${random}) {
+const GET_NEW_PRODUCT = gql`
+  query {
+    products(take: 8) {
+      products {
         id
         name
         price
         img_url
+        discount
       }
     }
-  `;
+  }
+`;
+
+function ProductNew() {
   return (
     <ProductNewBlock>
       <div className="ProductTitle">새로나왔어요</div>
@@ -55,10 +57,10 @@ function ProductNew() {
         <More></More>
       </Link>
       <div className="ProductInfo">
-        <Query query={GetNewProductQuery}>
+        <Query query={GET_NEW_PRODUCT}>
           {({ data, loading, error }) => {
             if (loading || error) return '';
-            return data.products.map((product, idx) => {
+            return data.products.products.map((product, idx) => {
               return (
                 <ProductInfo
                   key={idx}

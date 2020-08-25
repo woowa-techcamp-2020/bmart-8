@@ -33,27 +33,29 @@ const ProductWhatEatBlock = styled.div`
     padding-bottom: 0.3rem;
   }
 `;
-const random = getRandomInt(450, 500);
-
-function ProductWhatEat() {
-  const GetWhatEatProduct = gql`
-    query {
-      products(take:9, skip:${random}) {
+const GET_SELL_GOOD_PRODUCT = gql`
+  query {
+    products(take: 9) {
+      products {
         id
         name
         price
         img_url
+        discount
       }
     }
-  `;
+  }
+`;
+
+function ProductWhatEat() {
   return (
     <ProductWhatEatBlock>
       <div className="ProductTitle">지금 뭐 먹지?</div>
       <div className="ProductInfo">
-        <Query query={GetWhatEatProduct}>
+        <Query query={GET_SELL_GOOD_PRODUCT}>
           {({ data, loading, error }) => {
             if (loading || error) return '';
-            return data.products.map((product, idx) => {
+            return data.products.products.map((product, idx) => {
               return (
                 <ProductInfo
                   id={product.id}

@@ -37,25 +37,28 @@ const ProductEssentialBlock = styled.div`
 
 const random = getRandomInt(6546, 6607);
 
-function ProductEssential() {
-  const GetEssentialProduct = gql`
-    query {
-      products(take: 9, skip: ${random}) {
+const GET_ESSENTIAL_PRODUCTS = gql`
+  query getEssentialProducts {
+    products(take: 9) {
+      products {
         id
         name
         price
         img_url
       }
     }
-  `;
+  }
+`;
+
+function ProductEssential() {
   return (
     <ProductEssentialBlock>
       <div className="ProductTitle">지금 필요한 생필품!</div>
       <div className="ProductInfo">
-        <Query query={GetEssentialProduct}>
+        <Query query={GET_ESSENTIAL_PRODUCTS}>
           {({ data, loading, error }) => {
             if (loading || error) return '';
-            return data.products.map((product, idx) => {
+            return data.products.products.map((product, idx) => {
               return (
                 <ProductInfo
                   key={idx}

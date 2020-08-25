@@ -35,27 +35,29 @@ const ProductReadyForBlock = styled.div`
 
 const random = getRandomInt(0, 7000);
 
-function ProductReadyFor() {
-  const GetReadyProductQuery = gql`
-    query {
-      products(take:9,skip:${random}) {
+const GET_READY_PRODUCT = gql`
+  query {
+    products(take: 9) {
+      products {
         id
         name
         price
         img_url
+        discount
       }
     }
-  `;
-
+  }
+`;
+function ProductReadyFor() {
   return (
     <ProductReadyForBlock>
       <div className="ProductTitle">기진님을 위해 준비한 상품</div>
       <div className="ProductInfo">
-        <Query query={GetReadyProductQuery}>
+        <Query query={GET_READY_PRODUCT}>
           {({ data, loading, error }) => {
             if (loading || error) return '';
 
-            return data.products.map((product, idx) => {
+            return data.products.products.map((product, idx) => {
               return (
                 <ProductInfo
                   key={idx}
