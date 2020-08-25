@@ -39,7 +39,7 @@ type Category_Third {
   name: String
   parent_id: Int
   parent: Category_Second
-  products: [Product]
+  product: [Product]
 }
 
 type Category {
