@@ -44,7 +44,8 @@ function App() {
             <Route path="/search">
               <SearchPage />
             </Route>
-            <Route path="/category/:query" component={CategoryDetailPage} />
+            <Route path="/category/second/:query" component={CategoryDetailPage} />
+            <Route path="/category/third/:query" component={CategoryDetailPage} />
             <Route path="/">
               <MainPage />
             </Route>

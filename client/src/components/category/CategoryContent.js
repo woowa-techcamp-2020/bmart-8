@@ -108,7 +108,7 @@ function CategoryContent(props) {
               if (loading || error) return '';
               let childList = data.secondCategory.children.map((data) => (
                 <div>
-                  <Link className="Link" to={'/category/' + data.id}>
+                  <Link className="Link" to={'/category/third/' + data.id}>
                     {data.name}
                   </Link>
                 </div>
