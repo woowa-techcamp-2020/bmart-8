@@ -30,11 +30,11 @@ const ProductCategoryBlock = styled.div`
 
 function ProductCategory() {
   const GetSecondCategory = gql`
-    query {
+    query getSecondCategory {
       secondCategories {
         name
         children {
-          products {
+          product {
             name
             id
             img_url
