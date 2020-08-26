@@ -42,7 +42,7 @@ const Icons = [
   {
     name: '더보기',
     imageUrl: '/icon/more.png',
-    routeUrl: '/category/second',
+    routeUrl: '/categories',
   },
 ];
 const MainPageCategoriesBlock = styled.div`

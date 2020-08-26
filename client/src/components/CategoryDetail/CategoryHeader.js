@@ -24,19 +24,19 @@ function CategoryHeader({ type,id }) {
   let GetReadyProductQuery=''
   if(type==='second'){
     GetReadyProductQuery = gql`
-      query{
-        secondCategory(id:${id}){
-          name
-        }
-      }`;
+    query{
+      secondCategory(id:${id}){
+        name
+      }
+    }`;
   }
   else if(type==='third'){
     GetReadyProductQuery = gql`
-      query{
-        thirdCategory(id:${id}){
-          name
-        }
-      }`;
+    query{
+      thirdCategory(id:${id}){
+        name
+      }
+    }`;
   }
   const GetProductIndexQuery=gql`
     query {
@@ -76,6 +76,7 @@ function CategoryHeader({ type,id }) {
             if(type==='second'){
               return <ProductHowAbout index={data.products.products[data.products.products.length-1].id}></ProductHowAbout>
             }
+            return ''
           }
         }}
       </Query>
