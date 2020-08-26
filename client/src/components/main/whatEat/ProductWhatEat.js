@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import ProductInfo from '../common/ProductInfo';
 import Refresh from '../common/Refresh';
-import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
 import getRandomInt from '../../../utils/random';
+import { GET_PRODUCT_SIMPLE } from '../main-query';
 
 const ProductWhatEatBlock = styled.div`
   .ProductTitle {
@@ -33,26 +33,14 @@ const ProductWhatEatBlock = styled.div`
     padding-bottom: 0.3rem;
   }
 `;
-const random = getRandomInt(450, 500);
+const cursor = getRandomInt(450, 500);
 
 function ProductWhatEat() {
-  const GetWhatEatProduct = gql`
-    query {
-      products(take:9, cursor:${random}) {
-        products{
-          id
-          name
-          price
-          img_url
-        }
-      }
-    }
-  `;
   return (
     <ProductWhatEatBlock>
       <div className="ProductTitle">지금 뭐 먹지?</div>
       <div className="ProductInfo">
-        <Query query={GetWhatEatProduct}>
+      <Query query={GET_PRODUCT_SIMPLE} variables={{ take: 9, cursor:cursor}}>
           {({ data, loading, error }) => {
             if (loading || error) return '';
             return data.products.products.map((product, idx) => {

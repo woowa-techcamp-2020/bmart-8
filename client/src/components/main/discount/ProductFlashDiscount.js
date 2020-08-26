@@ -67,6 +67,9 @@ const ProductFlashDiscountBlock = styled.div`
   }
 `;
 
+const cursor = getRandomInt(0, 7000);
+
+
 function ProductFlashDiscount() {
   const [select, setSelect] = useState(0);
 
@@ -74,9 +77,10 @@ function ProductFlashDiscount() {
     setSelect(index);
   }
 
+
   return (
     <ProductFlashDiscountBlock>
-      <Query query={GET_PRODUCT_SIMPLE} variables={{ take: 4 }}>
+      <Query query={GET_PRODUCT_SIMPLE} variables={{ take: 4, cursor:cursor}}>
         {({ data, loading, error }) => {
           if (loading || error) return null;
           if (data.products.length === 0) return null;

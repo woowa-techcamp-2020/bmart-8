@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import ProductInfo from '../common/ProductInfo';
-import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
 import getRandomInt from '../../../utils/random';
+import { GET_PRODUCT_SIMPLE } from '../main-query';
 
 const ProductReadyForBlock = styled.div`
   margin-top: 0.3rem;
@@ -33,26 +33,14 @@ const ProductReadyForBlock = styled.div`
   }
 `;
 
-const random = getRandomInt(0, 7000);
+const cursor = getRandomInt(0, 7000);
 
 function ProductReadyFor() {
-  const GetReadyProductQuery = gql`
-    query {
-      products(take:9,cursor:${random}) {
-        products{
-          name
-          price
-          img_url
-        }
-      }
-    }
-  `;
-
   return (
     <ProductReadyForBlock>
       <div className="ProductTitle">기진님을 위해 준비한 상품</div>
       <div className="ProductInfo">
-        <Query query={GetReadyProductQuery}>
+      <Query query={GET_PRODUCT_SIMPLE} variables={{ take: 9, cursor:cursor}}>
           {({ data, loading, error }) => {
             if (loading || error) return '';
 

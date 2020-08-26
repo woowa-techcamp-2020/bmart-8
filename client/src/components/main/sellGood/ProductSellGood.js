@@ -4,9 +4,9 @@ import ProductInfo from '../common/ProductInfo';
 import More from '../common/More';
 import { Link } from 'react-router-dom';
 
-import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
 import getRandomInt from '../../../utils/random';
+import { GET_PRODUCT_SIMPLE } from '../main-query';
 
 const ProductSellGoodBlock = styled.div`
   .ProductTitle {
@@ -34,20 +34,9 @@ const ProductSellGoodBlock = styled.div`
     }
   }
 `;
-const random = getRandomInt(0, 7000);
+const cursor = getRandomInt(0, 7000);
 
 function ProductSellGood() {
-  const GetSellGoodProduct = gql`
-    query{
-      products(take:8, cursor:${random})  {
-        products{
-          name
-          price
-          img_url
-        }
-      }
-    }
-  `;
   return (
     <ProductSellGoodBlock>
       <div className="ProductTitle">요즘 잘팔려요</div>
@@ -55,7 +44,7 @@ function ProductSellGood() {
         <More></More>
       </Link>
       <div className="ProductInfo">
-        <Query query={GetSellGoodProduct}>
+      <Query query={GET_PRODUCT_SIMPLE} variables={{ take: 8, cursor:cursor}}>
           {({ data, loading, error }) => {
             if (loading || error) return '';
             return data.products.products.map((product, idx) => {
