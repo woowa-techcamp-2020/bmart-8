@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /build/
-    destination: /home/ubuntu/bmart/server/build/
+    destination: /home/ubuntu/bmart/server/
 permission:
   - object: /
     pattern: '**'
