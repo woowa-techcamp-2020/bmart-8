@@ -107,8 +107,8 @@ function CategoryContent(props) {
           <Query query={getThirdQuery(selected)}>
             {({ data, loading, error }) => {
               if (loading || error) return '';
-              let childList = data.secondCategory.children.map((data) => (
-                <div>
+              let childList = data.secondCategory.children.map((data,i) => (
+                <div key={i}>
                   <Link className="Link" to={'/category/third/' + data.id}>
                     {data.name}
                   </Link>

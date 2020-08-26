@@ -11,12 +11,14 @@ const CategoryDetailBlock = styled.div`
 `;
 
 const CategoryDetailPage: React.FC<any> = ({ match }: any) => {
-  const q = match.params.query || '';
+  var q = match.params.query || 1;
   const type = match.params.type || '';
+
+  console.log(type)
   return (
     <CategoryDetailBlock>
       <CategoryHeader type={type} id={q}></CategoryHeader>
-      <CategoryProduct type={type} id={q}></CategoryProduct>
+      {/* <CategoryProduct type={type} id={q}></CategoryProduct> */}
     </CategoryDetailBlock>
   );
 };

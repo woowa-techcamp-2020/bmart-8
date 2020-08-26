@@ -81,6 +81,10 @@ function App() {
               path="/category/:type/:query"
               component={CategoryDetailPage}
             />
+            <Route
+              path="/main/:type"
+              component={CategoryDetailPage}
+            />
             <Route path="/loginCallback">
               <LoginCallbackPage />
             </Route>
