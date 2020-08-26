@@ -38,6 +38,15 @@ function CategoryHeader({ type,id }) {
         }
       }`;
   }
+  const GetProductIndexQuery=gql`
+    query {
+      products(category_level:second,category_id:${id}){
+        products{
+          id
+        }
+      }
+    }
+  `;
 
   return (
     <CategoryHeaderBlock>
@@ -59,13 +68,18 @@ function CategoryHeader({ type,id }) {
           <SearchIcon className="SearchIcon"></SearchIcon>
         </Link>
       </div>
-      <div className="ProductHowAbout">
-      {
-        type==='second'
-        ?<ProductHowAbout className="ProductHowAbout"></ProductHowAbout>
-        :''
-      }
-      </div>
+
+      <Query query={GetProductIndexQuery}>
+        {({ data, loading, error }) => {
+          if (loading || error) return '';
+          {
+            if(type==='second'){
+              return <ProductHowAbout index={data.products.products[data.products.products.length-1].id}></ProductHowAbout>
+            }
+          }
+        }}
+      </Query>
+
     </CategoryHeaderBlock>
   );
 }

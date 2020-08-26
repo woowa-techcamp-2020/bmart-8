@@ -30,10 +30,10 @@ const ProductHowAboutBlock = styled.div`
       padding-right: 0.5rem;
     }
   }
-`;
-const random = getRandomInt(0, 7000);
+`
 
-function ProductHowAbout() {
+function ProductHowAbout({index}) {
+  const random = getRandomInt(index, index-20);
   const GetReadyProductQuery = gql`
     query {
       products(take:9,cursor:${random}) {
