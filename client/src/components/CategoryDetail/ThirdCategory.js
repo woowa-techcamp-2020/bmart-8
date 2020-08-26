@@ -49,7 +49,6 @@ function ThirdCategory({id}) {
       <Query query={getSecondCategoryQuery}>
         {({ data, loading, error }) => {
           if (loading || error) return '';
-          console.log(data.secondCategory)
           return data.secondCategory.children.map((product) => {
             return (
               <Link className="Link" to={'/category/third/' + product.id}>

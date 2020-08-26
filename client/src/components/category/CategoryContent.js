@@ -103,6 +103,7 @@ function CategoryContent(props) {
       </div>
       {showThird === true ? (
         <div className="third">
+          <div><Link className="Link" to={'/category/second/'+props.data[selected].id}>전체보기</Link></div>
           <Query query={getThirdQuery(selected)}>
             {({ data, loading, error }) => {
               if (loading || error) return '';
