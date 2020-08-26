@@ -6,38 +6,38 @@ const Icons = [
   {
     name: '채소',
     imageUrl: '/icon/salad.png',
-    routeUrl: '/category/1',
+    routeUrl: '/maincategory/1',
   },
   {
     name: '정육·계란',
     imageUrl: '/icon/egg.png',
-    routeUrl: '/category/4',
+    routeUrl: '/maincategory/4',
   },
   {
     name: '국·메인요리',
     imageUrl: '/icon/mealkit.png',
-    routeUrl: '/category/5',
+    routeUrl: '/maincategory/5',
   },
   {
     name: '음료·우유',
     imageUrl: '/icon/milk.png',
-    routeUrl: '/category/8',
+    routeUrl: '/maincategory/8',
   },
   {
     name: '베이커리·치즈',
     imageUrl: '/icon/bread.png',
-    routeUrl: '/category/9',
+    routeUrl: '/maincategory/9',
   },
 
   {
     name: '반려동물',
     imageUrl: '/icon/yasik.png',
-    routeUrl: '/category/16',
+    routeUrl: '/maincategory/16',
   },
   {
     name: '뷰티·바디케어',
     imageUrl: '/icon/hair.png',
-    routeUrl: '/category/12',
+    routeUrl: '/maincategory/12',
   },
   {
     name: '더보기',

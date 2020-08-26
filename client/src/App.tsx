@@ -16,6 +16,8 @@ import Footer from './components/Footer';
 import CategoryPage from './pages/CategoryPage';
 import SearchPage from './pages/SearchPage';
 import SearchResultPage from './pages/SearchResultPage';
+
+import CategoryDetailPage from './pages/CategoryDetailPage';
 import { useCartDispatch } from './stores/cart-store';
 
 const AppBlock = styled.div`
@@ -78,6 +80,7 @@ function App() {
             <Route path="/loginCallback">
               <LoginCallbackPage />
             </Route>
+            <Route path="/category/:query" component={CategoryDetailPage} />
             <Route path="/">
               <MainPage />
             </Route>

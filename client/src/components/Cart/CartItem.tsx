@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import PriceLabel from '../PriceLabel';
 import CartItemCounter from './CartItemCounter';
@@ -8,7 +8,7 @@ import {
   setCartItemCount,
 } from '../../stores/cart-store';
 import { useMutation } from 'react-apollo';
-import { gql } from 'apollo-boost';
+import { SET_CART_COUNT, REMOVE_CART_ITEM } from './cart-query';
 
 const CartItemBlock = styled.div`
   display: grid;
@@ -67,36 +67,8 @@ const CartItem: React.FC<CartItemProps> = ({
   selected,
 }) => {
   const dispatch = useCartDispatch();
-  const [setCartCount, { data: setCartCountData }] = useMutation(gql`
-    mutation setCartCount($id: Int!, $count: Int) {
-      addToCart(productId: $id, count: $count) {
-        id
-        product {
-          id
-          name
-          img_url
-          price
-          discount
-        }
-        createdAt
-        count
-      }
-    }
-  `);
-  const [removeCartItem, { data: removeCartItemData }] = useMutation(gql`
-    mutation removeCartItems($id: Int!) {
-      removeCartItems(cartIds: [$id])
-    }
-  `);
-  useEffect(() => {
-    if (removeCartItemData) dispatch(deleteCartItem(id));
-  }, [removeCartItemData, id, dispatch]);
-
-  useEffect(() => {
-    if (setCartCountData)
-      dispatch(setCartItemCount(id, setCartCountData.addToCart.count));
-  }, [setCartCountData, id, dispatch]);
-
+  const [setCartCount] = useMutation(SET_CART_COUNT);
+  const [removeCartItem] = useMutation(REMOVE_CART_ITEM);
   return (
     <CartItemBlock>
       <div className="cartitem-header">
@@ -110,6 +82,7 @@ const CartItem: React.FC<CartItemProps> = ({
         <div>{product.name}</div>
         <button
           onClick={() => {
+            dispatch(deleteCartItem(id));
             removeCartItem({
               variables: {
                 id,
@@ -132,6 +105,7 @@ const CartItem: React.FC<CartItemProps> = ({
         <CartItemCounter
           count={count}
           onChange={(count) => {
+            dispatch(setCartItemCount(id, count));
             setCartCount({
               variables: {
                 id: product.id,

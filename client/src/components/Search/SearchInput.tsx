@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
-import { useLazyQuery } from 'react-apollo';
+import { useLazyQuery, useMutation } from 'react-apollo';
 import useDebounce from '../../hooks/useDebounce';
 import { gql } from 'apollo-boost';
 import SearchIcon from '@material-ui/icons/Search';
@@ -31,14 +31,27 @@ const SearchInputBlock = styled.div`
   }
 `;
 
+const INSTANT_SERACH = gql`
+  query instantSearch($q: String) {
+    instantSearch(query: $q)
+  }
+`;
+
+const ADD_SEARCH_HISTORY = gql`
+  mutation addSearchHistory($query: String!) {
+    addSearchHistory(query: $query) {
+      id
+    }
+  }
+`;
+
 const SearchInput: React.FC<SearchInputProps> = ({ onSearch }) => {
   const history = useHistory();
   const [query, setQuery] = useState('');
-  const [instantSearch, { data: instantSearchData }] = useLazyQuery(gql`
-    query instantSearch($q: String) {
-      instantSearch(query: $q)
-    }
-  `);
+  const [instantSearch, { data: instantSearchData }] = useLazyQuery(
+    INSTANT_SERACH
+  );
+  const [addSearchHistory] = useMutation(ADD_SEARCH_HISTORY);
 
   // 분당 150타라고 가정. interval = 60*1000/150
   const instantSearchDebounce = useDebounce(
@@ -52,6 +65,11 @@ const SearchInput: React.FC<SearchInputProps> = ({ onSearch }) => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          addSearchHistory({
+            variables: {
+              query,
+            },
+          });
           history.push(`/search/${query}`);
         }}>
         <input

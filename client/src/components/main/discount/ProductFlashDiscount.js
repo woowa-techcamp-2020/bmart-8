@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/palette';
-import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
 import getRandomInt from '../../../utils/random';
 import { Link } from 'react-router-dom';
@@ -10,6 +9,7 @@ import ProductPhoto from '../common/ProductPhoto';
 import ProductDiscount from './ProductDiscount';
 import ProductContent from '../common/ProductContent';
 import Bag from '../common/Bag';
+import { GET_PRODUCT_SIMPLE } from '../main-query';
 
 const ProductFlashDiscountBlock = styled.div`
   .ProductTitle {
@@ -67,32 +67,20 @@ const ProductFlashDiscountBlock = styled.div`
   }
 `;
 
-const random = getRandomInt(0, 7000);
-
 function ProductFlashDiscount() {
   const [select, setSelect] = useState(0);
 
-  const GetFlashProductQuery = gql`
-    query {
-      products(take: 4, skip: ${random}) {
-        id
-        name
-        price
-        img_url
-        discount
-      }
-    }
-  `;
   function photoClick(index) {
     setSelect(index);
   }
 
   return (
     <ProductFlashDiscountBlock>
-      <Query query={GetFlashProductQuery}>
+      <Query query={GET_PRODUCT_SIMPLE} variables={{ take: 4 }}>
         {({ data, loading, error }) => {
           if (loading || error) return null;
           if (data.products.length === 0) return null;
+          const selectedProduct = data.products.products[select];
           return (
             <>
               <div className="ProductTitle">
@@ -108,7 +96,7 @@ function ProductFlashDiscount() {
                 <More></More>
               </Link>
               <div className="ProductPhoto">
-                {data.products.map((_data, idx) => {
+                {data.products.products.map((_data, idx) => {
                   return (
                     <ProductPhoto
                       onClick={photoClick}
@@ -121,13 +109,13 @@ function ProductFlashDiscount() {
               </div>
               <div className="ProductDiscount">
                 <ProductDiscount
-                  url={data.products[select].img_url}
-                  discount={data.products[select].discount}></ProductDiscount>
+                  url={selectedProduct.img_url}
+                  discount={selectedProduct.discount}></ProductDiscount>
                 <div className="ProductContent">
                   <ProductContent
-                    title={data.products[select].name}
-                    price={data.products[select].price}
-                    id={data.products[select].id}></ProductContent>
+                    title={selectedProduct.name}
+                    price={selectedProduct.price}
+                    id={selectedProduct.id}></ProductContent>
                   <div className="Bag">
                     <Bag></Bag>
                   </div>

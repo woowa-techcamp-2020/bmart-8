@@ -38,11 +38,13 @@ const random = getRandomInt(450, 500);
 function ProductWhatEat() {
   const GetWhatEatProduct = gql`
     query {
-      products(take:9, skip:${random}) {
-        id
-        name
-        price
-        img_url
+      products(take:9, cursor:${random}) {
+        products{
+          id
+          name
+          price
+          img_url
+        }
       }
     }
   `;
@@ -53,7 +55,7 @@ function ProductWhatEat() {
         <Query query={GetWhatEatProduct}>
           {({ data, loading, error }) => {
             if (loading || error) return '';
-            return data.products.map((product, idx) => {
+            return data.products.products.map((product, idx) => {
               return (
                 <ProductInfo
                   id={product.id}
