@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/palette';
-import { Query, useMutation } from 'react-apollo';
+import { useMutation } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import More from '../common/More';
 import ProductPhoto from '../common/ProductPhoto';
 import ProductDiscount from './ProductDiscount';
 import ProductContent from '../common/ProductContent';
 import Bag from '../common/Bag';
-import { GET_PRODUCT_SIMPLE } from '../main-query';
 import { gql } from 'apollo-boost';
 import { useCartDispatch, addCartItem } from '../../../stores/cart-store';
-import getRandomInt from '../../../utils/random';
+import useRandomProducts from '../hooks/useRandomProducts';
 
 const ProductFlashDiscountBlock = styled.div`
   .ProductTitle {
@@ -69,8 +68,6 @@ const ProductFlashDiscountBlock = styled.div`
   }
 `;
 
-const cursor = getRandomInt(0, 7000);
-
 function ProductFlashDiscount() {
   const [select, setSelect] = useState(0);
 
@@ -92,70 +89,66 @@ function ProductFlashDiscount() {
   `);
   const cartDispatch = useCartDispatch();
 
+  const products = useRandomProducts(4);
+  const selectedProduct = products && products[select];
+
   function photoClick(index) {
     setSelect(index);
   }
 
   return (
     <ProductFlashDiscountBlock>
-      <Query query={GET_PRODUCT_SIMPLE} variables={{ take: 4, cursor: cursor }}>
-        {({ data, loading, error }) => {
-          if (loading || error) return null;
-          if (data.products.length === 0) return null;
-          const selectedProduct = data.products.products[select];
-          return (
-            <>
-              <div className="ProductTitle">
-                지금 사면{' '}
-                <span>
-                  <span role="img" aria-label="lightning">
-                    ⚡
-                  </span>
-                  ️ 번쩍할인
-                </span>
+      {products && products.length && (
+        <>
+          <div className="ProductTitle">
+            지금 사면{' '}
+            <span>
+              <span role="img" aria-label="lightning">
+                ⚡
+              </span>
+              ️ 번쩍할인
+            </span>
+          </div>
+          <Link to="/main/flash_discount">
+            <More></More>
+          </Link>
+          <div className="ProductPhoto">
+            {products.map((product, idx) => {
+              return (
+                <ProductPhoto
+                  index={idx}
+                  key={product.id}
+                  url={product.img_url}
+                  onClick={photoClick}
+                  select={select}></ProductPhoto>
+              );
+            })}
+          </div>
+          <div className="ProductDiscount">
+            <ProductDiscount
+              url={selectedProduct.img_url}
+              discount={selectedProduct.discount}></ProductDiscount>
+            <div className="ProductContent">
+              <ProductContent
+                title={selectedProduct.name}
+                price={selectedProduct.price}
+                id={selectedProduct.id}
+                onAddCart={() => {
+                  addToCart({
+                    variables: {
+                      id: selectedProduct.id,
+                    },
+                  }).then((data) => {
+                    cartDispatch(addCartItem(data.data.addToCart));
+                  });
+                }}></ProductContent>
+              <div className="Bag">
+                <Bag></Bag>
               </div>
-              <Link to="/main/flash_discount">
-                <More></More>
-              </Link>
-              <div className="ProductPhoto">
-                {data.products.products.map((_data, idx) => {
-                  return (
-                    <ProductPhoto
-                      onClick={photoClick}
-                      key={idx}
-                      index={idx}
-                      url={_data.img_url}
-                      select={select}></ProductPhoto>
-                  );
-                })}
-              </div>
-              <div className="ProductDiscount">
-                <ProductDiscount
-                  url={selectedProduct.img_url}
-                  discount={selectedProduct.discount}></ProductDiscount>
-                <div className="ProductContent">
-                  <ProductContent
-                    title={selectedProduct.name}
-                    price={selectedProduct.price}
-                    id={selectedProduct.id}
-                    onAddCart={() => {
-                      addToCart({
-                        variables: {
-                          id: selectedProduct.id,
-                        },
-                      }).then((data) => {
-                        cartDispatch(addCartItem(data.data.addToCart));
-                      });
-                    }}></ProductContent>
-                  <div className="Bag">
-                    <Bag></Bag>
-                  </div>
-                </div>
-              </div>
-            </>
-          );
-        }}
-      </Query>
+            </div>
+          </div>
+        </>
+      )}
     </ProductFlashDiscountBlock>
   );
 }
