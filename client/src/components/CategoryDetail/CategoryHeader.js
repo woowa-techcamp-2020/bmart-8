@@ -7,6 +7,7 @@ import { Query } from 'react-apollo';
 import ArrowBack from '../ArrowBack';
 import SearchIcon from '@material-ui/icons/Search';
 import ProductHowAbout from '../CategoryDetail/ProductHowAbout'
+import ThirdCategory from './ThirdCategory';
 
 const CategoryHeaderBlock = styled.div`
   .Hedaer{
@@ -74,8 +75,12 @@ function CategoryHeader({ type,id }) {
           if (loading || error) return '';
           {
             if(type==='second'){
-              return <ProductHowAbout index={data.products.products[data.products.products.length-1].id}></ProductHowAbout>
-            }
+              return (
+                <>
+                  <ThirdCategory id={id}></ThirdCategory>
+                  <ProductHowAbout index={data.products.products[data.products.products.length-1].id}></ProductHowAbout>
+                </>
+              )}
             return ''
           }
         }}

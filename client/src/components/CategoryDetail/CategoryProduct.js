@@ -29,7 +29,7 @@ function CategoryProduct({ type, id }) {
 
   let getOrderbyProductQuery=''
   if(type==='second'){
-    getOrderbyProductQuery = gql`
+    getOrderbyProductQuery = gql` 
     query {
       products(category_level: second, category_id: ${id}, order_type: ${orderType}, order:${order}) {
         products {
