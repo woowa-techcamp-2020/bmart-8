@@ -5,6 +5,7 @@ import { Query } from 'react-apollo';
 import getRandomInt from '../../../utils/random';
 import useUser from '../../../hooks/useUser';
 import { GET_PRODUCT_SIMPLE } from '../main-query';
+import { gql } from 'apollo-boost';
 
 const ProductReadyForBlock = styled.div`
   margin-top: 0.3rem;
@@ -37,18 +38,6 @@ const ProductReadyForBlock = styled.div`
 const cursor = getRandomInt(0, 7000);
 
 function ProductReadyFor() {
-  const GetReadyProductQuery = gql`
-    query {
-      products(take:9,cursor:${random}) {
-        products{
-          name
-          price
-          img_url
-        }
-      }
-    }
-  `;
-
   const user = useUser();
   return (
     <ProductReadyForBlock>
