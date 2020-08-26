@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useScrollDiff from '../hooks/useScrollDiff';
-import addEventListenerEvent from '../utils/addEventListenerEffect';
+import addEventListenerEvent from '../utils/add-event-listener-effect';
 
 const dummyMenu = [
   '밥',

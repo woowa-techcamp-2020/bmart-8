@@ -40,9 +40,10 @@ function ProductWhatEat() {
     query {
       products(take:9, cursor:${random}) {
         products{
-        name
-        price
-        img_url
+          id
+          name
+          price
+          img_url
         }
       }
     }
@@ -57,6 +58,7 @@ function ProductWhatEat() {
             return data.products.products.map((product, idx) => {
               return (
                 <ProductInfo
+                  id={product.id}
                   key={idx}
                   title={product.name}
                   price={product.price}

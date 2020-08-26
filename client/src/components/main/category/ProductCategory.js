@@ -30,11 +30,12 @@ const ProductCategoryBlock = styled.div`
 
 function ProductCategory() {
   const GetSecondCategory = gql`
-    query {
+    query getSecondCategory {
       secondCategories {
+        id
         name
         children {
-          products {
+          product {
             name
             id
             img_url
@@ -51,7 +52,7 @@ function ProductCategory() {
           if (loading || error) return '';
           return data.secondCategories.map((secondCategory, id) => {
             return (
-              <>
+              <div key={secondCategory.id}>
                 <div className="ProductTitle">{secondCategory.name}</div>
                 <More></More>
                 {/* <div className="ProductInfo">
@@ -65,7 +66,7 @@ function ProductCategory() {
                     );
                   })}
                 </div> */}
-              </>
+              </div>
             );
           });
         }}
