@@ -1,0 +1,15 @@
+version: 0.0
+os: linux
+files:
+  - source: /build/
+    destination: /home/ubuntu/bmart/server/build/
+permission:
+  - object: /
+    pattern: '**'
+    owner: ubuntu
+    group: ubuntu
+hooks:
+  BeforeInstall:
+    - location: server/scripts/before_server_deploy.sh
+  AfterInstall:
+    - location: server/scripts/after_server_deploy.sh

@@ -10,10 +10,40 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Run SSH command
-        uses: garygrossgarten/github-action-ssh@v0.5.0
+      - name: Checkout source code. # 레포지토리 체크아웃
+        uses: actions/checkout@master
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
         with:
-          command: export BRANCH="dev"; cd bmart; scripts/build_server.sh
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          privateKey: ${{ secrets.PRIVATE_KEY}}
+          node-version: ${{ matrix.node-version }}
+          registry-url: 'https://npm.pkg.github.com'
+
+      - name: Build # 의존 파일 설치
+        run: |
+          cd server 
+          yarn
+          ./scripts/build_server.sh
+          tar -cvzf build.tgz appspec.yml build scripts Dockerfile package.json yarn.lock
+        env:
+          CI: false
+
+      - name: Upload to S3
+        env:
+          AWS_ACCESS_KEY_ID: '${{ secrets.AWS_ACCESS_KEY_ID }}'
+          AWS_SECRET_ACCESS_KEY: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
+        run: |
+          aws s3 cp \
+            --region ap-northeast-2 \
+            server/build.tgz s3://bmart-8/server_build/build-`git rev-parse --short HEAD`.tgz
+
+      - name: Deploy
+        env:
+          AWS_ACCESS_KEY_ID: '${{ secrets.AWS_ACCESS_KEY_ID }}'
+          AWS_SECRET_ACCESS_KEY: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
+        run: |
+          aws deploy create-deployment \
+            --region ap-northeast-2 \
+            --application-name bmart-8 \
+            --deployment-config-name CodeDeployDefault.OneAtATime \
+            --deployment-group-name bmart-8-server-codedeploy-group \
+            --s3-location bucket=bmart-8,key=server_build/build-`git rev-parse --short HEAD`.tgz,bundleType=tgz
