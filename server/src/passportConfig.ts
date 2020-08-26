@@ -40,7 +40,7 @@ passport.use(
           create: { name: profile.name, user: { connect: { id: user.id } } },
         });
         const token = jwt.sign(
-          { id: user.id, role: user.role },
+          { id: user.id, role: user.role, name: userProfile.name },
           process.env.JWT_SECRET!
         );
         user['user_profile'] = userProfile;
