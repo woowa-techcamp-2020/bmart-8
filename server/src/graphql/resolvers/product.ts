@@ -4,14 +4,14 @@ import moment from 'moment-timezone';
 const MS_PER_MINUTE = 60000;
 const prisma = new PrismaClient();
 
-type Order = 'asc' | 'desc';
-type OrderType = 'price' | 'created_at' | 'discount' | 'sales';
+type OrderType = 'asc' | 'desc';
+type OrderBy = 'price' | 'created_at' | 'discount' | 'sales';
 type CategoryLevel = 'first' | 'second' | 'third';
 interface ProductsArgs {
   category_level: CategoryLevel;
   category_id: Number;
-  order_type: OrderType;
-  order: Order;
+  order_type: OrderBy;
+  order: OrderType;
   cursor: Number;
   take: Number;
 }
