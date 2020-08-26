@@ -1,4 +1,5 @@
 rm -rf build
+yarn install --production=false
 yarn build
 cp -r src/graphql/types build/graphql/types
 rm -rf node_modules
