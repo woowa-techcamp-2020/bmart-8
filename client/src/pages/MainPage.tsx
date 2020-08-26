@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Header from '../components/Header';
 import Product from '../components/main/Product';
 import Carousel from '../components/Carousel';
-import MainPageCategories from '../components/MainPageCategories';
+import MainPageCategories from '../components/main/CategoryButton';
 import DeliveryAvailabilityIndicator from '../components/DeliveryAvailabilityIndicator';
 import PullToRefresh from '../components/PullToRefresh';
 import Category from '../components/main/Category';
