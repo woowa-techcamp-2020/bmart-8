@@ -78,13 +78,14 @@ function CategoryPage() {
         {({ data, loading, error }) => {
           if (loading || error) return '';
           let categoryList = [];
-          data.firstCategories.forEach((firstCategory) => {
+          data.firstCategories.forEach((firstCategory,index) => {
             let childList = [];
             for (let i = 0; i < firstCategory.children.length; i += 2) {
               const left = firstCategory.children[i];
               const right = firstCategory.children[i + 1];
               childList.push(
                 <CategoryContent
+                key={i}
                   setCloseCallback={setCloseCallback}
                   closeContent={closeContent}
                   data={[left, right]}></CategoryContent>
@@ -92,7 +93,7 @@ function CategoryPage() {
             }
 
             categoryList.push(
-              <div className="Category">
+              <div className="Category" key={index}>
                 <CategoryTitle title={firstCategory.name}></CategoryTitle>
                 {childList}
               </div>
