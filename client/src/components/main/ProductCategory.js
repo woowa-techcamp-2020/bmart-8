@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import ProductInfo from '../common/ProductInfo';
-import More from '../common/More';
+import ProductInfo from './common/ProductInfo';
+import More from './common/More';
 
 import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';

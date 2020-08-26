@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import ProductInfo from '../common/ProductInfo';
-import Refresh from '../common/Refresh';
-
 import { Query } from 'react-apollo';
-import getRandomInt from '../../../utils/random';
-import { GET_PRODUCT_SIMPLE } from '../main-query';
+import ProductInfo from './common/ProductInfo';
+import Refresh from './common/Refresh';
+import getRandomInt from '../../utils/random';
+import { GET_PRODUCT_SIMPLE } from './main-query';
 
-const ProductEssentialBlock = styled.div`
+const ProductWhatEatBlock = styled.div`
   .ProductTitle {
     padding: 1rem;
     background-color: white;
@@ -15,11 +14,11 @@ const ProductEssentialBlock = styled.div`
     font-weight: bold;
   }
   .ProductInfo {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     background-color: white;
     display: flex;
     flex-wrap: wrap;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
     justify-content: space-between;
     height: auto;
     width: auto;
@@ -34,22 +33,23 @@ const ProductEssentialBlock = styled.div`
     padding-bottom: 0.3rem;
   }
 `;
+const cursor = getRandomInt(450, 500);
 
-const cursor = getRandomInt(6546, 6607);
-
-function ProductEssential() {
+function ProductWhatEat() {
   return (
-    <ProductEssentialBlock>
-      <div className="ProductTitle">지금 필요한 생필품!</div>
+    <ProductWhatEatBlock>
+      <div className="ProductTitle">지금 뭐 먹지?</div>
       <div className="ProductInfo">
-        <Query query={GET_PRODUCT_SIMPLE} variables={{ take: 9, cursor:cursor}}>
+        <Query
+          query={GET_PRODUCT_SIMPLE}
+          variables={{ take: 9, cursor: cursor }}>
           {({ data, loading, error }) => {
             if (loading || error) return '';
             return data.products.products.map((product, idx) => {
               return (
                 <ProductInfo
-                  key={idx}
                   id={product.id}
+                  key={idx}
                   title={product.name}
                   price={product.price}
                   url={product.img_url}></ProductInfo>
@@ -59,10 +59,10 @@ function ProductEssential() {
         </Query>
       </div>
       <div className="Refresh">
-        <Refresh title={'지금 필요한 생필품! '}></Refresh>
+        <Refresh className="Refresh" title={'지금 뭐 먹지? '}></Refresh>
       </div>
-    </ProductEssentialBlock>
+    </ProductWhatEatBlock>
   );
 }
 
-export default ProductEssential;
+export default ProductWhatEat;

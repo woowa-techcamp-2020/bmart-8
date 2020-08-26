@@ -11,6 +11,7 @@ import Bag from '../common/Bag';
 import { GET_PRODUCT_SIMPLE } from '../main-query';
 import { gql } from 'apollo-boost';
 import { useCartDispatch, addCartItem } from '../../../stores/cart-store';
+import getRandomInt from '../../../utils/random';
 
 const ProductFlashDiscountBlock = styled.div`
   .ProductTitle {
@@ -70,11 +71,10 @@ const ProductFlashDiscountBlock = styled.div`
 
 const cursor = getRandomInt(0, 7000);
 
-
 function ProductFlashDiscount() {
   const [select, setSelect] = useState(0);
 
-  const [addToCart, { data }] = useMutation(gql`
+  const [addToCart] = useMutation(gql`
     mutation addToCart($id: Int!) {
       addToCart(productId: $id) {
         id
@@ -96,10 +96,9 @@ function ProductFlashDiscount() {
     setSelect(index);
   }
 
-
   return (
     <ProductFlashDiscountBlock>
-      <Query query={GET_PRODUCT_SIMPLE} variables={{ take: 4, cursor:cursor}}>
+      <Query query={GET_PRODUCT_SIMPLE} variables={{ take: 4, cursor: cursor }}>
         {({ data, loading, error }) => {
           if (loading || error) return null;
           if (data.products.length === 0) return null;

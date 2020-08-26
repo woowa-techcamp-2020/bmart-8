@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import ProductReadyFor from './readyFor/ProductReadyFor';
-import ProductFlashDiscount from './discount/ProductFlashDiscount';
-import ProductWhatEat from './whatEat/ProductWhatEat';
-import ProductNew from './new/ProductNew';
-import ProductSellGood from './sellGood/ProductSellGood';
-import ProductEssential from './nowEssential/ProductEssential';
+import ProductReadyFor from './ProductReadyFor';
+import ProductFlashDiscount from './ProductFlashDiscount';
+import ProductWhatEat from './ProductWhatEat';
+import ProductNew from './ProductNew';
+import ProductSellGood from './ProductSellGood';
+import ProductEssential from './ProductEssential';
 import palette from '../../lib/styles/palette';
 
 const ProductBlock = styled.div`

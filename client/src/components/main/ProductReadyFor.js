@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import ProductInfo from '../common/ProductInfo';
 import { Query } from 'react-apollo';
-import getRandomInt from '../../../utils/random';
-import useUser from '../../../hooks/useUser';
-import { GET_PRODUCT_SIMPLE } from '../main-query';
-import { gql } from 'apollo-boost';
+import getRandomInt from '../../utils/random';
+import useUser from '../../hooks/useUser';
+import ProductInfo from './common/ProductInfo';
+import { GET_PRODUCT_SIMPLE } from './main-query';
 
 const ProductReadyForBlock = styled.div`
   margin-top: 0.3rem;
@@ -45,7 +44,9 @@ function ProductReadyFor() {
         {`${user ? user.name + '님' : '당신'}을 위해 준비한 상품`}
       </div>
       <div className="ProductInfo">
-      <Query query={GET_PRODUCT_SIMPLE} variables={{ take: 9, cursor:cursor}}>
+        <Query
+          query={GET_PRODUCT_SIMPLE}
+          variables={{ take: 9, cursor: cursor }}>
           {({ data, loading, error }) => {
             if (loading || error) return '';
 

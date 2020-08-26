@@ -1,14 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import ProductInfo from '../common/ProductInfo';
-import More from '../common/More';
-import getRandomInt from '../../../utils/random';
 import { Link } from 'react-router-dom';
-
 import { Query } from 'react-apollo';
-import { GET_PRODUCT_SIMPLE } from '../main-query';
+import getRandomInt from '../../utils/random';
+import { GET_PRODUCT_SIMPLE } from './main-query';
+import ProductInfo from './common/ProductInfo';
+import More from './common/More';
 
-const ProductNewBlock = styled.div`
+const ProductSellGoodBlock = styled.div`
   .ProductTitle {
     padding: 1rem;
     background-color: white;
@@ -16,12 +15,12 @@ const ProductNewBlock = styled.div`
     font-weight: bold;
   }
   .ProductInfo {
+    max-width: 100vw;
     margin-bottom: 0.3rem;
     background-color: white;
     display: flex;
     flex-wrap: nowrap;
     width: 100%;
-    max-width: 100vw;
     overflow-x: auto;
     ::-webkit-scrollbar {
       display: none;
@@ -34,18 +33,19 @@ const ProductNewBlock = styled.div`
     }
   }
 `;
-
 const cursor = getRandomInt(0, 7000);
 
-function ProductNew() {
+function ProductSellGood() {
   return (
-    <ProductNewBlock>
-      <div className="ProductTitle">새로나왔어요</div>
-      <Link to="/main/new_products">
+    <ProductSellGoodBlock>
+      <div className="ProductTitle">요즘 잘팔려요</div>
+      <Link to="/main/top_saling">
         <More></More>
       </Link>
       <div className="ProductInfo">
-        <Query query={GET_PRODUCT_SIMPLE} variables={{ take: 8, cursor:cursor}}>
+        <Query
+          query={GET_PRODUCT_SIMPLE}
+          variables={{ take: 8, cursor: cursor }}>
           {({ data, loading, error }) => {
             if (loading || error) return '';
             return data.products.products.map((product, idx) => {
@@ -61,8 +61,8 @@ function ProductNew() {
           }}
         </Query>
       </div>
-    </ProductNewBlock>
+    </ProductSellGoodBlock>
   );
 }
 
-export default ProductNew;
+export default ProductSellGood;
