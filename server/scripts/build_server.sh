@@ -1,3 +1,3 @@
 rm -rf build
-yarn tsc
+yarn build
 cp -r src/graphql/types build/graphql/types
