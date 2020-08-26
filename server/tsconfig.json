@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es2015",
+    "target": "es2017",
     "module": "commonjs",
-    "sourceMap": true,
+    "sourceMap": false,
     "allowJs": true,
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
@@ -18,7 +18,9 @@
     "strict": false,
     "resolveJsonModule": true,
     "experimentalDecorators": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "rootDir": "src",
+    "outDir": "build"
   },
   "include": ["./src/**/*"],
   "exclude": ["node_modules"]
