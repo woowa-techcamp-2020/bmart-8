@@ -20,7 +20,7 @@ const RefreshBlock = styled.div`
   }
 `;
 
-function Refresh({ title }) {
+function Refresh({ title }: any) {
   return (
     <RefreshBlock>
       <ReplayIcon className="ReplayIcon"></ReplayIcon>
