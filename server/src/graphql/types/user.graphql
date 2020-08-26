@@ -1,6 +1,16 @@
-type User {
-  email: String
+type Address {
+  zipcode: String!
+  address: String!
+  addressDetail: String
 }
+
+type User {
+  name: String
+  email: String
+  phoneNumber: String
+  address: Address
+}
+
 type Query {
   currentUser: User
 }
