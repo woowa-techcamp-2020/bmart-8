@@ -99,9 +99,14 @@ const Carousel: React.FC<CarouselProps> = ({ images, transitionTime }) => {
         // 0 if idx === images.length; 1 if idx === images.length+1
         const nextIdx = idx === 0 ? images.length : 1;
         moveBanner(nextIdx, true);
-        (window as any).requestIdleCallback(() => {
-          setStartX(null);
-        });
+        if ('requestIdleCallback' in window)
+          (window as any).requestIdleCallback(() => {
+            setStartX(null);
+          });
+        else
+          setTimeout(() => {
+            setStartX(null);
+          }, cssTransitionTime);
       }, cssTransitionTime);
     }
     translateBanner(idx);
@@ -121,9 +126,14 @@ const Carousel: React.FC<CarouselProps> = ({ images, transitionTime }) => {
 
   useEffect(() => {
     moveBanner(curBannerIdx);
-    (window as any).requestIdleCallback(() => {
-      setStartX(null);
-    });
+    if ('requestIdleCallback' in window)
+      (window as any).requestIdleCallback(() => {
+        setStartX(null);
+      });
+    else
+      setTimeout(() => {
+        setStartX(null);
+      }, cssTransitionTime);
     // eslint-disable-next-line
   }, []);
   useEffect(() => {
