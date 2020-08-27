@@ -64,12 +64,6 @@ const MainPage: React.FC = () => {
       <MainPageCategories></MainPageCategories>
       <Product></Product>
       <CategoryContainer></CategoryContainer>
-      <div
-        style={{
-          width: '100%',
-          height: '2000px',
-          backgroundColor: 'green',
-        }}></div>
     </MainPageBlock>
   );
 };
