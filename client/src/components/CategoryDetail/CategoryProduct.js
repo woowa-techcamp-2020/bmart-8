@@ -55,10 +55,11 @@ function CategoryProduct({ type, id }) {
   else if(type==='new_products'){
     getOrderbyProductQuery = gql`
       query {
-        products(category_level:third, order_type:created_at, order:desc, take:100){
+        products(category_level:third, order_type:created_at, order:desc, take:50){
           products{
-            id
             name
+            price
+            img_url
           }
         }
       }
@@ -67,10 +68,11 @@ function CategoryProduct({ type, id }) {
   else if(type==='top_saling'){
     getOrderbyProductQuery = gql`
       query {
-        products(category_level:third, order_type:sales, order:asc, take:100){
+        products(category_level:third, order_type:sales, order:asc, take:50){
           products{
-            id
             name
+            price
+            img_url
           }
         }
       }`;
@@ -78,10 +80,11 @@ function CategoryProduct({ type, id }) {
   else if(type==='flash_discount'){
     getOrderbyProductQuery = gql`
       query {
-        products(category_level:third, order_type:sales, order:asc, take:100){
+        products(category_level:third, order_type:sales, order:asc, take:50){
           products{
-            id
             name
+            price
+            img_url
           }
         }
       }
