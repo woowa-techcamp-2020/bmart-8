@@ -14,6 +14,8 @@ const GetSecondCategory = gql`
           name
           id
           img_url
+          price
+          discount
         }
       }
     }

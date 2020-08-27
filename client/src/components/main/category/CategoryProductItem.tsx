@@ -39,7 +39,7 @@ const CategoryProductItem: React.FC<CategoryProductItemProps> = ({
       <div className="ProductContent">
         <ProductContent
           title={product.name}
-          price={0}
+          price={product.price}
           onAddCart={() => {
             // addToCart({
             //   variables: {
