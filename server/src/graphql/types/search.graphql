@@ -5,6 +5,7 @@ type SearchHistory {
 }
 
 type Query {
+  searchProducts(query: String): [Product]
   searchHistory: [SearchHistory]
   instantSearch(query: String): [String]
 }

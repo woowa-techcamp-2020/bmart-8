@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/woowa-techcamp-2020/bmart-8#readme",
   "dependencies": {
+    "@elastic/elasticsearch": "^7.9.0",
     "@prisma/client": "^2.5.1",
     "apollo-server": "^2.16.1",
     "cookie-parser": "^1.4.5",

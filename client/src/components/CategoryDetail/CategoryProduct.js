@@ -9,7 +9,6 @@ import Filter from '../CategoryDetail/Filter';
 const CategoryProductBlock = styled.div`
   .ProductInfo {
     padding-top: 0.3rem;
-    padding-right: 0.5rem;
     background-color: white;
     display: flex;
     flex-wrap: wrap;
@@ -27,8 +26,8 @@ function CategoryProduct({ type, id }) {
   const [orderType, setOrderType] = useState('price');
   const [order, setOrder] = useState('desc');
   let getOrderbyProductQuery;
-  if (type==='second'){
-    getOrderbyProductQuery=gql` 
+  if (type === 'second') {
+    getOrderbyProductQuery = gql` 
       query {
         products(category_level: second, category_id: ${id}, order_type: ${orderType}, order:${order}) {
           products {
@@ -38,8 +37,7 @@ function CategoryProduct({ type, id }) {
           }
         }
       }`;
-    }
-  else if (type==='third'){
+  } else if (type === 'third') {
     getOrderbyProductQuery = gql`
     query {
       products(category_level: third, category_id: ${id}, order_type: ${orderType}, order:${order}) {
@@ -50,8 +48,11 @@ function CategoryProduct({ type, id }) {
         }
       }
     }`;
-  }
-  else if(type==='new_products' || type==='top_saling' || type==='flash_discount' ){
+  } else if (
+    type === 'new_products' ||
+    type === 'top_saling' ||
+    type === 'flash_discount'
+  ) {
     getOrderbyProductQuery = gql`
       query {
       products(category_level:third, order_type: ${orderType}, order:${order}, take:50){
@@ -63,7 +64,6 @@ function CategoryProduct({ type, id }) {
       }
     }`;
   }
-  
 
   function onChangeFilter(event) {
     const value = event.target.value;

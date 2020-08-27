@@ -15,6 +15,7 @@ const MainPageBlock = styled.div<{ isScrollTop: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-x: hidden;
   ${({ isScrollTop }) => {
     return isScrollTop ? 'touch-action: pan-down;' : 'touch-action: pan-y;';
   }}

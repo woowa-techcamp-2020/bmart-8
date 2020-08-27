@@ -15,8 +15,6 @@ const ProductEssentialBlock = styled.div`
     background-color: white;
     display: flex;
     flex-wrap: wrap;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
     justify-content: space-between;
     height: auto;
     width: auto;

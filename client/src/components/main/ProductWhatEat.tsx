@@ -12,8 +12,6 @@ const ProductWhatEatBlock = styled.div`
     font-weight: bold;
   }
   .ProductInfo {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
     background-color: white;
     display: flex;
     flex-wrap: wrap;

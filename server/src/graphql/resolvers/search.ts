@@ -1,20 +1,7 @@
 import { PrismaContext } from '..';
 import { AuthenticationError } from 'apollo-server';
+import elasticsearchClient from '../../lib/elasticsearch-client';
 
-const searchString = [
-  '사과쨈',
-  '사과',
-  '호랑이',
-  '고라니',
-  '에어컨',
-  '창문',
-  '문',
-  '창살',
-  '호두두',
-  '호두',
-  '호두도도',
-  '사라라',
-];
 type SearchHistory = {
   id: number;
   date: Date;
@@ -44,9 +31,37 @@ export default {
         query: item.keyword,
       }));
     },
-    instantSearch: (_: any, { query }: any) => {
+    instantSearch: async (_: any, { query }: any) => {
       if (!query || query.length === 0) return [];
-      return searchString.filter((s) => s.startsWith(query));
+
+      console.log(query);
+      const data = await elasticsearchClient.search({
+        index: 'bmart',
+        body: {
+          query: {
+            prefix: {
+              name: query,
+            },
+          },
+        },
+      });
+      return data.body.hits.hits.map((i: any) => i._source.name);
+    },
+    searchProducts: async (_: any, { query }: any) => {
+      if (!query || query.length === 0) return [];
+
+      const data = await elasticsearchClient.search({
+        index: 'bmart',
+        body: {
+          query: {
+            multi_match: {
+              query: query,
+              fields: ['name', 'content'],
+            },
+          },
+        },
+      });
+      return data.body.hits.hits.map((i: any) => ({ ...i._source, id: i._id }));
     },
   },
 
