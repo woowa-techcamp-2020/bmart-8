@@ -22,6 +22,8 @@ import { useCartDispatch } from './stores/cart-store';
 import useUser from './hooks/useUser';
 
 const AppBlock = styled.div`
+  @import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
+  scroll-behavior: smooth;
   max-width: 100%;
   text-align: center;
   display: flex;
