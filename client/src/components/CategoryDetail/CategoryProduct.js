@@ -26,21 +26,20 @@ const CategoryProductBlock = styled.div`
 function CategoryProduct({ type, id }) {
   const [orderType, setOrderType] = useState('price');
   const [order, setOrder] = useState('desc');
-
-  let getOrderbyProductQuery=''
-  if(type==='second'){
-    getOrderbyProductQuery = gql` 
-    query {
-      products(category_level: second, category_id: ${id}, order_type: ${orderType}, order:${order}) {
-        products {
-          name
-          price
-          img_url
+  let getOrderbyProductQuery;
+  if (type==='second'){
+    getOrderbyProductQuery=gql` 
+      query {
+        products(category_level: second, category_id: ${id}, order_type: ${orderType}, order:${order}) {
+          products {
+            name
+            price
+            img_url
+          }
         }
-      }
-    }`;
-  }
-  else if(type==='third'){
+      }`;
+    }
+  else if (type==='third'){
     getOrderbyProductQuery = gql`
     query {
       products(category_level: third, category_id: ${id}, order_type: ${orderType}, order:${order}) {
@@ -52,44 +51,19 @@ function CategoryProduct({ type, id }) {
       }
     }`;
   }
-  else if(type==='new_products'){
+  else if(type==='new_products' || type==='top_saling' || type==='flash_discount' ){
     getOrderbyProductQuery = gql`
       query {
-        products(category_level:third, order_type:created_at, order:desc, take:50){
-          products{
-            name
-            price
-            img_url
-          }
+      products(category_level:third, order_type: ${orderType}, order:${order}, take:50){
+        products{
+          name
+          price
+          img_url
         }
       }
-    `;
+    }`;
   }
-  else if(type==='top_saling'){
-    getOrderbyProductQuery = gql`
-      query {
-        products(category_level:third, order_type:sales, order:asc, take:50){
-          products{
-            name
-            price
-            img_url
-          }
-        }
-      }`;
-  }
-  else if(type==='flash_discount'){
-    getOrderbyProductQuery = gql`
-      query {
-        products(category_level:third, order_type:sales, order:asc, take:50){
-          products{
-            name
-            price
-            img_url
-          }
-        }
-      }
-    `;
-  }
+  
 
   function onChangeFilter(event) {
     const value = event.target.value;
