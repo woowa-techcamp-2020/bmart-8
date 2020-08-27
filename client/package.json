@@ -19,6 +19,7 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/styled-components": "^5.1.2",
     "apollo-boost": "^0.4.9",
+    "apollo-link-batch-http": "^1.2.14",
     "axios": "^0.20.0",
     "date-fns": "^2.15.0",
     "graphql": "^15.3.0",

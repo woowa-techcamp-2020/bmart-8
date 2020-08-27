@@ -1,17 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import { ApolloProvider } from 'react-apollo';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import { BatchHttpLink } from 'apollo-link-batch-http';
+
+import * as serviceWorker from './serviceWorker';
+import { CartProvider } from './stores/cart-store';
 import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
-import { BrowserRouter } from 'react-router-dom';
-import { CartProvider } from './stores/cart-store';
-import { ApolloProvider } from 'react-apollo';
-import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
 
-const httpLink = createHttpLink({
-  uri: '/graphql',
-});
+const httpLink = new BatchHttpLink({ uri: '/graphql' }) as any;
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('token');
