@@ -12,6 +12,7 @@ import { useCartDispatch, addCartItem } from '../../../stores/cart-store';
 import useRandomProducts from '../hooks/useRandomProducts';
 
 const ProductFlashDiscountBlock = styled.div`
+  position:relative;
   .ProductTitle {
     background-color: white;
     padding-top: 1rem;
@@ -57,6 +58,12 @@ const ProductFlashDiscountBlock = styled.div`
     margin-bottom: 0.3rem;
     padding-bottom: 0.2rem;
     font-size: 1rem;
+  }
+
+  .Bag {
+    position:absolute;
+    left:1rem;
+    bottom:3.5em;
   }
 
 `;

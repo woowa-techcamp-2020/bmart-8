@@ -16,7 +16,7 @@ const ProductContentBlock = styled.div`
   }
 
   .Bag {
-    color: ${palette.baemint200};
+    color: ${palette.baemint300};
   }
 `;
 
