@@ -22,6 +22,7 @@ import { useCartDispatch } from './stores/cart-store';
 import useUser from './hooks/useUser';
 
 const AppBlock = styled.div`
+  scroll-behavior: smooth;
   max-width: 100%;
   text-align: center;
   display: flex;
