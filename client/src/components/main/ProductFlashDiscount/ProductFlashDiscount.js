@@ -7,7 +7,6 @@ import More from '../common/More';
 import ProductPhoto from '../common/ProductPhoto';
 import ProductDiscount from './ProductDiscount';
 import ProductContent from '../common/ProductContent';
-import Bag from '../common/Bag';
 import { gql } from 'apollo-boost';
 import { useCartDispatch, addCartItem } from '../../../stores/cart-store';
 import useRandomProducts from '../hooks/useRandomProducts';
@@ -60,12 +59,6 @@ const ProductFlashDiscountBlock = styled.div`
     font-size: 1rem;
   }
 
-  .Bag {
-    position: relative;
-    bottom: 1.5rem;
-    left: 10rem;
-    color: ${palette.baemint200};
-  }
 `;
 
 function ProductFlashDiscount() {
@@ -142,9 +135,7 @@ function ProductFlashDiscount() {
                     cartDispatch(addCartItem(data.data.addToCart));
                   });
                 }}></ProductContent>
-              <div className="Bag">
-                <Bag></Bag>
-              </div>
+
             </div>
           </div>
         </>
