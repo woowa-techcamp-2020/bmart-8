@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { Switch, Route } from 'react-router-dom';
 import { gql } from 'apollo-boost';
-import { useQuery } from 'react-apollo';
+import { useLazyQuery } from 'react-apollo';
 
 import CartPage from './pages/CartPage';
 import MainPage from './pages/MainPage';
@@ -19,6 +19,7 @@ import SearchResultPage from './pages/SearchResultPage';
 
 import CategoryDetailPage from './pages/CategoryDetailPage';
 import { useCartDispatch } from './stores/cart-store';
+import useUser from './hooks/useUser';
 
 const AppBlock = styled.div`
   max-width: 100%;
@@ -32,7 +33,8 @@ const AppBlock = styled.div`
 `;
 
 function App() {
-  const { data: cartData } = useQuery(gql`
+  const user = useUser();
+  const [fetchCart, { data: cartData }] = useLazyQuery(gql`
     query {
       cart {
         id
@@ -55,6 +57,8 @@ function App() {
   useEffect(() => {
     if (cartData) cartDispatch({ type: 'INIT', payload: cartData.cart });
   }, [cartData, cartDispatch]);
+
+  if (user) fetchCart();
 
   return (
     <AppBlock>

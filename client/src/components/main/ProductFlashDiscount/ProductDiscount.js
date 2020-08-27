@@ -39,7 +39,11 @@ const ProductDiscountBlock = styled.div`
 function ProductDiscount({ url, discount }) {
   return (
     <ProductDiscountBlock>
-      <img alt="Thumbnail" className={'Thumbnail'} src={url}></img>
+      <img
+        alt="Thumbnail"
+        className={'Thumbnail'}
+        src={url}
+        loading="lazy"></img>
       <div className="DiscountRage">
         <div>{discount}%</div> <div>할인</div>
       </div>

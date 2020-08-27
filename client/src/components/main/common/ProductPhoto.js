@@ -30,6 +30,7 @@ function ProductPhoto({ wishbutton, onClick, index, url, select = -1 }) {
   return (
     <ProductPhotoBlock className={select === index ? ' active' : ''}>
       <img
+        loading="lazy"
         alt="Thunbnail"
         className={'Thumbnail'}
         src={url}

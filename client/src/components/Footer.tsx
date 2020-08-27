@@ -22,6 +22,20 @@ const FooterBlock = styled.div`
     list-style: none;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
+    li {
+      position: relative;
+    }
+  }
+
+  .cart-count-indicator {
+    position: absolute;
+    top: 0.1rem;
+    right: 0.5rem;
+    background: #77d6d3;
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 50%;
+    text-align: center;
   }
 `;
 
@@ -70,7 +84,12 @@ const Footer: React.FC<FooterProps> = () => {
         <li>
           <LinkBlock to="/cart">
             <AddShoppingCartIcon></AddShoppingCartIcon>
-            <div>장바구니 {cart.length} 개</div>
+            <div>
+              장바구니
+              <div className="cart-count-indicator" hidden={cart.length === 0}>
+                {cart.length}
+              </div>
+            </div>
           </LinkBlock>
         </li>
       </ol>

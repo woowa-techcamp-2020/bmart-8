@@ -99,9 +99,14 @@ const Carousel: React.FC<CarouselProps> = ({ images, transitionTime }) => {
         // 0 if idx === images.length; 1 if idx === images.length+1
         const nextIdx = idx === 0 ? images.length : 1;
         moveBanner(nextIdx, true);
-        (window as any).requestIdleCallback(() => {
-          setStartX(null);
-        });
+        if ('requestIdleCallback' in window)
+          (window as any).requestIdleCallback(() => {
+            setStartX(null);
+          });
+        else
+          setTimeout(() => {
+            setStartX(null);
+          }, cssTransitionTime);
       }, cssTransitionTime);
     }
     translateBanner(idx);
@@ -121,9 +126,14 @@ const Carousel: React.FC<CarouselProps> = ({ images, transitionTime }) => {
 
   useEffect(() => {
     moveBanner(curBannerIdx);
-    (window as any).requestIdleCallback(() => {
-      setStartX(null);
-    });
+    if ('requestIdleCallback' in window)
+      (window as any).requestIdleCallback(() => {
+        setStartX(null);
+      });
+    else
+      setTimeout(() => {
+        setStartX(null);
+      }, cssTransitionTime);
     // eslint-disable-next-line
   }, []);
   useEffect(() => {
@@ -173,21 +183,27 @@ const Carousel: React.FC<CarouselProps> = ({ images, transitionTime }) => {
       <div className="wrapper" ref={containerRef}>
         <div>
           <Link to={lastBanner.routeUrl}>
-            <img src={lastBanner.imgUrl} alt={lastBanner.altString}></img>
+            <img
+              src={lastBanner.imgUrl}
+              alt={lastBanner.altString}
+              loading="lazy"></img>
           </Link>
         </div>
         {images.map(({ imgUrl, altString, routeUrl }, idx) => {
           return (
             <div key={idx}>
               <Link to={routeUrl}>
-                <img src={imgUrl} alt={altString}></img>
+                <img src={imgUrl} alt={altString} loading="lazy"></img>
               </Link>
             </div>
           );
         })}
         <div>
           <Link to={images[0].routeUrl}>
-            <img src={images[0].imgUrl} alt={images[0].altString}></img>
+            <img
+              src={images[0].imgUrl}
+              alt={images[0].altString}
+              loading="lazy"></img>
           </Link>
         </div>
       </div>
