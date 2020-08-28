@@ -23,7 +23,6 @@ jobs:
           cd server 
           yarn
           ./scripts/build_server.sh
-          tar -cvzf build.tgz appspec.yml build scripts Dockerfile package.json yarn.lock
         env:
           CI: false
 

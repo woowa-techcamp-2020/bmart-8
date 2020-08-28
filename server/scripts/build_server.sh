@@ -1,3 +1,7 @@
 rm -rf build
+yarn install --production=false
 yarn build
 cp -r src/graphql/types build/graphql/types
+rm -rf node_modules
+yarn install --production
+tar -czf build.tgz node_modules appspec.yml build prisma scripts Dockerfile package.json yarn.lock

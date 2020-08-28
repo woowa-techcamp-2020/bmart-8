@@ -1,4 +1,4 @@
 #! /bin/bash
 
-rm -rf client/build
-mkdir -vp client/build
+cd /home/ubuntu/bmart
+rm -rf client/build/*
