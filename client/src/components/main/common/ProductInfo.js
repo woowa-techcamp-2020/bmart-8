@@ -7,12 +7,18 @@ import { useMutation } from 'react-apollo';
 import { useCartDispatch, addCartItem } from '../../../stores/cart-store';
 
 const ProductInfoBlock = styled.div`
+  position:relative;
+
   flex-shrink: 0;
   margin: 0 0.1rem;
   padding-bottom: 1rem;
   width: 30%;
   .ProductContent {
     font-size: 0.8rem;
+  }
+  .Bag {
+    position:absolute;
+    top:5.5rem;
   }
 `;
 

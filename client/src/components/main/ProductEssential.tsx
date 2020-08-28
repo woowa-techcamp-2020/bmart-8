@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import ProductInfo from './common/ProductInfo';
 import Refresh from './common/Refresh';
-import useRandomProducts from './hooks/useRandomProducts';
+import useLazyRandomProducts from './hooks/useLazyRandomProducts';
 
 const ProductEssentialBlock = styled.div`
   .ProductTitle {
@@ -33,8 +33,30 @@ const ProductEssentialBlock = styled.div`
 // 생활용품,리빙 카테고리
 // const cursor = getRandomInt(6546, 6607);
 
+type ProductInfo = {
+  id: number;
+  name: string;
+  price: number;
+  img_url: string;
+  discount: number;
+};
+
 function ProductEssential() {
-  const products = useRandomProducts(9);
+  const [fetchProducts, fetchedProducts] = useLazyRandomProducts(9,[5092,5162]);
+
+  const [products, setProducts] = useState<ProductInfo[] | null>(null);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+  useEffect(() => {
+    if (fetchedProducts) setProducts(fetchedProducts);
+  }, [fetchedProducts]);
+
+  function RefreshProducts() {
+    fetchProducts();
+  }
+
   return (
     <ProductEssentialBlock>
       <div className="ProductTitle">지금 필요한 생필품!</div>
@@ -51,7 +73,11 @@ function ProductEssential() {
             );
           })}
       </div>
-      <div className="Refresh">
+      <div
+        className="Refresh"
+        onClick={() => {
+          RefreshProducts();
+        }}>
         <Refresh title={'지금 필요한 생필품! '}></Refresh>
       </div>
     </ProductEssentialBlock>

@@ -19,7 +19,9 @@ const CategoryHeaderBlock = styled.div`
     background-color: white;
     margin-bottom:0.1rem;
   }
-
+  .SearchIcon{
+    color:black;
+  }
 `;
 
 function CategoryHeader({ type,id }) {

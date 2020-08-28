@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import ProductInfo from './common/ProductInfo';
 import Refresh from './common/Refresh';
-import useRandomProducts from './hooks/useRandomProducts';
+import useLazyRandomProducts from './hooks/useLazyRandomProducts';
 
 const ProductWhatEatBlock = styled.div`
   .ProductTitle {
@@ -33,8 +33,30 @@ const ProductWhatEatBlock = styled.div`
 // 국,반찬,메인요리
 // const cursor = getRandomInt(450, 500);
 
+type ProductInfo = {
+  id: number;
+  name: string;
+  price: number;
+  img_url: string;
+  discount: number;
+};
+
 function ProductWhatEat() {
-  const products = useRandomProducts(9);
+  const [fetchProducts, fetchedProducts] = useLazyRandomProducts(9);
+
+  const [products, setProducts] = useState<ProductInfo[] | null>(null);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+  useEffect(() => {
+    if (fetchedProducts) setProducts(fetchedProducts);
+  }, [fetchedProducts]);
+
+  function RefreshProducts() {
+    fetchProducts();
+  }
+
   return (
     <ProductWhatEatBlock>
       <div className="ProductTitle">지금 뭐 먹지?</div>
@@ -51,7 +73,11 @@ function ProductWhatEat() {
             );
           })}
       </div>
-      <div className="Refresh">
+      <div
+        className="Refresh"
+        onClick={() => {
+          RefreshProducts();
+        }}>
         <Refresh className="Refresh" title={'지금 뭐 먹지? '}></Refresh>
       </div>
     </ProductWhatEatBlock>
