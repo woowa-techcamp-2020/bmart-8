@@ -32,7 +32,7 @@ function ProductContent({ title, price, discount, onAddCart }) {
       <div className="Title">{title}</div>
       <div className="Price">{price.toLocaleString()}</div>
       <div className="DiscountPrice">
-        {Math.floor(price * ((100 - discount) / 100)).toLocaleString()} 원
+        {Math.floor(price * ((100 - parseInt(discount || 50)) / 100)).toLocaleString()} 원
       </div>
       <div onClick={onAddCart} className="Bag">
         <Bag />
