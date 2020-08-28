@@ -28,7 +28,7 @@ const AppBlock = styled.div`
   display: flex;
   overflow-x: hidden;
   flex-direction: column;
-  margin-bottom:50px;
+  margin-bottom: 50px;
 `;
 
 function App() {
@@ -58,7 +58,7 @@ function App() {
   }, [cartData, cartDispatch]);
 
   useEffect(() => {
-    if (user?.email) fetchCart();
+    if (user) fetchCart();
   }, [user]);
 
   return (
