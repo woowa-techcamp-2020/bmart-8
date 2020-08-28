@@ -28,6 +28,7 @@ const AppBlock = styled.div`
   display: flex;
   overflow-x: hidden;
   flex-direction: column;
+  margin-bottom:50px;
 `;
 
 function App() {
