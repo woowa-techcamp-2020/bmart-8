@@ -7,11 +7,10 @@ import palette from '../lib/styles/palette';
 const HeaderBlock = styled.div`
   position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
   background-color: white;
   z-index: 99;
-  width: 100vw;
+  width: 100%;
+  max-width: 768px;
   height: 5rem;
   border-bottom: 1px solid ${palette.gray300};
 `;

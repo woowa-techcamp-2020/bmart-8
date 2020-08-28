@@ -6,7 +6,7 @@ import { Flex } from '../../../lib/styles/mixins';
 import More from '../common/More';
 
 const CategoryProductListBlock = styled.div`
-  width: 100vw;
+  width: 100%;
   white-space: nowrap;
 `;
 

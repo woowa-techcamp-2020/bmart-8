@@ -7,7 +7,8 @@ const CategoryNavbarBlock = styled.div`
   ${Flex('row')}
   ${HideScroll}
   border-bottom: 2px solid ${palette.gray300};
-  width: 100vw;
+  width: 100%;
+  max-width: 768px;
   background-color: white;
   z-index: 100;
   padding: 0.3em 0.6em;
@@ -15,9 +16,9 @@ const CategoryNavbarBlock = styled.div`
   touch-action: auto;
   overflow-x: scroll;
   box-sizing: border-box;
-  &.sticky{
-    position:fixed;
-    top:79px;
+  &.sticky {
+    position: fixed;
+    top: 79px;
   }
 `;
 

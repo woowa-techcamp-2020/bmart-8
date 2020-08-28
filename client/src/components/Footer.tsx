@@ -13,7 +13,8 @@ const FooterBlock = styled.div`
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   bottom: 0;
-  width: 100vw;
+  width: 100%;
+  max-width: 768px;
   background-color: white;
   z-index: 999;
 
