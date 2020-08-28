@@ -1,8 +1,8 @@
-import React,{useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import ProductInfo from './common/ProductInfo';
 import Refresh from './common/Refresh';
-import useRandomProducts from './hooks/useRandomProducts';
+import useLazyRandomProducts from './hooks/useLazyRandomProducts';
 
 const ProductWhatEatBlock = styled.div`
   .ProductTitle {
@@ -43,16 +43,21 @@ type ProductInfo = {
   discount: number;
 };
 
-
 function ProductWhatEat() {
-  const products = useRandomProducts(9);
-  
-  // const [products,setProducts] = useState<ProductInfo[] | null>(null);
-  // setProducts(useRandomProducts(9));
+  const [fetchProducts, fetchedProducts] = useLazyRandomProducts(9);
 
-  // function RefreshProducts(){
-  //   setProducts(useRandomProducts(9));
-  // }
+  const [products, setProducts] = useState<ProductInfo[] | null>(null);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+  useEffect(() => {
+    if (fetchedProducts) setProducts(fetchedProducts);
+  }, [fetchedProducts]);
+
+  function RefreshProducts() {
+    fetchProducts();
+  }
 
   return (
     <ProductWhatEatBlock>
@@ -70,8 +75,12 @@ function ProductWhatEat() {
             );
           })}
       </div>
-      <div className="Refresh" /*onClick={()=>{RefreshProducts()}}*/ >
-        <Refresh className="Refresh"  title={'지금 뭐 먹지? '}></Refresh>
+      <div
+        className="Refresh"
+        onClick={() => {
+          RefreshProducts();
+        }}>
+        <Refresh className="Refresh" title={'지금 뭐 먹지? '}></Refresh>
       </div>
     </ProductWhatEatBlock>
   );
