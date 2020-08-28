@@ -1,14 +1,20 @@
-# bmart-8
+# Todo 2 Team
 
-노기진, 김한, 김현영 - 모바일 B마트 만들기
+mobile B-mart 
 
-# 사용한 것들
+## ✋Team Members
+- [![title](https://img.shields.io/badge/DEVLOPER-김한-123456)](https://github.com/hanSong2)
+- [![title](https://img.shields.io/badge/DEVLOPER-김현영-123456)](https://github.com/atobaum)
+- [![title](https://img.shields.io/badge/DEVLOPER-노기진-123456)](https://github.com/nohgijin)
+------
 
-## 폰트
+## ⚡️사용한 것들
+
+### ✏️폰트
 
 - [Gugi by TAE System & Typefaces Co.](https://fonts.google.com/specimen/Gugi?subset=korean&sidebar.open=true&selection.family=Gugi)
 
-# Install
+## 🧞Install
 
 ## Client
 
@@ -37,3 +43,32 @@ Github secrets에 다음 항목이 필요합니다:
 - PRIVATE_KEY: ssh private key(pem format)
 - AWS_ACCESS_KEY_ID
 - AWS_SECRET_ACCESS_KEY
+
+
+------
+
+## 기술 스택
+
+**Common**
+- ![title](https://img.shields.io/badge/-TypeScript-007acc?&logo=React&logoColor=white)
+- ![title](https://img.shields.io/badge/-NPM-CC3534?&logo=NPM&logoColor=white)
+
+**Frontend**
+- ![title](https://img.shields.io/badge/-React-61dbfb?&logo=React&logoColor=white)
+- ![title](https://img.shields.io/badge/-CSS-264de4?&logo=css&logoColor=white)
+- ![title](https://img.shields.io/badge/-Webpack-1C78C0?&logo=Webpack&logoColor=white)
+- ![title](https://img.shields.io/badge/-Babel-yellow?&logo=Babel&logoColor=white)
+
+**Backend**
+- ![title](https://img.shields.io/badge/-Node.js-339933?&logo=Node.js&logoColor=white)
+- ![title](https://img.shields.io/badge/-Express-191919?&logo=Node.js&logoColor=white)
+- ![title](https://img.shields.io/badge/-GraphQL-e535ab?&logo=Node.js&logoColor=white)
+- ![title](https://img.shields.io/badge/-MySQL-4479A1?&logo=MySQL&logoColor=white)
+
+**ETC**
+- ![title](https://img.shields.io/badge/-EC2-232F3E?&logo=Amazon-AWS&logoColor=white)
+- ![title](https://img.shields.io/badge/-Github-181717?&logo=Github&logoColor=white)
+- ![title](https://img.shields.io/badge/-Slack-4A154B?&logo=Slack&logoColor=white)
+
+
+------
