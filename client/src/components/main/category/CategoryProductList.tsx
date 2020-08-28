@@ -49,7 +49,9 @@ const CategoryProductList: React.FC<CategoryProductListProps> = ({
       </Header>
       <ProductList>
         {category.products.map((product: any) => (
-          <CategoryProductItem product={product}></CategoryProductItem>
+          <CategoryProductItem
+            key={product.id}
+            product={product}></CategoryProductItem>
         ))}
       </ProductList>
       <Divider></Divider>

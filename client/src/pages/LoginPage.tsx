@@ -7,9 +7,14 @@ import { useHistory } from 'react-router-dom';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { googleLogin } from '../api';
 
-const LoginPageBlok = styled.div`
+const LoginPageBlock = styled.div`
   ${Flex('column')}
   height:100%;
+  align-items: center;
+  .logout-btn {
+    width: 50%;
+    margin-top: 1rem;
+  }
 `;
 
 const LoginBtnContainer = styled.div`
@@ -20,8 +25,12 @@ const LoginBtnContainer = styled.div`
 
 const LoginPage: React.FC = () => {
   const history = useHistory();
+  const logoutHandler = () => {
+    localStorage.setItem('token', '');
+    window.location.href = '/';
+  };
   return (
-    <LoginPageBlok>
+    <LoginPageBlock>
       <ArrowBackIcon
         style={{ padding: '16px' }}
         onClick={() => history.goBack()}
@@ -32,7 +41,10 @@ const LoginPage: React.FC = () => {
       <LoginBtnContainer>
         <GoogleLoginBtn onclick={googleLogin}></GoogleLoginBtn>
       </LoginBtnContainer>
-    </LoginPageBlok>
+      <button className="logout-btn" onClick={logoutHandler}>
+        로그아웃
+      </button>
+    </LoginPageBlock>
   );
 };
 
