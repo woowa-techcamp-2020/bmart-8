@@ -5,11 +5,13 @@ import ProductPhoto from '../common/ProductPhoto';
 import ProductContent from '../common/ProductContent';
 
 const CategoryProductItemBlock = styled.div`
+  position:relative;
   width: 50%;
   line-break: auto;
   white-space: normal;
   box-sizing: border-box;
   padding-bottom: 2vw;
+  font-size:0.8rem;
   &:nth-child(odd) {
     padding-left: 2vw;
     padding-right: 1vw;
@@ -17,6 +19,10 @@ const CategoryProductItemBlock = styled.div`
   &:nth-child(even) {
     padding-left: 1vw;
     padding-right: 2vw;
+  }
+  .Bag {
+    position:absolute;
+    top:9.5rem;
   }
 `;
 

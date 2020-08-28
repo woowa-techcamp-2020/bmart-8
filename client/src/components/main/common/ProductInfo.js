@@ -8,7 +8,6 @@ import { useCartDispatch, addCartItem } from '../../../stores/cart-store';
 
 const ProductInfoBlock = styled.div`
   position:relative;
-
   flex-shrink: 0;
   margin: 0 0.1rem;
   padding-bottom: 1rem;
