@@ -77,7 +77,7 @@ const Footer: React.FC<FooterProps> = () => {
           </LinkBlock>
         </li>
         <li>
-          <LinkBlock to="/profile">
+          <LinkBlock to="/login">
             <PersonOutlineIcon></PersonOutlineIcon>
             <div>프로필</div>
           </LinkBlock>
