@@ -20,6 +20,10 @@ const LoginBtnContainer = styled.div`
 
 const LoginPage: React.FC = () => {
   const history = useHistory();
+  const logoutHandler = () => {
+    localStorage.setItem('token', '');
+    window.location.href = '/';
+  };
   return (
     <LoginPageBlok>
       <ArrowBackIcon
@@ -32,6 +36,7 @@ const LoginPage: React.FC = () => {
       <LoginBtnContainer>
         <GoogleLoginBtn onclick={googleLogin}></GoogleLoginBtn>
       </LoginBtnContainer>
+      <button onClick={logoutHandler}>로그아웃</button>
     </LoginPageBlok>
   );
 };
