@@ -14,7 +14,7 @@ const ProductHowAboutBlock = styled.div`
     font-weight: bold;
   }
   .ProductInfo {
-    max-width: 100vw;
+    max-width: 100%;
     display: flex;
     flex-wrap: nowrap;
     background-color: white;
@@ -30,10 +30,10 @@ const ProductHowAboutBlock = styled.div`
       padding-right: 0.5rem;
     }
   }
-`
+`;
 
-function ProductHowAbout({index}) {
-  const random = getRandomInt(index, index-20);
+function ProductHowAbout({ index }) {
+  const random = getRandomInt(index, index - 20);
   const GetReadyProductQuery = gql`
     query {
       products(take:9,cursor:${random}) {

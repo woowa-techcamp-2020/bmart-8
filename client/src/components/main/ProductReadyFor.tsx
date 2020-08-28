@@ -13,7 +13,7 @@ const ProductReadyForBlock = styled.div`
     font-weight: bold;
   }
   .ProductInfo {
-    max-width: 100vw;
+    max-width: 100%;
     margin-bottom: 0.3rem;
     display: flex;
     flex-wrap: nowrap;

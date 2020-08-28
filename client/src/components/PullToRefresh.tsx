@@ -40,7 +40,7 @@ function getRandomMenus(
 }
 
 const PullToRefreshBlock = styled.div`
-  width: 100vw;
+  width: 100%;
   border-bottom: 1px solid gray;
   display: flex;
   justify-content: center;

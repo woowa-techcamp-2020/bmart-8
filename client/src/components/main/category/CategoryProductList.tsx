@@ -7,8 +7,8 @@ import More from '../common/More';
 import { Link } from 'react-router-dom';
 
 const CategoryProductListBlock = styled.div`
+  width: 100%;
   position: relative;
-  width: 100vw;
   white-space: nowrap;
 
   .Link {

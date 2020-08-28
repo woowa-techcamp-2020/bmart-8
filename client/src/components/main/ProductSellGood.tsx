@@ -13,7 +13,7 @@ const ProductSellGoodBlock = styled.div`
     font-weight: bold;
   }
   .ProductInfo {
-    max-width: 100vw;
+    max-width: 100%;
     margin-bottom: 0.3rem;
     background-color: white;
     display: flex;
