@@ -58,8 +58,8 @@ function App() {
   }, [cartData, cartDispatch]);
 
   useEffect(() => {
-    if (user) fetchCart();
-  }, [user]);
+    fetchCart();
+  }, []);
 
   return (
     <AppBlock>
