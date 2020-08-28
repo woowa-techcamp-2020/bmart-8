@@ -56,7 +56,9 @@ function App() {
     if (cartData) cartDispatch({ type: 'INIT', payload: cartData.cart });
   }, [cartData, cartDispatch]);
 
-  if (user?.email) fetchCart();
+  useEffect(() => {
+    if (user?.email) fetchCart();
+  }, [user]);
 
   return (
     <AppBlock>

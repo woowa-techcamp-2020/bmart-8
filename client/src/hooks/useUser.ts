@@ -1,18 +1,21 @@
-import { useQuery } from 'react-apollo';
+import { useLazyQuery } from 'react-apollo';
 import { gql } from 'apollo-boost';
+import { useState } from 'react';
 
 type UserInfo = {
   email: String;
   name: String;
 };
-
+let user: any = null;
 export default function useUser(): UserInfo | null {
-  const { data } = useQuery(
+  const [fetchUser, { data, called, loading }] = useLazyQuery(
     gql`
       query {
-        currentUser {
+        user {
           email
-          name
+          user_profile {
+            name
+          }
         }
       }
     `,
@@ -20,6 +23,11 @@ export default function useUser(): UserInfo | null {
       fetchPolicy: 'cache-first',
     }
   );
-  if (data && data.currentUser) return data.currentUser;
-  else return null;
+
+  if (user) return user;
+  if (!called) {
+    fetchUser();
+  } else if (data && data.user)
+    user = { email: data.user.email, name: data.user.user_profile.name };
+  return null;
 }
