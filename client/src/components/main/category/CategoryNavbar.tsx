@@ -4,6 +4,8 @@ import palette from '../../../lib/styles/palette';
 import { Flex, HideScroll, StickyTop } from '../../../lib/styles/mixins';
 import CategoryNavbarItem from './CategoryNavbarItem';
 const CategoryNavbarBlock = styled.div`
+  font-size:0.8rem;
+  font-weight:bold;
   ${Flex('row')}
   ${HideScroll}
   border-bottom: 2px solid ${palette.gray300};
