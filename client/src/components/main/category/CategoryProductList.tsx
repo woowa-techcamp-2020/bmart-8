@@ -4,10 +4,27 @@ import CategoryProductItem from './CategoryProductItem';
 import palette from '../../../lib/styles/palette';
 import { Flex } from '../../../lib/styles/mixins';
 import More from '../common/More';
+import { Link } from 'react-router-dom';
 
 const CategoryProductListBlock = styled.div`
+  position: relative;
   width: 100vw;
   white-space: nowrap;
+
+  .Link {
+    position: absolute;
+    top:3rem;
+    right:0.3rem;
+    text-decoration: none;
+    color: black;
+    &:focus,
+    &:visited,
+    &:link,
+    &:active {
+      text-decoration: none;
+    }
+    
+  }
 `;
 
 const Header = styled.div`
@@ -45,7 +62,9 @@ const CategoryProductList: React.FC<CategoryProductListProps> = ({
     <CategoryProductListBlock>
       <Header>
         <Title>{category.name}</Title>
-        <More></More>
+        <Link className="Link" to={"/category/second/"+category.id}>
+          <More></More>
+        </Link>
       </Header>
       <ProductList>
         {category.products.map((product: any) => (
