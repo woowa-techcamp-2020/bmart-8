@@ -6,7 +6,6 @@ const PriceLabelBlock = styled.div`
     text-decoration: line-through;
     color: gray;
   }
-
   margin-top: 1rem;
 `;
 
