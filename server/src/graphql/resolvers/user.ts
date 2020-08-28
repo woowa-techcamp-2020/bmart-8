@@ -21,11 +21,14 @@ export default {
       if (!user) return null;
       else return user;
     },
-    user: async (parent: any, args: any, context: any) =>
-      await prisma.user.findOne({
-        where: { id: context.user.id },
+    user: async (parent: any, args: any, { prisma, user }: any) => {
+      if (!user) return null;
+      const data = await prisma.user.findOne({
+        where: { id: user.id },
         include: { user_profile: true },
-      }),
+      });
+      return data;
+    },
   },
   Mutation: {
     UpdateUserProfile: async (
