@@ -63,6 +63,7 @@ function SearchResultProduct({ products }: any) {
               key={product.id}
               title={product.name}
               price={product.price}
+              discount={product.discount}
               url={product.img_url}
             />
           ))}
