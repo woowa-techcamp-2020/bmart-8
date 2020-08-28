@@ -8,7 +8,6 @@ import { useCartDispatch, addCartItem } from '../../../stores/cart-store';
 
 const ProductInfoBlock = styled.div`
   position:relative;
-
   flex-shrink: 0;
   margin: 0 0.1rem;
   padding-bottom: 1rem;
@@ -22,7 +21,7 @@ const ProductInfoBlock = styled.div`
   }
 `;
 
-function ProductInfo({ title, price, url, id }) {
+function ProductInfo({ title, price, url, id, discount }) {
   const [addToCart, { data }] = useMutation(gql`
     mutation addToCart($id: Int!) {
       addToCart(productId: $id) {
@@ -53,6 +52,7 @@ function ProductInfo({ title, price, url, id }) {
         <ProductContent
           title={title}
           price={price}
+          discount={discount}
           onAddCart={() => {
             addToCart({
               variables: {

@@ -34,6 +34,7 @@ function CategoryProduct({ type, id }) {
             name
             price
             img_url
+            discount
           }
         }
       }`;
@@ -45,6 +46,7 @@ function CategoryProduct({ type, id }) {
           name
           price
           img_url
+          discount
         }
       }
     }`;
@@ -60,6 +62,7 @@ function CategoryProduct({ type, id }) {
           name
           price
           img_url
+          discount
         }
       }
     }`;
@@ -95,7 +98,9 @@ function CategoryProduct({ type, id }) {
                   key={idx}
                   title={product.name}
                   price={product.price}
-                  url={product.img_url}></ProductInfo>
+                  url={product.img_url}
+                  discount={product.discount}>
+                </ProductInfo>
               );
             });
           }}
