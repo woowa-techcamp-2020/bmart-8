@@ -63,7 +63,7 @@ const ProductFlashDiscountBlock = styled.div`
   .Bag {
     position:absolute;
     left:1rem;
-    bottom:3.5em;
+    bottom:4.5em;
   }
 
 `;
@@ -133,6 +133,7 @@ function ProductFlashDiscount() {
                 title={selectedProduct.name}
                 price={selectedProduct.price}
                 id={selectedProduct.id}
+                discount={selectedProduct.discount}
                 onAddCart={() => {
                   addToCart({
                     variables: {

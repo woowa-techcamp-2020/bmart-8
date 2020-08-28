@@ -21,7 +21,7 @@ const ProductInfoBlock = styled.div`
   }
 `;
 
-function ProductInfo({ title, price, url, id }) {
+function ProductInfo({ title, price, url, id, discount }) {
   const [addToCart, { data }] = useMutation(gql`
     mutation addToCart($id: Int!) {
       addToCart(productId: $id) {
@@ -52,6 +52,7 @@ function ProductInfo({ title, price, url, id }) {
         <ProductContent
           title={title}
           price={price}
+          discount={discount}
           onAddCart={() => {
             addToCart({
               variables: {

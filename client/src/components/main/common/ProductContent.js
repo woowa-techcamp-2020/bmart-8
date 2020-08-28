@@ -10,9 +10,15 @@ const ProductContentBlock = styled.div`
 
   .Price {
     font-weight: bold;
+    text-decoration:line-through;
     &:after {
       content: '원';
     }
+  }
+
+  .DiscountPrice{
+    color:red;
+    font-weight:bold;
   }
 
   .Bag {
@@ -20,11 +26,14 @@ const ProductContentBlock = styled.div`
   }
 `;
 
-function ProductContent({ title, price, onAddCart }) {
+function ProductContent({ title, price, discount, onAddCart }) {
   return (
     <ProductContentBlock>
       <div className="Title">{title}</div>
       <div className="Price">{price.toLocaleString()}</div>
+      <div className="DiscountPrice">
+        {Math.floor(price * ((100 - discount) / 100)).toLocaleString()} 원
+      </div>
       <div onClick={onAddCart} className="Bag">
         <Bag />
       </div>
